@@ -1,0 +1,22 @@
+{
+  "name": "infinity-ai",
+  "version": "1.0.0",
+  "description": "Next-generation AI chat platform powered by Groq",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js,.html"
+  },
+  "keywords": ["ai", "chatbot", "groq", "llama", "chat"],
+  "author": "Infinity AI",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

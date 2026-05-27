@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinity AI — Next-Generation Conversational Intelligence</title>
+  <meta name="description" content="Infinity AI is a next-generation AI chat platform powered by cutting-edge language models. Experience ultra-fast, intelligent conversations with a premium interface." />
+  <meta name="keywords" content="AI chat, artificial intelligence, chatbot, language model, GPT, Claude alternative, AI assistant" />
+  <meta name="author" content="Infinity AI" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://infinity-ai.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://infinity-ai.app/" />
+  <meta property="og:title" content="Infinity AI — Next-Generation Conversational Intelligence" />
+  <meta property="og:description" content="Experience ultra-fast AI conversations with a premium, futuristic interface. Powered by cutting-edge language models." />
+  <meta property="og:image" content="https://infinity-ai.app/og-image.png" />
+  <meta property="og:site_name" content="Infinity AI" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@infinityai" />
+  <meta name="twitter:title" content="Infinity AI — Next-Generation Conversational Intelligence" />
+  <meta name="twitter:description" content="Experience ultra-fast AI conversations with a premium, futuristic interface." />
+  <meta name="twitter:image" content="https://infinity-ai.app/og-image.png" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Infinity AI" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Infinity AI",
+    "description": "Next-Generation Conversational Intelligence Platform",
+    "url": "https://infinity-ai.app",
+    "applicationCategory": "ArtificialIntelligenceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0" }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Prism.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Particles Background -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- App Shell -->
+<div id="app" class="app-shell">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="url(#grad1)" stroke-width="2"/>
+            <path d="M8 16 Q16 6 24 16 Q16 26 8 16Z" fill="url(#grad2)" opacity="0.9"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#6ee7f7"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+              <linearGradient id="grad2" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#6ee7f7"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">Infinity AI</span>
+      </div>
+      <button id="sidebar-toggle" class="icon-btn" title="Toggle sidebar" aria-label="Toggle sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+
+    <button id="new-chat-btn" class="new-chat-btn" aria-label="New chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      <span>New Chat</span>
+    </button>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="chat-search" class="search-input" placeholder="Search chats..." aria-label="Search conversations" />
+    </div>
+
+    <!-- Chat List -->
+    <div class="chat-list-wrap">
+      <div class="chat-list-label">Recent</div>
+      <ul id="chat-list" class="chat-list" role="list" aria-label="Chat history"></ul>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button id="theme-toggle" class="footer-btn" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <svg id="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <span>Theme</span>
+      </button>
+      <button id="settings-btn" class="footer-btn" title="Settings" aria-label="Open settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        <span>Settings</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main" class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button id="mobile-sidebar-btn" class="icon-btn mobile-only" aria-label="Open sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+
+      <div class="model-select-wrap">
+        <select id="model-select" class="model-select" aria-label="Select AI model">
+          <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+          <option value="llama-3.1-8b-instant">Llama 3.1 8B (Fast)</option>
+          <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+          <option value="gemma2-9b-it">Gemma 2 9B</option>
+          <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
+          <option value="qwen-qwq-32b">Qwen QwQ 32B</option>
+        </select>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="focus-mode-btn" class="icon-btn" title="Focus Mode" aria-label="Toggle focus mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+        <button id="export-btn" class="icon-btn" title="Export chat" aria-label="Export current chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Onboarding / Welcome Screen -->
+    <div id="welcome-screen" class="welcome-screen">
+      <div class="welcome-inner">
+        <div class="welcome-logo-wrap">
+          <div class="welcome-logo-glow"></div>
+          <svg class="welcome-logo-svg" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="36" stroke="url(#wg1)" stroke-width="2.5"/>
+            <path d="M20 40 Q40 15 60 40 Q40 65 20 40Z" fill="url(#wg2)" opacity="0.9"/>
+            <circle cx="40" cy="40" r="8" fill="white" opacity="0.95"/>
+            <defs>
+              <linearGradient id="wg1" x1="0" y1="0" x2="80" y2="80">
+                <stop offset="0%" stop-color="#6ee7f7"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+              <linearGradient id="wg2" x1="0" y1="0" x2="80" y2="80">
+                <stop offset="0%" stop-color="#6ee7f7"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="welcome-title">Infinity AI</h1>
+        <p class="welcome-subtitle">Next-generation conversational intelligence.<br/>Ask anything, explore everything.</p>
+
+        <div class="suggestions-grid">
+          <button class="suggestion-card" data-prompt="Explain quantum computing in simple terms">
+            <span class="suggestion-icon">⚛️</span>
+            <span>Explain quantum computing simply</span>
+          </button>
+          <button class="suggestion-card" data-prompt="Write a Python function to sort a list of objects by multiple attributes">
+            <span class="suggestion-icon">🐍</span>
+            <span>Python: sort by multiple attributes</span>
+          </button>
+          <button class="suggestion-card" data-prompt="What are the most important trends shaping AI in 2025?">
+            <span class="suggestion-icon">🤖</span>
+            <span>AI trends shaping 2025</span>
+          </button>
+          <button class="suggestion-card" data-prompt="Help me write a compelling cold email to a startup founder">
+            <span class="suggestion-icon">✉️</span>
+            <span>Write a compelling cold email</span>
+          </button>
+          <button class="suggestion-card" data-prompt="Create a minimalist morning routine for maximum productivity">
+            <span class="suggestion-icon">🌅</span>
+            <span>Minimalist morning routine</span>
+          </button>
+          <button class="suggestion-card" data-prompt="Explain the difference between REST and GraphQL APIs">
+            <span class="suggestion-icon">🔗</span>
+            <span>REST vs GraphQL explained</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="chat-container" class="chat-container" role="log" aria-live="polite" aria-label="Chat messages" style="display:none">
+      <div id="messages-list" class="messages-list"></div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="input-wrap">
+        <!-- File Upload Drop Zone -->
+        <div id="drop-zone" class="drop-zone" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Drop files here</span>
+        </div>
+
+        <div class="input-row">
+          <button id="attach-btn" class="input-action-btn" title="Attach file" aria-label="Attach file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+
+          <div class="textarea-wrap">
+            <textarea
+              id="user-input"
+              class="user-input"
+              placeholder="Message Infinity AI..."
+              rows="1"
+              maxlength="32000"
+              aria-label="Message input"
+            ></textarea>
+          </div>
+
+          <div class="input-right-actions">
+            <button id="stop-btn" class="input-action-btn stop-btn" title="Stop generation" aria-label="Stop generation" style="display:none">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+            </button>
+            <button id="send-btn" class="send-btn" aria-label="Send message" title="Send message">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="input-footer">
+          <span class="char-count" id="char-count">0 / 32000</span>
+          <span class="input-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-label="Settings" style="display:none">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Settings</h2>
+      <button class="modal-close" id="settings-close" aria-label="Close settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="settings-section">
+        <h3 class="settings-label">AI Model</h3>
+        <select id="settings-model" class="settings-select">
+          <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</option>
+          <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant (Fastest)</option>
+          <option value="mixtral-8x7b-32768">Mixtral 8x7B 32K</option>
+          <option value="gemma2-9b-it">Gemma 2 9B IT</option>
+          <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 Distill 70B</option>
+          <option value="qwen-qwq-32b">Qwen QwQ 32B</option>
+        </select>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">Temperature <span id="temp-value" class="settings-value">0.7</span></h3>
+        <input type="range" id="temperature-slider" class="settings-slider" min="0" max="2" step="0.1" value="0.7" aria-label="Temperature" />
+        <div class="slider-labels"><span>Precise</span><span>Balanced</span><span>Creative</span></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">Max Tokens <span id="tokens-value" class="settings-value">4096</span></h3>
+        <input type="range" id="tokens-slider" class="settings-slider" min="256" max="8192" step="256" value="4096" aria-label="Max tokens" />
+        <div class="slider-labels"><span>256</span><span>4096</span><span>8192</span></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">System Prompt</h3>
+        <textarea id="system-prompt" class="settings-textarea" placeholder="You are a helpful, intelligent assistant..." rows="4" aria-label="System prompt"></textarea>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">API Key (Optional Override)</h3>
+        <input type="password" id="api-key-input" class="settings-input" placeholder="gsk_..." aria-label="Groq API key" />
+        <p class="settings-hint">Uses built-in key by default. Your key is stored locally only.</p>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">AI Personality</h3>
+        <div class="personality-grid">
+          <button class="personality-btn active" data-personality="default">🤖 Default</button>
+          <button class="personality-btn" data-personality="creative">🎨 Creative</button>
+          <button class="personality-btn" data-personality="expert">🎓 Expert</button>
+          <button class="personality-btn" data-personality="concise">⚡ Concise</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-label">Data Management</h3>
+        <div class="settings-actions">
+          <button id="export-all-btn" class="settings-btn">Export All Chats</button>
+          <label for="import-file-input" class="settings-btn">Import Chats</label>
+          <input type="file" id="import-file-input" accept=".json" style="display:none" aria-label="Import chats file" />
+          <button id="clear-all-btn" class="settings-btn danger">Clear All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div id="context-menu" class="context-menu" style="display:none" role="menu">
+  <button class="ctx-item" data-action="rename" role="menuitem">✏️ Rename</button>
+  <button class="ctx-item" data-action="pin" role="menuitem">📌 Pin Chat</button>
+  <button class="ctx-item" data-action="export" role="menuitem">💾 Export</button>
+  <button class="ctx-item danger" data-action="delete" role="menuitem">🗑️ Delete</button>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<script src="storage.js"></script>
+<script src="markdown.js"></script>
+<script src="ai.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
