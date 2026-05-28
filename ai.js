@@ -10,7 +10,7 @@ const AI = (() => {
   function getApiKey() {
     const userKey = Storage.getSetting('apiKey');
     if (userKey && userKey.trim().length > 10) return userKey.trim();
-    return API_KEY;
+    return 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;
   }
 
   const PERSONALITIES = {
