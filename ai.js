@@ -16,7 +16,7 @@ const AI = (() => {
     if (userKey && userKey.trim().startsWith('gsk_')) return userKey.trim();
     // In production, inject via your build tool: import.meta.env.VITE_GROQ_API_KEY
     // For demo/dev: set your key in Settings → API Key
-    return window.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 || '';
+    return window?.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 || '';
   }
 
   const PERSONALITIES = {
