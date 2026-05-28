@@ -4,27 +4,23 @@
  */
 
 const AI = (() => {
-  // تحديث الرابط ليعمل مع OpenRouter بدلاً من Groq
   const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-  // دالة جلب المفتاح المحدثة لتتوافق مع OpenRouter
   function getApiKey() {
     const userKey = Storage.getSetting('apiKey');
-    // مفاتيح OpenRouter تبدأ عادة بـ sk-or-
     if (userKey && userKey.trim().length > 10) return userKey.trim();
-    
-    // إذا لم يضع المستخدم مفتاحاً خاصاً، سيتم استخدام هذا المفتاح الافتراضي (تأكد من وضع علامات التنصيص)
+    // تأكد من صلاحية هذا المفتاح، ويفضل استبداله بمفتاحك الخاص من موقع OpenRouter
     return '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';
   }
 
   const PERSONALITIES = {
-    default: 'You are Infinity AI, a helpful, intelligent, and thoughtful assistant. Be clear, accurate, and genuinely helpful.',
-    creative: 'You are Infinity AI in creative mode. Embrace imagination, offer unique perspectives, use vivid language, and think outside the box.',
-    expert: 'You are Infinity AI in expert mode. Provide deep technical accuracy, cite reasoning, offer nuanced analysis, and assume a knowledgeable audience.',
-    concise: 'You are Infinity AI in concise mode. Give brief, direct answers. Avoid filler. Lead with the answer.'
+    default: 'You are Infinity AI, a helpful, intelligent, and thoughtful assistant.',
+    creative: 'You are Infinity AI in creative mode.',
+    expert: 'You are Infinity AI in expert mode.',
+    concise: 'You are Infinity AI in concise mode.'
   };
 
-  // خريطة النماذج لتتوافق مع معرفات OpenRouter الصحيحة
+  // خريطة النماذج مصححة ومحدثة بدقة حسب معرفات OpenRouter الرسمية
   const MODEL_MAP = {
     'llama-3.3-70b-versatile':        'meta-llama/llama-3.3-70b-instruct',
     'llama-3.1-8b-instant':           'meta-llama/llama-3.1-8b-instruct:free',
@@ -48,10 +44,12 @@ const AI = (() => {
     abortController = new AbortController();
     isGenerating = true;
 
-    const selectedModel = Storage.getSetting('model') || 'llama-3.3-70b-versatile';
-    const model = MODEL_MAP[selectedModel] || 'meta-llama/llama-3.3-70b-instruct';
+    // جلب النموذج المختار من الـ Storage وتحويله للمعرف الصحيح، وإذا لم ينجح نستخدم نموذج مجاني مضمون ومتاح دائماً
+    const selectedModel = Storage.getSetting('model') || 'llama-3.1-8b-instant';
+    const model = MODEL_MAP[selectedModel] || 'meta-llama/llama-3.1-8b-instruct:free';
+    
     const temperature = parseFloat(Storage.getSetting('temperature') || '0.7');
-    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '4096');
+    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '2048'); // تقليل الحد الأقصى قليلاً لضمان السرعة الاستجابة
     const personality = Storage.getSetting('personality') || 'default';
     const systemPromptOverride = Storage.getSetting('systemPrompt') || '';
 
@@ -76,7 +74,7 @@ const AI = (() => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': window.location.origin, // مطلوب من OpenRouter لحساب الإحصائيات وترتيب النماذج
+          'HTTP-Referer': 'https://llm.solar', // تم وضع الدومين الخاص بك كما يظهر في الصورة ليتعرف عليه المتصفح
           'X-Title': 'Infinity AI'
         },
         body: JSON.stringify(payload),
@@ -85,6 +83,7 @@ const AI = (() => {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
+        console.error('OpenRouter Error Details:', errData); // ستظهر لك تفاصيل الخطأ بدقة في الـ Console
         throw new Error(errData?.error?.message || `HTTP ${response.status}`);
       }
 
@@ -111,7 +110,7 @@ const AI = (() => {
             const delta = parsed.choices?.[0]?.delta?.content;
             if (delta) onChunk(delta);
           } catch (e) {
-            // تخطي الحزم غير المكتملة
+            // تخطي الحزم غير الكاملة
           }
         }
       }
@@ -121,6 +120,7 @@ const AI = (() => {
 
     } catch (err) {
       isGenerating = false;
+      console.error('Fetch error:', err); // لطباعة تفاصيل المشكلة إذا كانت متعلقة بالشبكة أو الـ CORS
       if (err.name === 'AbortError') {
         onDone(true);
       } else {
@@ -149,11 +149,11 @@ const AI = (() => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': window.location.origin,
+          'HTTP-Referer': 'https://llm.solar',
           'X-Title': 'Infinity AI'
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct:free', // تعديل لنموذج متاح ومجاني في OpenRouter لإنشاء العنوان
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
           temperature: 0.4,
           max_tokens: 16,
           messages: [
@@ -182,3 +182,4 @@ const AI = (() => {
 
   return { streamChat, stopGeneration, getIsGenerating, generateTitle, getApiKey };
 })();
+        
