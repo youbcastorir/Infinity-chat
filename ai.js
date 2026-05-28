@@ -1,31 +1,36 @@
 /**
  * Infinity AI — AI Module
- * Powered by OpenRouter API with streaming support
+ * Handles Groq API calls, streaming, and error handling
  */
 
 const AI = (() => {
-  const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+  // الرابط الخاص بـ Groq API
+  const GROQ_BASE_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
   function getApiKey() {
     const userKey = Storage.getSetting('apiKey');
-    if (userKey && userKey.trim().length > 10) return userKey.trim();
-    return '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';
+    // إذا قام المستخدم بوضع مفتاح في الإعدادات يبدأ بـ gsk_ يتم استخدامه
+    if (userKey && userKey.trim().startsWith('gsk_')) return userKey.trim();
+    
+    // المفتاح الافتراضي الخاص بك من Groq
+    return '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';
   }
 
   const PERSONALITIES = {
-    default: 'You are Infinity AI, a helpful, intelligent, and thoughtful assistant.',
-    creative: 'You are Infinity AI in creative mode.',
-    expert: 'You are Infinity AI in expert mode.',
-    concise: 'You are Infinity AI in concise mode.'
+    default: 'You are Infinity AI, a helpful, intelligent, and thoughtful assistant. Be clear, accurate, and genuinely helpful.',
+    creative: 'You are Infinity AI in creative mode. Embrace imagination, offer unique perspectives, use vivid language, and think outside the box.',
+    expert: 'You are Infinity AI in expert mode. Provide deep technical accuracy, cite reasoning, offer nuanced analysis, and assume a knowledgeable audience.',
+    concise: 'You are Infinity AI in concise mode. Give brief, direct answers. Avoid filler. Lead with the answer.'
   };
 
+  // أسماء النماذج الافتراضية المتوافقة مع خوادم Groq الحالية
   const MODEL_MAP = {
-    'llama-3.3-70b-versatile':        'meta-llama/llama-3.3-70b-instruct',
-    'llama-3.1-8b-instant':           'meta-llama/llama-3.1-8b-instruct:free',
-    'mixtral-8x7b-32768':             'mistralai/mixtral-8x7b-instruct',
-    'gemma2-9b-it':                   'google/gemma-2-9b-it:free',
-    'deepseek-r1-distill-llama-70b':  'deepseek/deepseek-r1-distill-llama-70b:free',
-    'qwen-qwq-32b':                   'qwen/qwq-32b:free'
+    'llama-3.3-70b-versatile':        'llama-3.3-70b-versatile',
+    'llama-3.1-8b-instant':           'llama-3.1-8b-instant',
+    'mixtral-8x7b-32768':             'mixtral-8x7b-32768',
+    'gemma2-9b-it':                   'gemma2-9b-it',
+    'deepseek-r1-distill-llama-70b':  'deepseek-r1-distill-llama-70b',
+    'qwen-qwq-32b':                   'qwen-qwq-32b'
   };
 
   let abortController = null;
@@ -42,12 +47,10 @@ const AI = (() => {
     abortController = new AbortController();
     isGenerating = true;
 
-    // استخدام النموذج المجاني بشكل افتراضي لضمان العمل حتى لو لم تكن هناك أرصدة مشحونة
-    const selectedModel = Storage.getSetting('model') || 'llama-3.1-8b-instant';
-    const model = MODEL_MAP[selectedModel] || 'meta-llama/llama-3.1-8b-instruct:free';
-    
+    const selectedModel = Storage.getSetting('model') || 'llama-3.3-70b-versatile';
+    const model = MODEL_MAP[selectedModel] || 'llama-3.3-70b-versatile';
     const temperature = parseFloat(Storage.getSetting('temperature') || '0.7');
-    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '2048');
+    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '4096');
     const personality = Storage.getSetting('personality') || 'default';
     const systemPromptOverride = Storage.getSetting('systemPrompt') || '';
 
@@ -67,13 +70,11 @@ const AI = (() => {
     };
 
     try {
-      const response = await fetch(OPENROUTER_URL, {
+      const response = await fetch(GROQ_BASE_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': window.location.origin || 'https://llm.solar',
-          'X-Title': 'Infinity AI'
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify(payload),
         signal: abortController.signal
@@ -94,30 +95,23 @@ const AI = (() => {
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
-        
-        // الاحتفاظ بالسطر الأخير غير المكتمل في البافر
-        buffer = lines.pop();
+        buffer = lines.pop(); // الاحتفاظ بالسطر الأخير غير المكتمل
 
         for (const line of lines) {
           const trimmed = line.trim();
-          
-          // تجاهل الأسطر الفارغة تماماً
           if (!trimmed) continue;
-          
-          // إنهاء الـ Stream إذا أرسل السيرفر إشارة النهاية القياسية
           if (trimmed === 'data: [DONE]') continue;
 
           if (trimmed.startsWith('data: ')) {
             try {
               const dataStr = trimmed.slice(6).trim();
               if (!dataStr) continue;
-              
+
               const parsed = JSON.parse(dataStr);
               const delta = parsed.choices?.[0]?.delta?.content;
               if (delta) onChunk(delta);
             } catch (e) {
-              // تخطي أي حزمة JSON معطوبة دون التسبب في انهيار التطبيق
-              console.log('Skipped chunk parse error');
+              // تخطي الحزم المشوهة دون تعطيل التطبيق
             }
           }
         }
@@ -131,7 +125,6 @@ const AI = (() => {
       if (err.name === 'AbortError') {
         onDone(true);
       } else {
-        // تمرير نص الخطأ القادم من السيرفر مباشرة لواجهة المستخدم لرؤية السبب الحقيقي (مثل صلاحية المفتاح)
         onError(err);
       }
     }
@@ -152,16 +145,14 @@ const AI = (() => {
     if (!apiKey) return truncateTitle(userMessage);
 
     try {
-      const response = await fetch(OPENROUTER_URL, {
+      const response = await fetch(GROQ_BASE_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': window.location.origin || 'https://llm.solar',
-          'X-Title': 'Infinity AI'
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          model: 'llama-3.1-8b-instant',
           temperature: 0.4,
           max_tokens: 16,
           messages: [
@@ -189,4 +180,4 @@ const AI = (() => {
 
   return { streamChat, stopGeneration, getIsGenerating, generateTitle, getApiKey };
 })();
-                
+      
