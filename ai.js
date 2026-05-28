@@ -9,7 +9,6 @@ const AI = (() => {
   function getApiKey() {
     const userKey = Storage.getSetting('apiKey');
     if (userKey && userKey.trim().length > 10) return userKey.trim();
-    // تأكد من صلاحية هذا المفتاح، ويفضل استبداله بمفتاحك الخاص من موقع OpenRouter
     return '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';
   }
 
@@ -20,7 +19,6 @@ const AI = (() => {
     concise: 'You are Infinity AI in concise mode.'
   };
 
-  // خريطة النماذج مصححة ومحدثة بدقة حسب معرفات OpenRouter الرسمية
   const MODEL_MAP = {
     'llama-3.3-70b-versatile':        'meta-llama/llama-3.3-70b-instruct',
     'llama-3.1-8b-instant':           'meta-llama/llama-3.1-8b-instruct:free',
@@ -44,12 +42,12 @@ const AI = (() => {
     abortController = new AbortController();
     isGenerating = true;
 
-    // جلب النموذج المختار من الـ Storage وتحويله للمعرف الصحيح، وإذا لم ينجح نستخدم نموذج مجاني مضمون ومتاح دائماً
+    // استخدام النموذج المجاني بشكل افتراضي لضمان العمل حتى لو لم تكن هناك أرصدة مشحونة
     const selectedModel = Storage.getSetting('model') || 'llama-3.1-8b-instant';
     const model = MODEL_MAP[selectedModel] || 'meta-llama/llama-3.1-8b-instruct:free';
     
     const temperature = parseFloat(Storage.getSetting('temperature') || '0.7');
-    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '2048'); // تقليل الحد الأقصى قليلاً لضمان السرعة الاستجابة
+    const maxTokens = parseInt(Storage.getSetting('maxTokens') || '2048');
     const personality = Storage.getSetting('personality') || 'default';
     const systemPromptOverride = Storage.getSetting('systemPrompt') || '';
 
@@ -74,7 +72,7 @@ const AI = (() => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': 'https://llm.solar', // تم وضع الدومين الخاص بك كما يظهر في الصورة ليتعرف عليه المتصفح
+          'HTTP-Referer': window.location.origin || 'https://llm.solar',
           'X-Title': 'Infinity AI'
         },
         body: JSON.stringify(payload),
@@ -83,12 +81,11 @@ const AI = (() => {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        console.error('OpenRouter Error Details:', errData); // ستظهر لك تفاصيل الخطأ بدقة في الـ Console
         throw new Error(errData?.error?.message || `HTTP ${response.status}`);
       }
 
       const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+      const decoder = new TextDecoder('utf-8');
       let buffer = '';
 
       while (true) {
@@ -97,20 +94,31 @@ const AI = (() => {
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
+        
+        // الاحتفاظ بالسطر الأخير غير المكتمل في البافر
         buffer = lines.pop();
 
         for (const line of lines) {
           const trimmed = line.trim();
-          if (!trimmed || !trimmed.startsWith('data: ')) continue;
-          const data = trimmed.slice(6);
-          if (data === '[DONE]') continue;
+          
+          // تجاهل الأسطر الفارغة تماماً
+          if (!trimmed) continue;
+          
+          // إنهاء الـ Stream إذا أرسل السيرفر إشارة النهاية القياسية
+          if (trimmed === 'data: [DONE]') continue;
 
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed.choices?.[0]?.delta?.content;
-            if (delta) onChunk(delta);
-          } catch (e) {
-            // تخطي الحزم غير الكاملة
+          if (trimmed.startsWith('data: ')) {
+            try {
+              const dataStr = trimmed.slice(6).trim();
+              if (!dataStr) continue;
+              
+              const parsed = JSON.parse(dataStr);
+              const delta = parsed.choices?.[0]?.delta?.content;
+              if (delta) onChunk(delta);
+            } catch (e) {
+              // تخطي أي حزمة JSON معطوبة دون التسبب في انهيار التطبيق
+              console.log('Skipped chunk parse error');
+            }
           }
         }
       }
@@ -120,10 +128,10 @@ const AI = (() => {
 
     } catch (err) {
       isGenerating = false;
-      console.error('Fetch error:', err); // لطباعة تفاصيل المشكلة إذا كانت متعلقة بالشبكة أو الـ CORS
       if (err.name === 'AbortError') {
         onDone(true);
       } else {
+        // تمرير نص الخطأ القادم من السيرفر مباشرة لواجهة المستخدم لرؤية السبب الحقيقي (مثل صلاحية المفتاح)
         onError(err);
       }
     }
@@ -149,7 +157,7 @@ const AI = (() => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
-          'HTTP-Referer': 'https://llm.solar',
+          'HTTP-Referer': window.location.origin || 'https://llm.solar',
           'X-Title': 'Infinity AI'
         },
         body: JSON.stringify({
@@ -159,7 +167,7 @@ const AI = (() => {
           messages: [
             {
               role: 'system',
-              content: 'Generate a 2-4 word title for this chat. Return ONLY the title, no quotes, no punctuation at end.'
+              content: 'Generate a 2-4 word title for this chat. Return ONLY the title, no quotes, no punctuation.'
             },
             { role: 'user', content: userMessage.slice(0, 300) }
           ]
@@ -168,8 +176,7 @@ const AI = (() => {
 
       if (!response.ok) return truncateTitle(userMessage);
       const data = await response.json();
-      const title = data.choices?.[0]?.message?.content?.trim();
-      return title || truncateTitle(userMessage);
+      return data.choices?.[0]?.message?.content?.trim() || truncateTitle(userMessage);
     } catch {
       return truncateTitle(userMessage);
     }
@@ -182,4 +189,4 @@ const AI = (() => {
 
   return { streamChat, stopGeneration, getIsGenerating, generateTitle, getApiKey };
 })();
-        
+                
