@@ -1,22 +1,20 @@
 /**
  * Infinity AI — AI Module
- * Handles Groq API calls, streaming, retry logic
- * 
- * SECURITY: Never hardcode API keys in production.
- * Set VITE_GROQ_API_KEY in .env or configure via settings.
+ * Powered by OpenRouter API with streaming support
  */
 
 const AI = (() => {
-  // API configuration — key loaded from env or user settings
-  const GROQ_BASE_URL = 'https://api.groq.com/openai/v1/chat/completions';
+  // تحديث الرابط ليعمل مع OpenRouter بدلاً من Groq
+  const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-  // Get API key: user-set key takes priority, then env placeholder
+  // دالة جلب المفتاح المحدثة لتتوافق مع OpenRouter
   function getApiKey() {
     const userKey = Storage.getSetting('apiKey');
-    if (userKey && userKey.trim().startsWith('gsk_')) return userKey.trim();
-    // In production, inject via your build tool: import.meta.env.VITE_GROQ_API_KEY
-    // For demo/dev: set your key in Settings → API Key
-    return window?.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 || '';
+    // مفاتيح OpenRouter تبدأ عادة بـ sk-or-
+    if (userKey && userKey.trim().length > 10) return userKey.trim();
+    
+    // إذا لم يضع المستخدم مفتاحاً خاصاً، سيتم استخدام هذا المفتاح الافتراضي (تأكد من وضع علامات التنصيص)
+    return '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';
   }
 
   const PERSONALITIES = {
@@ -26,16 +24,19 @@ const AI = (() => {
     concise: 'You are Infinity AI in concise mode. Give brief, direct answers. Avoid filler. Lead with the answer.'
   };
 
+  // خريطة النماذج لتتوافق مع معرفات OpenRouter الصحيحة
+  const MODEL_MAP = {
+    'llama-3.3-70b-versatile':        'meta-llama/llama-3.3-70b-instruct',
+    'llama-3.1-8b-instant':           'meta-llama/llama-3.1-8b-instruct:free',
+    'mixtral-8x7b-32768':             'mistralai/mixtral-8x7b-instruct',
+    'gemma2-9b-it':                   'google/gemma-2-9b-it:free',
+    'deepseek-r1-distill-llama-70b':  'deepseek/deepseek-r1-distill-llama-70b:free',
+    'qwen-qwq-32b':                   'qwen/qwq-32b:free'
+  };
+
   let abortController = null;
   let isGenerating = false;
 
-  /**
-   * Stream a chat completion from Groq
-   * @param {Array} messages - conversation history [{role, content}]
-   * @param {Function} onChunk - called with each text delta
-   * @param {Function} onDone - called when stream completes
-   * @param {Function} onError - called on error
-   */
   async function streamChat(messages, onChunk, onDone, onError) {
     const apiKey = getApiKey();
 
@@ -47,7 +48,8 @@ const AI = (() => {
     abortController = new AbortController();
     isGenerating = true;
 
-    const model = Storage.getSetting('model') || 'llama-3.3-70b-versatile';
+    const selectedModel = Storage.getSetting('model') || 'llama-3.3-70b-versatile';
+    const model = MODEL_MAP[selectedModel] || 'meta-llama/llama-3.3-70b-instruct';
     const temperature = parseFloat(Storage.getSetting('temperature') || '0.7');
     const maxTokens = parseInt(Storage.getSetting('maxTokens') || '4096');
     const personality = Storage.getSetting('personality') || 'default';
@@ -69,11 +71,13 @@ const AI = (() => {
     };
 
     try {
-      const response = await fetch(GROQ_BASE_URL, {
+      const response = await fetch(OPENROUTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': window.location.origin, // مطلوب من OpenRouter لحساب الإحصائيات وترتيب النماذج
+          'X-Title': 'Infinity AI'
         },
         body: JSON.stringify(payload),
         signal: abortController.signal
@@ -94,7 +98,7 @@ const AI = (() => {
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
-        buffer = lines.pop(); // keep incomplete line
+        buffer = lines.pop();
 
         for (const line of lines) {
           const trimmed = line.trim();
@@ -107,7 +111,7 @@ const AI = (() => {
             const delta = parsed.choices?.[0]?.delta?.content;
             if (delta) onChunk(delta);
           } catch (e) {
-            // skip malformed chunk
+            // تخطي الحزم غير المكتملة
           }
         }
       }
@@ -118,14 +122,13 @@ const AI = (() => {
     } catch (err) {
       isGenerating = false;
       if (err.name === 'AbortError') {
-        onDone(true); // stopped by user
+        onDone(true);
       } else {
         onError(err);
       }
     }
   }
 
-  /** Stop current generation */
   function stopGeneration() {
     if (abortController) {
       abortController.abort();
@@ -134,31 +137,29 @@ const AI = (() => {
     isGenerating = false;
   }
 
-  /** Check if currently generating */
   function getIsGenerating() { return isGenerating; }
 
-  /**
-   * Generate a chat title from the first user message
-   */
   async function generateTitle(userMessage) {
     const apiKey = getApiKey();
     if (!apiKey) return truncateTitle(userMessage);
 
     try {
-      const response = await fetch(GROQ_BASE_URL, {
+      const response = await fetch(OPENROUTER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': window.location.origin,
+          'X-Title': 'Infinity AI'
         },
         body: JSON.stringify({
-          model: 'llama-3.1-8b-instant',
+          model: 'meta-llama/llama-3.1-8b-instruct:free', // تعديل لنموذج متاح ومجاني في OpenRouter لإنشاء العنوان
           temperature: 0.4,
           max_tokens: 16,
           messages: [
             {
               role: 'system',
-              content: 'Generate a 2–4 word title for this chat. Return ONLY the title, no quotes, no punctuation at end.'
+              content: 'Generate a 2-4 word title for this chat. Return ONLY the title, no quotes, no punctuation at end.'
             },
             { role: 'user', content: userMessage.slice(0, 300) }
           ]
