@@ -1,0 +1,57 @@
+{
+  "name": "SolarGPT — AI Solar Energy Planning",
+  "short_name": "SolarGPT",
+  "description": "AI-powered solar energy platform. Calculate panels, analyze bills, estimate ROI, and get expert solar advice.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f4c2a",
+  "theme_color": "#0f4c2a",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["utilities", "productivity", "business"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%230f4c2a'/><text y='130' x='20' font-size='130'>☀️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230f4c2a'/><text y='360' x='40' font-size='360'>☀️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "label": "SolarGPT Home",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Solar Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate solar panel requirements",
+      "url": "/#calculator",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>☀️</text></svg>", "sizes": "96x96" }]
+    },
+    {
+      "name": "AI Advisor",
+      "short_name": "AI Advisor",
+      "description": "Ask AI solar questions",
+      "url": "/#advisor",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>🤖</text></svg>", "sizes": "96x96" }]
+    },
+    {
+      "name": "Bill Analyzer",
+      "short_name": "Bill Analyzer",
+      "description": "Analyze electricity bill savings",
+      "url": "/#bill-analyzer",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>📊</text></svg>", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Home / Hero -->
+  <url>
+    <loc>https://llm.solar/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://llm.solar/"/>
+  </url>
+
+  <!-- Solar Calculator -->
+  <url>
+    <loc>https://llm.solar/#calculator</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#calculator"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#calculator"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#calculator"/>
+  </url>
+
+  <!-- Bill Analyzer -->
+  <url>
+    <loc>https://llm.solar/#bill-analyzer</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#bill-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#bill-analyzer"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#bill-analyzer"/>
+  </url>
+
+  <!-- AI Advisor -->
+  <url>
+    <loc>https://llm.solar/#advisor</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#advisor"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#advisor"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#advisor"/>
+  </url>
+
+  <!-- Cost Estimator -->
+  <url>
+    <loc>https://llm.solar/#cost-estimator</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#cost-estimator"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#cost-estimator"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#cost-estimator"/>
+  </url>
+
+  <!-- Reports -->
+  <url>
+    <loc>https://llm.solar/#reports</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Dashboard -->
+  <url>
+    <loc>https://llm.solar/#dashboard</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Knowledge Center -->
+  <url>
+    <loc>https://llm.solar/#knowledge</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#knowledge"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#knowledge"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#knowledge"/>
+  </url>
+
+  <!-- Pricing -->
+  <url>
+    <loc>https://llm.solar/#pricing</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://llm.solar/#pricing"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://llm.solar/?lang=ar#pricing"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://llm.solar/?lang=fr#pricing"/>
+  </url>
+
+</urlset>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolarGPT — AI-Powered Solar Energy Planning Platform | LLM.Solar</title>
+  <meta name="description" content="SolarGPT is an AI-powered solar energy platform. Calculate solar panel requirements, analyze electricity bills, estimate ROI, and generate professional reports. Free solar calculator for homeowners, engineers, and investors." />
+  <meta name="keywords" content="Solar Calculator, Solar Panel Calculator, Solar ROI Calculator, Solar Cost Estimator, AI Solar Advisor, Solar Energy Planning, Photovoltaic System Design, PV Calculator, Solar Savings Calculator" />
+  <meta name="author" content="SolarGPT — LLM.Solar" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://llm.solar/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://llm.solar/" />
+  <meta property="og:title" content="SolarGPT — AI-Powered Solar Energy Planning" />
+  <meta property="og:description" content="Professional solar system design, ROI analysis, and AI advisory for homeowners, engineers, and investors. Free solar calculator powered by AI." />
+  <meta property="og:image" content="https://llm.solar/og-image.png" />
+  <meta property="og:site_name" content="SolarGPT" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@SolarGPT" />
+  <meta name="twitter:title" content="SolarGPT — AI-Powered Solar Energy Planning" />
+  <meta name="twitter:description" content="Calculate solar panels, analyze bills, estimate ROI, and get AI solar advice — free." />
+  <meta name="twitter:image" content="https://llm.solar/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "SolarGPT",
+        "applicationCategory": "UtilityApplication",
+        "url": "https://llm.solar",
+        "description": "AI-powered solar energy planning platform for homeowners, solar engineers, and investors.",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Solar Panel Calculator",
+          "Electricity Bill Analyzer",
+          "AI Solar Advisor",
+          "Cost Estimator & ROI",
+          "PDF Report Generator",
+          "Equipment Recommender"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "salatrir@gmail.com",
+          "contactType": "Customer Support"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Solar Panel Calculator",
+        "url": "https://llm.solar/#calculator",
+        "description": "Free solar panel calculator. Estimate required panels, inverter size, battery capacity and roof area.",
+        "applicationCategory": "Calculator"
+      }
+    ]
+  }
+  </script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f4c2a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="SolarGPT" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ─── NAVIGATION ────────────────────────────────────────────────────────── -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#" onclick="showSection('hero');return false;" data-section="hero">
+      <span class="brand-icon">☀️</span>
+      Solar<span class="brand-accent">GPT</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#" data-section="calculator" data-i18n="nav_calculator">Calculator</a></li>
+      <li><a href="#" data-section="bill-analyzer" data-i18n="nav_analyzer">Bill Analyzer</a></li>
+      <li><a href="#" data-section="advisor" data-i18n="nav_advisor">AI Advisor</a></li>
+      <li><a href="#" data-section="cost-estimator" data-i18n="nav_cost">Cost & ROI</a></li>
+      <li><a href="#" data-section="reports" data-i18n="nav_reports">Reports</a></li>
+      <li><a href="#" data-section="dashboard" data-i18n="nav_dashboard">Dashboard</a></li>
+      <li><a href="#" data-section="knowledge" data-i18n="nav_knowledge">Knowledge</a></li>
+      <li><a href="#" data-section="pricing" data-i18n="nav_pricing">Pricing</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="nav-lang">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ar">ع</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <button class="btn-nav" data-section="calculator" data-i18n="nav_signup">Get Started Free</button>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <ul class="nav-links">
+    <li><a href="#" data-section="calculator" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="#" data-section="bill-analyzer" data-i18n="nav_analyzer">Bill Analyzer</a></li>
+    <li><a href="#" data-section="advisor" data-i18n="nav_advisor">AI Advisor</a></li>
+    <li><a href="#" data-section="cost-estimator" data-i18n="nav_cost">Cost & ROI</a></li>
+    <li><a href="#" data-section="reports" data-i18n="nav_reports">Reports</a></li>
+    <li><a href="#" data-section="dashboard" data-i18n="nav_dashboard">Dashboard</a></li>
+    <li><a href="#" data-section="knowledge" data-i18n="nav_knowledge">Knowledge</a></li>
+    <li><a href="#" data-section="pricing" data-i18n="nav_pricing">Pricing</a></li>
+  </ul>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: HERO
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-hero" class="page-section active" aria-label="Hero">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span data-i18n="hero_badge">AI-Powered Solar Planning</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-i18n="hero_title">Design Your Solar Future with</span>
+        <span class="accent-line" data-i18n="hero_title_accent">Artificial Intelligence</span>
+      </h1>
+      <p class="hero-subtitle" data-i18n="hero_subtitle">Professional solar system design, ROI analysis, and AI-powered advisory for homeowners, engineers, and investors. Plan smarter. Save more.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary btn-lg" data-section="calculator">
+          ☀️ <span data-i18n="hero_cta_primary">Start Free Calculation</span>
+        </button>
+        <button class="btn btn-secondary btn-lg" data-section="advisor">
+          🤖 <span data-i18n="hero_cta_secondary">Ask AI Advisor</span>
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number" data-i18n="hero_stat1">98%</div>
+          <div class="hero-stat-label" data-i18n="hero_stat1_label">Calculation Accuracy</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number" data-i18n="hero_stat2">50K+</div>
+          <div class="hero-stat-label" data-i18n="hero_stat2_label">Projects Planned</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number" data-i18n="hero_stat3">120+</div>
+          <div class="hero-stat-label" data-i18n="hero_stat3_label">Countries Supported</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live mockup -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="solar-mockup">
+        <div class="mockup-header">
+          <div class="mockup-dots">
+            <span class="dot-red"></span>
+            <span class="dot-yellow"></span>
+            <span class="dot-green"></span>
+          </div>
+          <span class="mockup-title">SolarGPT — Live Analysis</span>
+        </div>
+        <div class="mockup-metric">
+          <div class="metric-row">
+            <span class="metric-label">System Size</span>
+            <div>
+              <span class="metric-value">8.4</span>
+              <span class="metric-unit">kWp</span>
+            </div>
+          </div>
+          <div class="mockup-bars" style="margin-top:12px;">
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Panels</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill" style="width:84%"></div></div>
+              <span class="mockup-bar-val">21</span>
+            </div>
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Inverter</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill" style="width:70%"></div></div>
+              <span class="mockup-bar-val">10kW</span>
+            </div>
+            <div class="mockup-bar-row">
+              <span class="mockup-bar-label">Coverage</span>
+              <div class="mockup-bar-track"><div class="mockup-bar-fill amber" style="width:92%"></div></div>
+              <span class="mockup-bar-val">92%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+          <div class="mockup-metric">
+            <div class="metric-label">Monthly Savings</div>
+            <div><span class="metric-value" style="font-size:1.1rem;">$127</span></div>
+          </div>
+          <div class="mockup-metric">
+            <div class="metric-label">Payback</div>
+            <div><span class="metric-value" style="font-size:1.1rem;">6.2</span><span class="metric-unit">yr</span></div>
+          </div>
+        </div>
+        <div class="mockup-badge">✅ AI Analysis Complete</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features preview -->
+  <div class="section-wrapper" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Platform Features</span>
+        <h2 data-i18n="features_title">Everything You Need for Solar Success</h2>
+        <p data-i18n="features_subtitle">From initial estimation to professional reports — SolarGPT covers the entire solar project lifecycle.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" onclick="showSection('calculator')" style="cursor:pointer;">
+          <div class="feature-icon">🔆</div>
+          <h3 data-i18n="feat1_title">Solar Panel Calculator</h3>
+          <p data-i18n="feat1_desc">Calculate required panels, inverter size, battery capacity, and roof space requirements with precision.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+        <div class="feature-card" onclick="showSection('bill-analyzer')" style="cursor:pointer;">
+          <div class="feature-icon">📊</div>
+          <h3 data-i18n="feat2_title">Bill Analyzer</h3>
+          <p data-i18n="feat2_desc">Upload your electricity bill and instantly see solar savings potential and recommended system size.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+        <div class="feature-card" onclick="showSection('advisor')" style="cursor:pointer;">
+          <div class="feature-icon">🤖</div>
+          <h3 data-i18n="feat3_title">AI Solar Advisor</h3>
+          <p data-i18n="feat3_desc">Get expert answers to any solar question powered by advanced AI. Available 24/7.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+        <div class="feature-card" onclick="showSection('cost-estimator')" style="cursor:pointer;">
+          <div class="feature-icon">💰</div>
+          <h3 data-i18n="feat4_title">Cost Estimator</h3>
+          <p data-i18n="feat4_desc">Detailed ROI analysis, payback period calculation, and full equipment cost breakdown.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+        <div class="feature-card" onclick="showSection('reports')" style="cursor:pointer;">
+          <div class="feature-icon">📄</div>
+          <h3 data-i18n="feat5_title">Report Generator</h3>
+          <p data-i18n="feat5_desc">Generate professional PDF reports for clients, lenders, and permitting authorities.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+        <div class="feature-card" onclick="showSection('knowledge')" style="cursor:pointer;">
+          <div class="feature-icon">🎓</div>
+          <h3 data-i18n="feat6_title">Equipment Recommender</h3>
+          <p data-i18n="feat6_desc">Smart recommendations for panels, inverters, batteries, and mounting systems.</p>
+          <span class="feature-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: CALCULATOR
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-calculator" class="page-section" aria-label="Solar Calculator">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Tool</span>
+      <h2 data-i18n="calc_title">Solar Panel Calculator</h2>
+      <p data-i18n="calc_subtitle">Estimate your complete solar system requirements</p>
+    </div>
+
+    <div class="tool-layout">
+      <div class="form-panel">
+        <form id="calc-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="calc-monthly-bill" data-i18n="calc_monthly_bill">Monthly Electricity Bill (USD)</label>
+              <input type="number" id="calc-monthly-bill" class="form-control" placeholder="e.g. 120" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="calc-monthly-kwh" data-i18n="calc_kwh">Monthly Consumption (kWh)</label>
+              <input type="number" id="calc-monthly-kwh" class="form-control" placeholder="e.g. 800" min="0" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="calc-location" data-i18n="calc_location">Location / Sun Hours</label>
+              <input type="text" id="calc-location" class="form-control" placeholder="Morocco, Spain, USA… or 5.5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="calc-roof-area" data-i18n="calc_roof_area">Available Roof Area (m²)</label>
+              <input type="number" id="calc-roof-area" class="form-control" placeholder="e.g. 50" min="0" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="calc-elec-rate">Electricity Rate ($/kWh)</label>
+              <input type="number" id="calc-elec-rate" class="form-control" placeholder="0.12" step="0.01" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="calc-panel-type" data-i18n="calc_panel_type">Panel Type</label>
+              <select id="calc-panel-type" class="form-control">
+                <option value="mono" data-i18n="calc_panel_mono">Monocrystalline (400W)</option>
+                <option value="poly" data-i18n="calc_panel_poly">Polycrystalline (300W)</option>
+                <option value="thin" data-i18n="calc_panel_thin">Thin Film (200W)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="calc_battery">System Type</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="system-type" id="calc-system-type" value="grid" checked />
+                <span data-i18n="calc_grid">⚡ Grid-tied (No Battery)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="system-type" value="hybrid" />
+                <span data-i18n="calc_hybrid">🔋 Hybrid (With Battery)</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="system-type" value="offgrid" />
+                <span data-i18n="calc_offgrid">🏕️ Off-Grid</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" id="calc-submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;">
+            ☀️ <span data-i18n="calc_btn">Calculate System</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="results-panel" id="calc-results">
+        <div style="text-align:center;padding:48px 24px;color:var(--text-muted);">
+          <div style="font-size:3rem;margin-bottom:16px;">☀️</div>
+          <h3 data-i18n="calc_results">System Requirements</h3>
+          <p style="margin-top:8px;font-size:0.9rem;">Fill in the form and click Calculate to see your results here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: BILL ANALYZER
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-bill-analyzer" class="page-section" aria-label="Bill Analyzer">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Analyzer</span>
+      <h2 data-i18n="bill_title">Electricity Bill Analyzer</h2>
+      <p data-i18n="bill_subtitle">Analyze your electricity bill to find solar savings</p>
+    </div>
+
+    <div class="tool-layout">
+      <div class="form-panel">
+        <form id="bill-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="bill-amount" data-i18n="bill_amount">Monthly Bill Amount (USD)</label>
+              <input type="number" id="bill-amount" class="form-control" placeholder="e.g. 150" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bill-kwh" data-i18n="bill_kwh">Monthly kWh Consumption</label>
+              <input type="number" id="bill-kwh" class="form-control" placeholder="e.g. 900" min="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="bill-rate" data-i18n="bill_rate">Electricity Rate ($/kWh)</label>
+              <input type="number" id="bill-rate" class="form-control" placeholder="0.12" step="0.01" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bill-sun-hours" data-i18n="bill_location_hours">Peak Sun Hours (per day)</label>
+              <input type="number" id="bill-sun-hours" class="form-control" placeholder="4.5" step="0.1" min="1" max="9" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="bill-cost-per-w">System Cost ($/W installed)</label>
+              <input type="number" id="bill-cost-per-w" class="form-control" placeholder="1.00" step="0.1" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bill-incentive">Government Incentive (%)</label>
+              <input type="number" id="bill-incentive" class="form-control" placeholder="e.g. 30" min="0" max="100" />
+            </div>
+          </div>
+          <button type="submit" id="bill-submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;">
+            📊 <span data-i18n="bill_analyze_btn">Analyze & Recommend</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="results-panel" id="bill-results">
+        <div style="text-align:center;padding:48px 24px;color:var(--text-muted);">
+          <div style="font-size:3rem;margin-bottom:16px;">📊</div>
+          <h3>Analysis Results</h3>
+          <p style="margin-top:8px;font-size:0.9rem;">Enter your bill details and click Analyze to see your solar savings potential.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: AI ADVISOR
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-advisor" class="page-section" aria-label="AI Solar Advisor">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">AI Powered</span>
+      <h2 data-i18n="advisor_title">AI Solar Advisor</h2>
+      <p data-i18n="advisor_subtitle">Ask anything about solar energy</p>
+    </div>
+
+    <div class="advisor-layout">
+      <div class="chat-container">
+        <div class="chat-header">
+          <div class="chat-header-icon">☀️</div>
+          <div class="chat-header-info">
+            <h3>SolarGPT Advisor</h3>
+            <div class="chat-status">
+              <span class="status-dot"></span>
+              <span>AI Online — Expert Solar Knowledge</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="advisor-chat" role="log" aria-live="polite">
+          <div class="chat-message assistant">
+            <div class="chat-avatar">☀️</div>
+            <div class="chat-bubble">
+              <strong>Welcome to SolarGPT AI Advisor!</strong><br><br>
+              I'm your expert solar energy consultant, powered by advanced AI. I can help you with:<br><br>
+              ☀️ <strong>System sizing</strong> — How many panels do you need?<br>
+              💰 <strong>Financial analysis</strong> — ROI, payback, incentives<br>
+              ⚡ <strong>Technology</strong> — Panels, inverters, batteries<br>
+              🔧 <strong>Installation</strong> — Best practices and codes<br>
+              🌍 <strong>Location-specific</strong> — Regulations and sun data<br><br>
+              What would you like to know?
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <textarea id="advisor-input" rows="1" data-i18n-attr="placeholder" data-i18n="advisor_placeholder" placeholder="Ask me anything about solar panels, installation, ROI, financing..."></textarea>
+          <button id="advisor-send-btn" aria-label="Send message">➤</button>
+        </div>
+      </div>
+
+      <div class="advisor-sidebar">
+        <h4 data-i18n="advisor_suggestions">💡 Suggested Questions</h4>
+        <div class="advisor-suggestions">
+          <button class="advisor-suggestion" data-i18n="advisor_q1">What size solar system do I need for my home?</button>
+          <button class="advisor-suggestion" data-i18n="advisor_q2">How does net metering work?</button>
+          <button class="advisor-suggestion" data-i18n="advisor_q3">What's the difference between on-grid and off-grid?</button>
+          <button class="advisor-suggestion" data-i18n="advisor_q4">How long do solar panels last?</button>
+          <button class="advisor-suggestion" data-i18n="advisor_q5">What incentives are available for solar?</button>
+          <button class="advisor-suggestion">How do I calculate battery storage needs?</button>
+          <button class="advisor-suggestion">What is the best solar panel brand?</button>
+          <button class="advisor-suggestion">How does temperature affect solar production?</button>
+        </div>
+
+        <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">
+          <h4 style="margin-bottom:12px;font-size:0.85rem;">📚 Quick Reference</h4>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.8;">
+            <div>⚡ 1 kWp ≈ 1,300–1,800 kWh/year</div>
+            <div>☀️ 400W panel ≈ 1.8m² roof area</div>
+            <div>🔋 Typical battery: 10–15 kWh</div>
+            <div>💰 Avg payback: 5–10 years</div>
+            <div>📅 Panel lifespan: 25–30 years</div>
+            <div>🌿 1 kWp avoids ~400 kg CO₂/yr</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: COST ESTIMATOR
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-cost-estimator" class="page-section" aria-label="Cost Estimator">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Finance</span>
+      <h2 data-i18n="cost_title">Cost Estimator & ROI</h2>
+      <p data-i18n="cost_subtitle">Full financial analysis for your solar project</p>
+    </div>
+
+    <div class="tool-layout">
+      <div class="form-panel">
+        <form id="cost-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cost-system-kw" data-i18n="cost_system_kw">System Size (kW)</label>
+              <input type="number" id="cost-system-kw" class="form-control" placeholder="e.g. 8" min="0" step="0.5" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cost-panel-cost" data-i18n="cost_panel_cost">Panel Cost ($/W)</label>
+              <input type="number" id="cost-panel-cost" class="form-control" placeholder="0.28" step="0.01" min="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cost-install-cost" data-i18n="cost_install">Installation Cost ($)</label>
+              <input type="number" id="cost-install-cost" class="form-control" placeholder="e.g. 2000" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cost-battery-cost" data-i18n="cost_battery_cost">Battery Cost ($)</label>
+              <input type="number" id="cost-battery-cost" class="form-control" placeholder="0 if none" min="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="cost-incentive" data-i18n="cost_incentive">Government Incentive (%)</label>
+              <input type="number" id="cost-incentive" class="form-control" placeholder="e.g. 30" min="0" max="100" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cost-elec-rate" data-i18n="cost_elec_rate">Electricity Rate ($/kWh)</label>
+              <input type="number" id="cost-elec-rate" class="form-control" placeholder="0.12" step="0.01" min="0" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cost-annual-increase" data-i18n="cost_annual_increase">Annual Rate Increase (%)</label>
+            <input type="number" id="cost-annual-increase" class="form-control" placeholder="3" min="0" max="20" step="0.5" />
+          </div>
+          <button type="submit" id="cost-submit-btn" class="btn btn-accent" style="width:100%;justify-content:center;" onclick="setButtonLoading(this,true)">
+            📈 <span data-i18n="cost_btn">Calculate ROI</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="results-panel" id="cost-results">
+        <div style="text-align:center;padding:48px 24px;color:var(--text-muted);">
+          <div style="font-size:3rem;margin-bottom:16px;">📈</div>
+          <h3>ROI Analysis</h3>
+          <p style="margin-top:8px;font-size:0.9rem;">Enter your project financials and click Calculate to see detailed ROI analysis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: REPORTS
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-reports" class="page-section" aria-label="Report Generator">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Reports</span>
+      <h2 data-i18n="report_title">Project Report Generator</h2>
+      <p data-i18n="report_subtitle">Generate professional PDF reports</p>
+    </div>
+
+    <div class="reports-layout">
+      <div class="form-panel">
+        <div class="form-group">
+          <label class="form-label" for="report-project-name" data-i18n="report_project_name">Project Name</label>
+          <input type="text" id="report-project-name" class="form-control" placeholder="Residential Solar Installation" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="report-client-name" data-i18n="report_client_name">Client Name</label>
+          <input type="text" id="report-client-name" class="form-control" placeholder="John Smith" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="report-date" data-i18n="report_date">Project Date</label>
+          <input type="date" id="report-date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="report_include">Include Sections</label>
+          <div class="report-section-checks">
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="summary" checked />
+              <span>📋 <span data-i18n="report_summary">Project Summary</span></span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="system" checked />
+              <span>⚙️ <span data-i18n="report_system">System Specifications</span></span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="equipment" checked />
+              <span>🔧 <span data-i18n="report_equipment">Equipment List</span></span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="savings" checked />
+              <span>💰 <span data-i18n="report_savings">Savings Forecast</span></span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="roi" checked />
+              <span>📈 <span data-i18n="report_roi">ROI Analysis</span></span>
+            </label>
+            <label class="check-option">
+              <input type="checkbox" class="report-section-check" value="installation" checked />
+              <span>🔩 <span data-i18n="report_installation">Installation Notes</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div style="background:var(--accent-pale);border:1px solid #fde68a;border-radius:var(--radius-md);padding:14px;margin-bottom:20px;font-size:0.8rem;color:var(--accent-dark);">
+          ℹ️ Run a calculation first (Calculator or Bill Analyzer) to include accurate system data in your report.
+        </div>
+
+        <button id="report-generate-btn" class="btn btn-primary" style="width:100%;justify-content:center;">
+          📄 <span data-i18n="report_btn">Generate PDF Report</span>
+        </button>
+      </div>
+
+      <div id="report-preview">
+        <div style="font-size:3rem;">📄</div>
+        <p>Report preview will appear here after generation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: DASHBOARD
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-dashboard" class="page-section" aria-label="Dashboard">
+  <div class="container section-wrapper">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+      <div>
+        <span class="section-label">My Account</span>
+        <h2 data-i18n="dash_title">My Dashboard</h2>
+      </div>
+    </div>
+    <div id="dashboard-content">
+      <div style="text-align:center;padding:80px 24px;color:var(--text-muted);">
+        <div style="font-size:3rem;margin-bottom:12px;">📊</div>
+        <p>Loading dashboard...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: KNOWLEDGE CENTER
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-knowledge" class="page-section" aria-label="Knowledge Center">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Education</span>
+      <h2 data-i18n="know_title">Solar Knowledge Center</h2>
+      <p data-i18n="know_subtitle">Learn everything about solar energy</p>
+    </div>
+
+    <div class="knowledge-tabs">
+      <button class="knowledge-tab active" data-tab="guides" data-i18n="know_guides">📚 Guides</button>
+      <button class="knowledge-tab" data-tab="faq" data-i18n="know_faq">❓ FAQ</button>
+      <button class="knowledge-tab" data-tab="glossary" data-i18n="know_glossary">📖 Glossary</button>
+    </div>
+
+    <!-- Guides -->
+    <div class="knowledge-panel active" id="knowledge-guides">
+      <div class="guides-grid">
+        <div class="guide-card"><div class="guide-icon">🏠</div><h3>Residential Solar Guide</h3><p>Everything a homeowner needs to know before going solar. Sizing, financing, permits, and installation.</p><span class="guide-tag">Beginner</span></div>
+        <div class="guide-card"><div class="guide-icon">⚡</div><h3>Understanding kWp vs kWh</h3><p>Learn the difference between peak power (kWp) and energy output (kWh) — critical for system sizing.</p><span class="guide-tag">Fundamentals</span></div>
+        <div class="guide-card"><div class="guide-icon">🔋</div><h3>Battery Storage Guide</h3><p>Compare lithium, lead-acid, and flow batteries. Learn sizing, DoD, cycle life, and ROI impact.</p><span class="guide-tag">Storage</span></div>
+        <div class="guide-card"><div class="guide-icon">💰</div><h3>Solar Financing Options</h3><p>Cash purchase, solar loans, leases, PPAs, and government incentives — compare all options.</p><span class="guide-tag">Finance</span></div>
+        <div class="guide-card"><div class="guide-icon">📐</div><h3>Panel Orientation & Tilt</h3><p>Optimal azimuth angles, tilt angles by latitude, shade analysis, and bifacial panel benefits.</p><span class="guide-tag">Engineering</span></div>
+        <div class="guide-card"><div class="guide-icon">🌍</div><h3>Net Metering Explained</h3><p>How net metering works globally, feed-in tariffs, virtual net metering, and community solar.</p><span class="guide-tag">Grid</span></div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="knowledge-panel" id="knowledge-faq">
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            How many solar panels do I need? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">The number depends on your monthly consumption, panel wattage, and location sun hours. Typically: (Monthly kWh ÷ 30 ÷ sun hours ÷ 0.8) × 1000 ÷ panel watts. Our calculator automates this — enter your bill and location for an instant estimate.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            What is the average payback period for solar? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">Payback periods typically range from 5–10 years depending on your electricity rate, system cost, local incentives, and sun exposure. With government incentives like the US 30% ITC, payback can be as short as 4–6 years. After payback, solar is essentially free electricity for 15–20 more years.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            Do solar panels work on cloudy days? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">Yes, solar panels still produce electricity on cloudy days — typically 10–25% of their rated output. Modern monocrystalline panels are better at diffuse light. Countries like Germany (average 3 sun hours/day) have thriving solar markets, proving solar works even in overcast climates.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            What maintenance do solar panels need? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">Solar panels require minimal maintenance. Clean them 2–4 times per year to remove dust and bird droppings. Annual inspection of wiring and inverter is recommended. Inverters typically need replacement after 10–15 years ($1,000–$3,000). Most panels come with 25-year performance warranties.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            On-grid vs off-grid — which is better? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">On-grid systems are cheaper and simpler — you sell excess power back to the grid. Off-grid systems provide energy independence but require batteries, adding 40–60% to costs. For most homeowners, on-grid or hybrid systems offer the best balance. Off-grid is ideal for remote locations without grid access.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            What size inverter do I need? <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">The inverter should be sized at 80–125% of your array's DC capacity. A common rule: for a 8 kWp solar array, use a 8–10 kW inverter. String inverters are most cost-effective for simple rooftops. Microinverters are better for shaded or complex rooftops. Hybrid inverters combine grid-tie with battery management.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glossary -->
+    <div class="knowledge-panel" id="knowledge-glossary">
+      <div class="glossary-grid">
+        <div class="glossary-item"><div class="glossary-term">kWp (Kilowatt Peak)</div><div class="glossary-def">The rated maximum power output of a solar system under Standard Test Conditions (STC: 1000 W/m², 25°C).</div></div>
+        <div class="glossary-item"><div class="glossary-term">kWh (Kilowatt Hour)</div><div class="glossary-def">Unit of energy. 1 kWh = 1 kW of power used for 1 hour. Your electricity bill is measured in kWh.</div></div>
+        <div class="glossary-item"><div class="glossary-term">Peak Sun Hours (PSH)</div><div class="glossary-def">The number of hours per day when solar irradiance averages 1000 W/m². Not the same as daylight hours.</div></div>
+        <div class="glossary-item"><div class="glossary-term">Net Metering</div><div class="glossary-def">A billing arrangement where solar users receive credit for excess electricity exported to the grid, reducing their net bill.</div></div>
+        <div class="glossary-item"><div class="glossary-term">MPPT</div><div class="glossary-def">Maximum Power Point Tracking. Electronic system in inverters that continuously optimizes the power harvest from solar panels.</div></div>
+        <div class="glossary-item"><div class="glossary-term">DoD (Depth of Discharge)</div><div class="glossary-def">The percentage of a battery's capacity that can be used. LFP batteries: 80–100% DoD. Lead-acid: 50% DoD.</div></div>
+        <div class="glossary-item"><div class="glossary-term">String Inverter</div><div class="glossary-def">A central inverter connected to a string (series) of solar panels. Most common and cost-effective for unshaded rooftops.</div></div>
+        <div class="glossary-item"><div class="glossary-term">Microinverter</div><div class="glossary-def">Individual inverter attached to each panel. Better for shaded or complex roofs. Higher cost but panel-level monitoring.</div></div>
+        <div class="glossary-item"><div class="glossary-term">PV (Photovoltaic)</div><div class="glossary-def">Technology that converts sunlight directly into electricity using semiconductor materials. What solar panels are made of.</div></div>
+        <div class="glossary-item"><div class="glossary-term">STC (Standard Test Conditions)</div><div class="glossary-def">Reference conditions used to rate solar panels: 1000 W/m² irradiance, 25°C cell temperature, AM1.5 spectrum.</div></div>
+        <div class="glossary-item"><div class="glossary-term">ROI (Return on Investment)</div><div class="glossary-def">Total net savings over the system lifetime divided by the net investment cost, expressed as a percentage.</div></div>
+        <div class="glossary-item"><div class="glossary-term">LFP (Lithium Iron Phosphate)</div><div class="glossary-def">The safest and most durable lithium battery chemistry. Used in Tesla Powerwall, BYD, and Pylontech. 4000+ cycles.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  SECTION: PRICING
+══════════════════════════════════════════════════════════════════════════════ -->
+<section id="section-pricing" class="page-section" aria-label="Pricing">
+  <div class="container section-wrapper">
+    <div class="section-header">
+      <span class="section-label">Plans</span>
+      <h2 data-i18n="price_title">Simple, Transparent Pricing</h2>
+      <p data-i18n="price_subtitle">Start free. Scale as you grow.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="pricing-plan-name" data-i18n="price_free">Free</div>
+        <div class="pricing-desc" data-i18n="price_free_desc">Perfect for homeowners</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">$0</span>
+          <span class="pricing-period" data-i18n="price_month">/month</span>
+        </div>
+        <ul class="pricing-features">
+          <li>Solar Panel Calculator</li>
+          <li>Bill Analyzer</li>
+          <li>AI Advisor (10 questions/day)</li>
+          <li>Basic Cost Estimator</li>
+          <li>1 Saved Project</li>
+          <li class="crossed">PDF Report Generator</li>
+          <li class="crossed">Equipment Recommender</li>
+          <li class="crossed">Client Management</li>
+        </ul>
+        <button class="btn btn-secondary plan-btn" data-plan="free" data-i18n="price_cta_free">Get Started Free</button>
+      </div>
+
+      <!-- Professional -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge" data-i18n="price_popular">Most Popular</div>
+        <div class="pricing-plan-name" data-i18n="price_pro">Professional</div>
+        <div class="pricing-desc" data-i18n="price_pro_desc">For solar engineers</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">$29</span>
+          <span class="pricing-period" data-i18n="price_month">/month</span>
+        </div>
+        <ul class="pricing-features">
+          <li>Everything in Free</li>
+          <li>Unlimited AI Advisor</li>
+          <li>PDF Report Generator</li>
+          <li>Equipment Recommender</li>
+          <li>25 Saved Projects</li>
+          <li>Full Cost & ROI Analysis</li>
+          <li>Export to Excel/CSV</li>
+          <li class="crossed">Client Management</li>
+        </ul>
+        <button class="btn btn-primary plan-btn" data-plan="professional" data-i18n="price_cta_pro">Start Pro Trial</button>
+      </div>
+
+      <!-- Company -->
+      <div class="pricing-card">
+        <div class="pricing-plan-name" data-i18n="price_company">Company</div>
+        <div class="pricing-desc" data-i18n="price_company_desc">For installation companies</div>
+        <div class="pricing-price">
+          <span class="pricing-amount">$79</span>
+          <span class="pricing-period">/month (up to 5 users)</span>
+        </div>
+        <ul class="pricing-features">
+          <li>Everything in Professional</li>
+          <li>Client Management System</li>
+          <li>White-label Reports</li>
+          <li>Unlimited Projects</li>
+          <li>Team Collaboration</li>
+          <li>Priority Support</li>
+          <li>API Access (beta)</li>
+          <li class="crossed">Custom Integrations</li>
+        </ul>
+        <button class="btn btn-secondary plan-btn" data-plan="company" data-i18n="price_cta_company">Start Company Trial</button>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <div class="pricing-plan-name" data-i18n="price_enterprise">Enterprise</div>
+        <div class="pricing-desc" data-i18n="price_enterprise_desc">Custom solutions</div>
+        <div class="pricing-price">
+          <span class="pricing-amount" style="font-size:1.8rem;">Custom</span>
+        </div>
+        <ul class="pricing-features">
+          <li>Everything in Company</li>
+          <li>Unlimited Users</li>
+          <li>Custom Integrations</li>
+          <li>On-premise Deployment</li>
+          <li>SLA & Dedicated Support</li>
+          <li>Custom AI Training</li>
+          <li>ERP/CRM Integration</li>
+          <li>Volume Pricing</li>
+        </ul>
+        <button class="btn btn-accent plan-btn" data-plan="enterprise" data-i18n="price_cta_enterprise">Contact Sales</button>
+      </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <div style="text-align:center;margin-top:48px;padding:40px;background:var(--primary-pale);border-radius:var(--radius-xl);border:1px solid #bbf7d0;">
+      <h3 style="margin-bottom:8px;">Questions about pricing?</h3>
+      <p>Contact our team for custom quotes, demos, or partnership opportunities.</p>
+      <a href="mailto:salatrir@gmail.com" class="btn btn-primary" style="margin-top:16px;display:inline-flex;">
+        ✉️ salatrir@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-name">Solar<span>GPT</span></div>
+          <p class="footer-tagline" data-i18n="footer_tagline">AI-powered solar planning for a sustainable future.</p>
+        </div>
+        <div class="footer-email-block">
+          <div class="footer-email-label" data-i18n="footer_email_label">Support Email:</div>
+          <a href="mailto:salatrir@gmail.com" class="footer-email-link">salatrir@gmail.com</a>
+        </div>
+        <div style="margin-top:16px;font-size:0.8rem;color:var(--text-muted);">
+          🌍 Available in English, العربية, Français
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer_product">Product</div>
+        <ul class="footer-links">
+          <li><a href="#" data-section="calculator">Solar Calculator</a></li>
+          <li><a href="#" data-section="bill-analyzer">Bill Analyzer</a></li>
+          <li><a href="#" data-section="advisor">AI Advisor</a></li>
+          <li><a href="#" data-section="cost-estimator">Cost Estimator</a></li>
+          <li><a href="#" data-section="reports">Report Generator</a></li>
+          <li><a href="#" data-section="pricing" data-i18n="nav_pricing">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer_company">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" data-i18n="footer_about">About Us</a></li>
+          <li><a href="#" data-i18n="footer_blog">Blog</a></li>
+          <li><a href="#" data-i18n="footer_careers">Careers</a></li>
+          <li><a href="mailto:salatrir@gmail.com" data-i18n="footer_contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer_support">Support</div>
+        <ul class="footer-links">
+          <li><a href="#" data-section="knowledge" data-i18n="footer_help">Help Center</a></li>
+          <li><a href="mailto:salatrir@gmail.com" data-i18n="footer_docs">Documentation</a></li>
+          <li><a href="mailto:salatrir@gmail.com">API Reference</a></li>
+          <li><a href="mailto:salatrir@gmail.com" data-i18n="footer_status">System Status</a></li>
+          <li><a href="mailto:salatrir@gmail.com" data-i18n="footer_privacy">Privacy Policy</a></li>
+          <li><a href="mailto:salatrir@gmail.com" data-i18n="footer_terms">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2025 SolarGPT — LLM.Solar. <span data-i18n="footer_rights">All rights reserved.</span></div>
+      <div class="footer-bottom-links">
+        <a href="mailto:salatrir@gmail.com" data-i18n="footer_privacy">Privacy</a>
+        <a href="mailto:salatrir@gmail.com" data-i18n="footer_terms">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="translations.js"></script>
+<script src="solar-calculator.js"></script>
+<script src="bill-analyzer.js"></script>
+<script src="reports.js"></script>
+<script src="dashboard.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // Handle data-section links in footer
+  document.querySelectorAll('[data-section]').forEach(el => {
+    if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const s = el.getAttribute('data-section');
+        if (s) showSection(s);
+      });
+    }
+  });
+  // Handle radio buttons for system type
+  document.querySelectorAll('input[name="system-type"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('calc-system-type').value = r.value;
+    });
+  });
+  // Set today's date for report
+  const dateEl = document.getElementById('report-date');
+  if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
+</script>
+
+</body>
+</html>
