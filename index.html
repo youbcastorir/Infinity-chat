@@ -2,6 +2,9 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SolarGPT — AI-Powered Solar Energy Planning Platform | LLM.Solar</title>
   <meta name="description" content="SolarGPT is an AI-powered solar energy platform. Calculate solar panel requirements, analyze electricity bills, estimate ROI, and generate professional reports. Free solar calculator for homeowners, engineers, and investors." />
@@ -76,7 +79,889 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="SolarGPT" />
 
-  <link rel="stylesheet" href="style.css" />
+  <style>
+/* SolarGPT — Premium Solar Platform Stylesheet */
+/* Design: Refined dark-energy tech aesthetic with amber/gold solar accents */
+
+/* Fonts loaded via <link> in head */
+
+/* ─── CSS VARIABLES ───────────────────────────────────────────────────────── */
+:root {
+  --bg: #f8fafb;
+  --bg-secondary: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-elevated: #ffffff;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --text: #0f1923;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --primary: #0f4c2a;
+  --primary-light: #1a7a42;
+  --primary-pale: #dcfce7;
+  --accent: #f59e0b;
+  --accent-light: #fbbf24;
+  --accent-pale: #fffbeb;
+  --accent-dark: #b45309;
+  --blue: #1d4ed8;
+  --blue-pale: #dbeafe;
+  --red: #dc2626;
+  --red-pale: #fee2e2;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.10);
+  --shadow-xl: 0 24px 64px rgba(0,0,0,0.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --nav-h: 68px;
+  --transition: 0.2s ease;
+}
+
+body.dark {
+  --bg: #0a0f16;
+  --bg-secondary: #0f1923;
+  --bg-card: #131d2a;
+  --bg-elevated: #1a2535;
+  --border: #1e2d3d;
+  --border-light: #162030;
+  --text: #e8f0f8;
+  --text-secondary: #94aab8;
+  --text-muted: #5a7080;
+  --primary-pale: #0d2518;
+  --accent-pale: #1a1000;
+  --blue-pale: #0a1530;
+  --red-pale: #1a0808;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+/* ─── RESET & BASE ────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: 'Sora', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+body.rtl { font-family: 'Sora', 'Noto Sans Arabic', system-ui, sans-serif; }
+
+img { max-width:100%; display:block; }
+a { color: inherit; text-decoration:none; }
+button { cursor:pointer; font-family:inherit; }
+input, select, textarea { font-family:inherit; }
+code { font-family: 'JetBrains Mono', monospace; }
+
+/* ─── SCROLLBAR ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius:99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── TYPOGRAPHY ──────────────────────────────────────────────────────────── */
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight:800; letter-spacing:-0.03em; line-height:1.1; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight:700; letter-spacing:-0.02em; }
+h3 { font-size: 1.25rem; font-weight:700; }
+h4 { font-size: 1rem; font-weight:600; }
+p { color: var(--text-secondary); }
+
+/* ─── LAYOUT ──────────────────────────────────────────────────────────────── */
+.container { max-width:1200px; margin:0 auto; padding:0 24px; }
+.section-wrapper { padding:80px 0; }
+.section-wrapper.compact { padding:48px 0; }
+
+/* ─── NAVIGATION ──────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  height: var(--nav-h);
+  background: #f8fafb; background: rgba(248,250,251,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.3s;
+}
+body.dark .nav {
+  background: rgba(10,15,22,0.9);
+  border-color: var(--border);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  height:100%; max-width:1200px; margin:0 auto; padding:0 24px;
+  gap:16px;
+}
+.nav-brand {
+  font-size:1.5rem; font-weight:800; letter-spacing:-0.04em;
+  color: var(--primary); display:flex; align-items:center; gap:8px;
+  flex-shrink:0;
+}
+.nav-brand .brand-icon { font-size:1.4rem; }
+.nav-brand .brand-accent { color: var(--accent); }
+
+.nav-links {
+  display:flex; align-items:center; gap:4px; list-style:none;
+  flex:1; justify-content:center;
+}
+.nav-links a {
+  padding:6px 12px; border-radius:var(--radius-sm);
+  font-size:0.875rem; font-weight:500; color: var(--text-secondary);
+  transition: all var(--transition);
+  white-space:nowrap;
+}
+.nav-links a:hover, .nav-links a.nav-active {
+  color: var(--primary); background: var(--primary-pale);
+}
+body.dark .nav-links a:hover, body.dark .nav-links a.nav-active {
+  color: #22c55e;
+}
+
+.nav-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.nav-lang { display:flex; gap:2px; }
+.lang-btn {
+  padding:4px 8px; border-radius:var(--radius-sm);
+  border:1px solid var(--border); background:transparent;
+  font-size:0.75rem; font-weight:600; color:var(--text-muted);
+  transition: all var(--transition);
+}
+.lang-btn:hover, .lang-btn.active {
+  background:var(--primary); color:#fff; border-color:var(--primary);
+}
+#theme-toggle {
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--border); background:var(--bg-card);
+  font-size:1rem; display:flex; align-items:center; justify-content:center;
+  transition: all var(--transition);
+}
+#theme-toggle:hover { border-color:var(--accent); }
+.btn-nav {
+  padding:8px 20px; border-radius:var(--radius-md);
+  font-size:0.875rem; font-weight:600; border:none;
+  background:var(--primary); color:#fff;
+  transition: all var(--transition);
+}
+.btn-nav:hover { background:var(--primary-light); transform:translateY(-1px); }
+.mobile-menu-btn {
+  display:none; background:none; border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:8px; font-size:1.1rem;
+}
+
+/* ─── MOBILE MENU ─────────────────────────────────────────────────────────── */
+#mobile-menu {
+  display:none; position:fixed; top:var(--nav-h); left:0; right:0; bottom:0;
+  background:var(--bg); z-index:999; padding:24px; overflow-y:auto;
+  transform:translateX(100%); transition:transform 0.3s;
+  visibility:hidden;
+}
+#mobile-menu.open { transform:translateX(0); display:block; visibility:visible; }
+#mobile-menu .nav-links { flex-direction:column; align-items:flex-start; gap:4px; }
+#mobile-menu .nav-links a { width:100%; padding:12px 16px; font-size:1rem; }
+
+/* ─── HERO SECTION ────────────────────────────────────────────────────────── */
+#section-hero {
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding-top: var(--nav-h);
+  background: var(--bg);
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.hero-orb {
+  position:absolute; border-radius:50%;
+  filter:blur(80px); opacity:0.15;
+}
+.hero-orb-1 {
+  width:600px; height:600px;
+  background: radial-gradient(circle, #22c55e, transparent);
+  top:-200px; right:-100px;
+}
+.hero-orb-2 {
+  width:400px; height:400px;
+  background: radial-gradient(circle, #f59e0b, transparent);
+  bottom:-100px; left:-100px;
+}
+.hero-grid {
+  position:absolute; inset:0;
+  background-image: linear-gradient(var(--border-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+  background-size:60px 60px; opacity:0.5;
+}
+
+.hero-content {
+  position:relative; z-index:1;
+  max-width:1200px; margin:0 auto; padding:80px 24px;
+  display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--primary-pale); border:1px solid #bbf7d0;
+  color:var(--primary); padding:6px 14px; border-radius:99px;
+  font-size:0.8rem; font-weight:600; margin-bottom:24px;
+  animation: slideUp 0.5s ease;
+}
+body.dark .hero-badge { background:var(--primary-pale); border-color:var(--border); color:#22c55e; }
+.hero-badge .badge-dot { width:6px; height:6px; background:#22c55e; border-radius:50%; animation:pulse 2s infinite; }
+
+.hero-title { margin-bottom:24px; animation: slideUp 0.6s ease; }
+.hero-title .accent-line {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  display:block;
+}
+.hero-subtitle {
+  font-size:1.1rem; color:var(--text-secondary); margin-bottom:36px;
+  max-width:480px; animation:slideUp 0.7s ease;
+}
+.hero-ctas { display:flex; gap:12px; flex-wrap:wrap; animation:slideUp 0.8s ease; }
+.hero-stats {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  margin-top:48px; animation:slideUp 0.9s ease;
+}
+.hero-stat { text-align:center; }
+.hero-stat-number {
+  font-size:2.2rem; font-weight:800; color:var(--primary); letter-spacing:-0.04em;
+}
+body.dark .hero-stat-number { color:#22c55e; }
+.hero-stat-label { font-size:0.8rem; color:var(--text-muted); font-weight:500; }
+.hero-stat-divider { width:1px; background:var(--border); display:none; }
+
+/* Hero visual */
+.hero-visual {
+  display:flex; justify-content:center; align-items:center;
+  animation: float 4s ease-in-out infinite;
+}
+.solar-mockup {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:24px;
+  box-shadow:var(--shadow-xl); width:100%; max-width:420px;
+}
+.mockup-header {
+  display:flex; align-items:center; gap:8px; margin-bottom:20px;
+  padding-bottom:16px; border-bottom:1px solid var(--border);
+}
+.mockup-dots span {
+  width:10px; height:10px; border-radius:50%; display:inline-block;
+}
+.dot-red { background:#ef4444; }
+.dot-yellow { background:#f59e0b; }
+.dot-green { background:#22c55e; }
+.mockup-title { font-size:0.8rem; color:var(--text-muted); font-weight:500; margin-left:auto; }
+
+.mockup-metric {
+  background:var(--bg-secondary); border-radius:var(--radius-md);
+  padding:16px; margin-bottom:12px;
+}
+.metric-row { display:flex; justify-content:space-between; align-items:center; }
+.metric-label { font-size:0.75rem; color:var(--text-muted); }
+.metric-value { font-size:1.4rem; font-weight:800; color:var(--primary); }
+body.dark .metric-value { color:#22c55e; }
+.metric-unit { font-size:0.75rem; color:var(--text-muted); font-weight:400; }
+
+.mockup-bars { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+.mockup-bar-row { display:flex; align-items:center; gap:8px; }
+.mockup-bar-label { font-size:0.7rem; color:var(--text-muted); width:60px; flex-shrink:0; }
+.mockup-bar-track { flex:1; background:var(--border); border-radius:99px; height:6px; overflow:hidden; }
+.mockup-bar-fill {
+  height:100%; border-radius:99px;
+  background:linear-gradient(90deg, #22c55e, #16a34a);
+}
+.mockup-bar-fill.amber { background:linear-gradient(90deg, #f59e0b, #b45309); }
+.mockup-bar-val { font-size:0.7rem; font-weight:600; color:var(--text); width:36px; text-align:right; }
+
+.mockup-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--primary-pale); color:var(--primary);
+  border-radius:var(--radius-sm); padding:6px 12px;
+  font-size:0.75rem; font-weight:600; margin-top:8px;
+}
+body.dark .mockup-badge { color:#22c55e; }
+
+/* ─── SECTIONS ────────────────────────────────────────────────────────────── */
+.page-section {
+  display:none; min-height:calc(100vh - var(--nav-h));
+  padding-top:calc(var(--nav-h) + 32px);
+}
+.page-section.active { display:block; }
+#section-hero { display:block; }
+
+/* ─── BUTTONS ─────────────────────────────────────────────────────────────── */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 24px; border-radius:var(--radius-md);
+  font-size:0.9375rem; font-weight:600; border:none;
+  transition:all 0.2s; cursor:pointer;
+}
+.btn-primary {
+  background:linear-gradient(135deg, var(--primary), var(--primary-light));
+  color:#fff;
+  box-shadow:0 4px 12px rgba(15,76,42,0.3);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(15,76,42,0.4); }
+.btn-secondary {
+  background:var(--bg-card); color:var(--text);
+  border:1.5px solid var(--border);
+}
+.btn-secondary:hover { border-color:var(--primary); color:var(--primary); transform:translateY(-1px); }
+.btn-accent {
+  background:linear-gradient(135deg, var(--accent), #d97706);
+  color:#fff; box-shadow:0 4px 12px rgba(245,158,11,0.3);
+}
+.btn-accent:hover { transform:translateY(-2px); }
+.btn-sm { padding:8px 16px; font-size:0.8125rem; border-radius:var(--radius-sm); }
+.btn-lg { padding:16px 36px; font-size:1.0625rem; border-radius:var(--radius-lg); }
+.btn:disabled { opacity:0.6; cursor:not-allowed; transform:none !important; }
+
+/* Spinner */
+.spinner {
+  width:14px; height:14px; border:2px solid rgba(255,255,255,0.4);
+  border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite;
+  display:inline-block;
+}
+.loading-spinner {
+  width:36px; height:36px; border:3px solid var(--border);
+  border-top-color:var(--primary); border-radius:50%;
+  animation:spin 0.7s linear infinite; margin:24px auto;
+}
+
+/* ─── SECTION HEADERS ─────────────────────────────────────────────────────── */
+.section-header { text-align:center; max-width:640px; margin:0 auto 56px; }
+.section-label {
+  display:inline-block; background:var(--primary-pale);
+  color:var(--primary); font-size:0.75rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase;
+  padding:4px 12px; border-radius:99px; margin-bottom:12px;
+}
+body.dark .section-label { color:#22c55e; }
+.section-header h2 { margin-bottom:12px; }
+
+/* ─── FEATURES GRID ───────────────────────────────────────────────────────── */
+.features-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  margin-top:16px;
+}
+.feature-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:28px;
+  transition:all 0.25s; position:relative; overflow:hidden;
+}
+.feature-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, var(--primary-pale), transparent);
+  opacity:0; transition:opacity 0.25s;
+}
+.feature-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--primary); }
+.feature-card:hover::before { opacity:1; }
+.feature-icon {
+  width:52px; height:52px; border-radius:var(--radius-md);
+  background:var(--primary-pale); display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:16px;
+}
+.feature-card h3 { margin-bottom:8px; }
+.feature-card p { font-size:0.9rem; }
+.feature-arrow {
+  position:absolute; bottom:20px; right:20px; font-size:1.2rem;
+  opacity:0; transform:translateX(-8px); transition:all 0.25s;
+  color:var(--primary);
+}
+.feature-card:hover .feature-arrow { opacity:1; transform:translateX(0); }
+
+/* ─── CALCULATOR FORM ─────────────────────────────────────────────────────── */
+.tool-layout { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+.form-panel, .results-panel {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:32px;
+  box-shadow:var(--shadow-md);
+}
+.form-panel h2, .results-panel h2 { margin-bottom:8px; }
+.form-panel p, .results-panel p { margin-bottom:24px; font-size:0.9rem; }
+
+.form-group { margin-bottom:20px; }
+.form-label {
+  display:block; font-size:0.8125rem; font-weight:600;
+  color:var(--text); margin-bottom:6px;
+}
+.form-label .label-hint { font-weight:400; color:var(--text-muted); }
+.form-control {
+  width:100%; padding:11px 14px;
+  border:1.5px solid var(--border); border-radius:var(--radius-md);
+  background:var(--bg); color:var(--text); font-size:0.9375rem;
+  transition:border-color 0.2s;
+  -webkit-appearance:none; appearance:none;
+}
+.form-control:focus {
+  outline:none; border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(15,76,42,0.08);
+}
+body.dark .form-control { background:var(--bg-secondary); }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+.radio-group { display:flex; flex-direction:column; gap:8px; }
+.radio-option {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border:1.5px solid var(--border);
+  border-radius:var(--radius-md); cursor:pointer;
+  transition:all 0.15s; font-size:0.875rem;
+}
+.radio-option:hover { border-color:var(--primary); }
+.radio-option input[type=radio] { accent-color:var(--primary); }
+.radio-option input:checked ~ span { color:var(--primary); font-weight:600; }
+.radio-option:has(input:checked) { border-color:var(--primary); background:var(--primary-pale); }
+
+/* ─── RESULTS ─────────────────────────────────────────────────────────────── */
+.results-panel.visible { animation:slideUp 0.4s ease; }
+.results-grid {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:20px;
+}
+.result-card {
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:18px;
+  transition:all 0.2s; text-align:center;
+}
+.result-card.primary { background:var(--primary-pale); border-color:#bbf7d0; }
+body.dark .result-card.primary { border-color:var(--border); }
+.result-card.highlight { background:var(--accent-pale); border-color:#fde68a; }
+.result-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.result-icon { font-size:1.5rem; margin-bottom:6px; }
+.result-value { font-size:1.6rem; font-weight:800; color:var(--primary); letter-spacing:-0.03em; }
+body.dark .result-value { color:#22c55e; }
+.result-card.highlight .result-value { color:var(--accent-dark); }
+.result-label { font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin:3px 0; }
+.result-detail { font-size:0.7rem; color:var(--text-muted); }
+
+/* Coverage bar */
+.coverage-bar-wrapper { margin-top:16px; }
+.coverage-bar-label { display:flex; justify-content:space-between; font-size:0.8rem; font-weight:600; margin-bottom:6px; }
+.coverage-bar { background:var(--border); border-radius:99px; height:10px; overflow:hidden; }
+.coverage-fill {
+  height:100%; border-radius:99px;
+  background:linear-gradient(90deg, #22c55e, #16a34a);
+  transition:width 1s ease;
+}
+
+/* ─── BILL RESULTS ────────────────────────────────────────────────────────── */
+.bill-results-header { text-align:center; margin-bottom:24px; }
+.bill-reduction { font-size:3.5rem; font-weight:800; color:var(--primary); display:block; letter-spacing:-0.04em; }
+body.dark .bill-reduction { color:#22c55e; }
+.bill-reduction-label { font-size:0.9rem; color:var(--text-muted); }
+
+.savings-timeline { background:var(--bg-secondary); border-radius:var(--radius-lg); padding:20px; margin:16px 0; }
+.savings-timeline h4 { margin-bottom:14px; font-size:0.9rem; }
+.timeline-bar-item { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.tbar-label { width:52px; font-size:0.75rem; color:var(--text-muted); flex-shrink:0; }
+.tbar-track { flex:1; background:var(--border); border-radius:99px; height:10px; overflow:hidden; }
+.tbar-fill { height:100%; border-radius:99px; transition:width 0.8s ease; }
+.tbar-fill.positive { background:linear-gradient(90deg,#22c55e,#16a34a); }
+.tbar-fill.negative { background:linear-gradient(90deg,#ef4444,#dc2626); }
+.tbar-value { width:90px; font-size:0.75rem; font-weight:700; text-align:right; flex-shrink:0; }
+.tbar-value.pos { color:#16a34a; }
+.tbar-value.neg { color:#dc2626; }
+
+.bill-breakdown, .cost-breakdown {
+  background:var(--bg-secondary); border-radius:var(--radius-lg); padding:16px; margin-top:12px;
+}
+.breakdown-item {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid var(--border); font-size:0.875rem;
+}
+.breakdown-item:last-child { border:none; }
+.highlight-text { font-weight:700; color:var(--primary); }
+body.dark .highlight-text { color:#22c55e; }
+
+/* Cost breakdown bars */
+.cost-breakdown h4 { margin-bottom:14px; font-size:0.9rem; }
+.breakdown-chart { display:flex; flex-direction:column; gap:8px; }
+.breakdown-row { display:flex; align-items:center; gap:10px; font-size:0.8rem; }
+.br-label { width:100px; color:var(--text-secondary); flex-shrink:0; }
+.br-track { flex:1; background:var(--border); border-radius:99px; height:8px; overflow:hidden; }
+.br-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,#22c55e,#16a34a); transition:width 0.8s; }
+.br-pct { width:36px; color:var(--text-muted); font-size:0.75rem; }
+.br-val { width:80px; font-weight:600; text-align:right; }
+
+/* ─── AI ADVISOR ──────────────────────────────────────────────────────────── */
+.advisor-layout { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start; }
+.chat-container {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); overflow:hidden;
+  display:flex; flex-direction:column; height:600px;
+  box-shadow:var(--shadow-md);
+}
+.chat-header {
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg, var(--primary-pale), var(--bg-card));
+  display:flex; align-items:center; gap:12px;
+}
+.chat-header-icon { font-size:1.8rem; }
+.chat-header-info h3 { font-size:1rem; margin-bottom:2px; }
+.chat-status { font-size:0.75rem; color:var(--text-muted); display:flex; align-items:center; gap:4px; }
+.status-dot { width:6px; height:6px; background:#22c55e; border-radius:50%; animation:pulse 2s infinite; }
+
+#advisor-chat {
+  flex:1; overflow-y:auto; padding:20px; display:flex;
+  flex-direction:column; gap:16px;
+}
+.chat-message { display:flex; gap:10px; animation:slideUp 0.3s ease; }
+.chat-message.user { flex-direction:row-reverse; }
+.chat-avatar {
+  width:32px; height:32px; border-radius:50%;
+  background:var(--bg-secondary); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.9rem; flex-shrink:0;
+}
+.chat-message.user .chat-avatar { background:var(--primary-pale); }
+.chat-bubble {
+  max-width:75%; padding:12px 16px;
+  border-radius:var(--radius-lg); font-size:0.875rem; line-height:1.6;
+  background:var(--bg-secondary); color:var(--text);
+}
+.chat-message.user .chat-bubble {
+  background:var(--primary); color:#fff;
+  border-radius:var(--radius-lg) var(--radius-sm) var(--radius-lg) var(--radius-lg);
+}
+.chat-bubble h3, .chat-bubble h4 { font-size:0.875rem; margin:8px 0 4px; color:var(--primary); }
+.chat-message.user .chat-bubble h3, .chat-message.user .chat-bubble h4 { color:#fff; }
+.chat-bubble ul { padding-left:16px; }
+.chat-bubble code { background:rgba(0,0,0,0.1); padding:1px 5px; border-radius:4px; font-size:0.8em; }
+.thinking { display:flex; gap:5px; align-items:center; padding:14px 18px; }
+.thinking span {
+  width:8px; height:8px; border-radius:50%; background:var(--text-muted);
+  animation:bounce 1.2s infinite;
+}
+.thinking span:nth-child(2) { animation-delay:0.15s; }
+.thinking span:nth-child(3) { animation-delay:0.3s; }
+
+.chat-input-area {
+  padding:16px; border-top:1px solid var(--border);
+  display:flex; gap:8px; align-items:flex-end;
+}
+#advisor-input {
+  flex:1; resize:none; min-height:44px; max-height:120px;
+  padding:11px 14px; border:1.5px solid var(--border);
+  border-radius:var(--radius-md); font-size:0.875rem;
+  background:var(--bg); color:var(--text); line-height:1.5;
+  transition:border-color 0.2s;
+}
+#advisor-input:focus { outline:none; border-color:var(--primary); }
+#advisor-send-btn {
+  width:44px; height:44px; border-radius:50%;
+  background:var(--primary); color:#fff; border:none;
+  font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s; flex-shrink:0;
+}
+#advisor-send-btn:hover { background:var(--primary-light); transform:scale(1.05); }
+
+/* Suggestions sidebar */
+.advisor-sidebar {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:24px; box-shadow:var(--shadow-md);
+}
+.advisor-sidebar h4 { margin-bottom:14px; font-size:0.9rem; }
+.advisor-suggestions { display:flex; flex-direction:column; gap:8px; }
+.advisor-suggestion {
+  padding:10px 14px; background:var(--bg-secondary);
+  border:1.5px solid var(--border); border-radius:var(--radius-md);
+  font-size:0.8rem; font-weight:500; color:var(--text-secondary);
+  text-align:left; transition:all 0.15s; cursor:pointer;
+  line-height:1.4;
+}
+.advisor-suggestion:hover { border-color:var(--primary); color:var(--primary); background:var(--primary-pale); }
+
+/* ─── REPORTS ─────────────────────────────────────────────────────────────── */
+.reports-layout { display:grid; grid-template-columns:380px 1fr; gap:28px; align-items:start; }
+.report-section-checks { display:flex; flex-direction:column; gap:8px; margin:12px 0; }
+.check-option {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border:1.5px solid var(--border);
+  border-radius:var(--radius-md); cursor:pointer; font-size:0.875rem;
+  transition:border-color 0.15s;
+}
+.check-option:has(input:checked) { border-color:var(--primary); background:var(--primary-pale); }
+.check-option input { accent-color:var(--primary); }
+#report-preview {
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:var(--radius-xl); min-height:400px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  overflow:hidden; color:var(--text-muted); font-size:0.9rem;
+}
+#report-preview p { margin-top:12px; }
+
+/* ─── DASHBOARD ───────────────────────────────────────────────────────────── */
+.dash-stats {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:28px;
+}
+.dash-stat-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:24px; text-align:center;
+  transition:all 0.2s;
+}
+.dash-stat-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.dash-stat-icon { font-size:1.8rem; margin-bottom:8px; }
+.dash-stat-value { font-size:2rem; font-weight:800; color:var(--primary); letter-spacing:-0.04em; }
+body.dark .dash-stat-value { color:#22c55e; }
+.dash-stat-label { font-size:0.8rem; color:var(--text-muted); font-weight:500; margin-top:4px; }
+
+.dash-actions { display:flex; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+
+.dash-section {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:24px; margin-bottom:24px;
+}
+.dash-section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.dash-section-header h3 { font-size:1rem; }
+
+.dash-empty {
+  text-align:center; padding:48px 24px;
+  color:var(--text-muted); display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.dash-empty span { font-size:2.5rem; }
+.dash-empty p { font-size:0.9rem; }
+
+.dash-table-wrapper { overflow-x:auto; }
+.dash-table { width:100%; border-collapse:collapse; font-size:0.875rem; }
+.dash-table thead tr { border-bottom:2px solid var(--border); }
+.dash-table th { padding:8px 12px; text-align:left; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); }
+.dash-table td { padding:12px 12px; border-bottom:1px solid var(--border-light); vertical-align:middle; }
+.dash-table tr:last-child td { border:none; }
+.dash-table tr:hover td { background:var(--bg-secondary); }
+
+.icon-btn {
+  width:30px; height:30px; border-radius:var(--radius-sm);
+  border:1px solid var(--border); background:var(--bg);
+  font-size:0.875rem; display:inline-flex; align-items:center; justify-content:center;
+  transition:all 0.15s; margin-right:4px;
+}
+.icon-btn:hover { border-color:var(--primary); background:var(--primary-pale); }
+.icon-btn.danger:hover { border-color:var(--red); background:var(--red-pale); }
+
+.badge {
+  display:inline-block; padding:2px 10px; border-radius:99px;
+  font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+}
+.badge-green { background:var(--primary-pale); color:var(--primary); }
+body.dark .badge-green { color:#22c55e; }
+.badge-blue { background:var(--blue-pale); color:var(--blue); }
+.badge-amber { background:var(--accent-pale); color:var(--accent-dark); }
+
+.portfolio-chart { background:var(--bg-secondary); border-radius:var(--radius-md); padding:16px; overflow:hidden; }
+
+/* ─── KNOWLEDGE CENTER ────────────────────────────────────────────────────── */
+.knowledge-tabs {
+  display:flex; gap:4px; background:var(--bg-secondary);
+  border-radius:var(--radius-md); padding:4px;
+  margin-bottom:32px; width:fit-content;
+}
+.knowledge-tab {
+  padding:8px 20px; border-radius:var(--radius-sm);
+  border:none; background:transparent; color:var(--text-secondary);
+  font-size:0.875rem; font-weight:600; transition:all 0.15s; cursor:pointer;
+}
+.knowledge-tab.active {
+  background:var(--bg-card); color:var(--primary);
+  box-shadow:var(--shadow-sm);
+}
+.knowledge-panel { display:none; }
+.knowledge-panel.active { display:block; }
+
+.guides-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.guide-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:24px; cursor:pointer;
+  transition:all 0.2s;
+}
+.guide-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--primary); }
+.guide-icon { font-size:2rem; margin-bottom:12px; }
+.guide-card h3 { font-size:0.9375rem; margin-bottom:6px; }
+.guide-card p { font-size:0.8125rem; }
+.guide-tag {
+  display:inline-block; background:var(--accent-pale); color:var(--accent-dark);
+  font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;
+  margin-top:10px;
+}
+
+.faq-list { display:flex; flex-direction:column; gap:12px; max-width:800px; }
+.faq-item {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-md); overflow:hidden;
+}
+.faq-question {
+  width:100%; padding:16px 20px; background:none; border:none;
+  text-align:left; font-size:0.9375rem; font-weight:600; color:var(--text);
+  display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; transition:all 0.15s;
+}
+.faq-question:hover { color:var(--primary); }
+.faq-question .faq-arrow { transition:transform 0.2s; font-size:1.1rem; }
+.faq-item.open .faq-arrow { transform:rotate(180deg); }
+.faq-answer {
+  padding:0 20px; max-height:0; overflow:hidden;
+  transition:all 0.3s ease; font-size:0.9rem; color:var(--text-secondary);
+}
+.faq-item.open .faq-answer { padding:0 20px 16px; max-height:300px; }
+
+.glossary-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.glossary-item {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:16px;
+}
+.glossary-term { font-weight:700; color:var(--primary); margin-bottom:4px; font-size:0.9375rem; }
+body.dark .glossary-term { color:#22c55e; }
+.glossary-def { font-size:0.8125rem; color:var(--text-secondary); }
+
+/* ─── PRICING ─────────────────────────────────────────────────────────────── */
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+  align-items:start;
+}
+.pricing-card {
+  background:var(--bg-card); border:2px solid var(--border);
+  border-radius:var(--radius-xl); padding:28px; transition:all 0.2s;
+  position:relative;
+}
+.pricing-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.pricing-card.featured {
+  border-color:var(--primary);
+  background:linear-gradient(180deg, var(--primary-pale), var(--bg-card));
+}
+.pricing-badge {
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  background:var(--primary); color:#fff;
+  padding:3px 14px; border-radius:99px; font-size:0.7rem; font-weight:700;
+  white-space:nowrap;
+}
+.pricing-plan-name { font-size:1.1rem; font-weight:700; margin-bottom:4px; }
+.pricing-desc { font-size:0.8rem; color:var(--text-muted); margin-bottom:20px; }
+.pricing-price { margin-bottom:20px; }
+.pricing-amount { font-size:2.5rem; font-weight:800; letter-spacing:-0.04em; color:var(--primary); }
+body.dark .pricing-amount { color:#22c55e; }
+.pricing-period { font-size:0.8rem; color:var(--text-muted); }
+.pricing-features { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+.pricing-features li { font-size:0.8125rem; display:flex; gap:8px; align-items:flex-start; }
+.pricing-features li::before { content:"✓"; color:#22c55e; font-weight:700; flex-shrink:0; }
+.pricing-features li.crossed { color:var(--text-muted); }
+.pricing-features li.crossed::before { content:"×"; color:var(--text-muted); }
+.plan-btn { width:100%; }
+
+/* ─── NOTIFICATION ────────────────────────────────────────────────────────── */
+.notification {
+  position:fixed; bottom:-80px; left:50%; transform:translateX(-50%);
+  background:var(--bg-elevated); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:12px 24px;
+  box-shadow:var(--shadow-xl); font-size:0.875rem; font-weight:500;
+  display:flex; align-items:center; gap:8px;
+  z-index:9999; white-space:nowrap;
+  transition:bottom 0.3s ease;
+  max-width:90vw;
+}
+.notification.show { bottom:24px; }
+.notification-success { border-color:#22c55e; color:#15803d; }
+.notification-error { border-color:var(--red); color:var(--red); }
+.notification-warning { border-color:var(--accent); color:var(--accent-dark); }
+.notification-info { border-color:var(--blue); color:var(--blue); }
+
+/* ─── FOOTER ──────────────────────────────────────────────────────────────── */
+footer {
+  background:var(--bg-secondary); border-top:1px solid var(--border);
+  padding:60px 0 32px;
+}
+.footer-grid {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px;
+  margin-bottom:48px;
+}
+.footer-brand { margin-bottom:16px; }
+.footer-brand-name { font-size:1.4rem; font-weight:800; color:var(--primary); letter-spacing:-0.04em; }
+.footer-brand-name span { color:var(--accent); }
+.footer-tagline { font-size:0.875rem; color:var(--text-muted); margin-top:8px; }
+.footer-email-block { margin-top:16px; }
+.footer-email-label { font-size:0.75rem; color:var(--text-muted); }
+.footer-email-link { color:var(--primary); font-weight:600; font-size:0.875rem; }
+body.dark .footer-email-link { color:#22c55e; }
+
+.footer-col-title { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:14px; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.footer-links a { font-size:0.875rem; color:var(--text-secondary); transition:color 0.15s; }
+.footer-links a:hover { color:var(--primary); }
+body.dark .footer-links a:hover { color:#22c55e; }
+
+.footer-bottom {
+  padding-top:24px; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:0.8125rem; color:var(--text-muted);
+}
+.footer-bottom-links { display:flex; gap:20px; }
+.footer-bottom-links a { color:var(--text-muted); transition:color 0.15s; }
+.footer-bottom-links a:hover { color:var(--text); }
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-12px); }
+}
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+@keyframes bounce {
+  0%,80%,100% { transform:translateY(0); }
+  40% { transform:translateY(-8px); }
+}
+
+/* ─── RTL SUPPORT ─────────────────────────────────────────────────────────── */
+body.rtl .nav-links { direction:rtl; }
+body.rtl .hero-content { direction:rtl; }
+body.rtl .hero-subtitle { margin-right:0; margin-left:0; }
+body.rtl .chat-message.user { flex-direction:row; }
+body.rtl .form-label { direction:rtl; }
+body.rtl .border-left { border-left:none; border-right:4px solid var(--accent); padding-left:0; padding-right:12px; }
+body.rtl .footer-grid { direction:rtl; }
+body.rtl .feature-arrow { left:20px; right:auto; }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width:1100px) {
+  .pricing-grid { grid-template-columns:repeat(2,1fr); }
+  .features-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+}
+@media (max-width:900px) {
+  .nav-links { display:none; }
+  .mobile-menu-btn { display:flex; align-items:center; justify-content:center; }
+  .hero-content { grid-template-columns:1fr; gap:40px; }
+  .hero-visual { display:none; }
+  .tool-layout { grid-template-columns:1fr; }
+  .advisor-layout { grid-template-columns:1fr; }
+  .reports-layout { grid-template-columns:1fr; }
+  .dash-stats { grid-template-columns:repeat(2,1fr); }
+  .guides-grid { grid-template-columns:1fr 1fr; }
+  .glossary-grid { grid-template-columns:1fr; }
+}
+@media (max-width:640px) {
+  .features-grid { grid-template-columns:1fr; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .dash-stats { grid-template-columns:repeat(2,1fr); }
+  .results-grid { grid-template-columns:1fr; }
+  .form-grid-2, .form-row { grid-template-columns:1fr; }
+  .guides-grid { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
+  .hero-stats { grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .hero-stat-number { font-size:1.6rem; }
+  .nav-brand { font-size:1.2rem; }
+  .btn-lg { padding:13px 24px; font-size:0.9375rem; }
+  .chat-container { height:500px; }
+}
+
+</style>
 </head>
 <body>
 
@@ -113,7 +998,7 @@
 </nav>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+<div id="mobile-menu" role="dialog" aria-label="Mobile navigation" style="display:none;visibility:hidden;">
   <ul class="nav-links">
     <li><a href="#" data-section="calculator" data-i18n="nav_calculator">Calculator</a></li>
     <li><a href="#" data-section="bill-analyzer" data-i18n="nav_analyzer">Bill Analyzer</a></li>
@@ -920,13 +1805,2412 @@
   </div>
 </footer>
 
-<!-- Scripts -->
-<script src="translations.js"></script>
-<script src="solar-calculator.js"></script>
-<script src="bill-analyzer.js"></script>
-<script src="reports.js"></script>
-<script src="dashboard.js"></script>
-<script src="app.js"></script>
+<!-- Scripts (bundled inline) -->
+<script>
+// SolarGPT - Translations Module
+// Supports: English (en), Arabic (ar), French (fr)
+
+const TRANSLATIONS = {
+  en: {
+    dir: "ltr",
+    lang: "en",
+    // Nav
+    nav_brand: "SolarGPT",
+    nav_calculator: "Calculator",
+    nav_analyzer: "Bill Analyzer",
+    nav_advisor: "AI Advisor",
+    nav_cost: "Cost Estimator",
+    nav_reports: "Reports",
+    nav_dashboard: "Dashboard",
+    nav_knowledge: "Knowledge Center",
+    nav_pricing: "Pricing",
+    nav_login: "Login",
+    nav_signup: "Get Started Free",
+    // Hero
+    hero_badge: "AI-Powered Solar Planning",
+    hero_title: "Design Your Solar Future with",
+    hero_title_accent: "Artificial Intelligence",
+    hero_subtitle: "Professional solar system design, ROI analysis, and AI-powered advisory for homeowners, engineers, and investors. Plan smarter. Save more.",
+    hero_cta_primary: "Start Free Calculation",
+    hero_cta_secondary: "Watch Demo",
+    hero_stat1: "98%",
+    hero_stat1_label: "Calculation Accuracy",
+    hero_stat2: "50K+",
+    hero_stat2_label: "Projects Planned",
+    hero_stat3: "120+",
+    hero_stat3_label: "Countries Supported",
+    // Features
+    features_title: "Everything You Need for Solar Success",
+    features_subtitle: "From initial estimation to professional reports — SolarGPT covers the entire solar project lifecycle.",
+    feat1_title: "Solar Panel Calculator",
+    feat1_desc: "Calculate required panels, inverter size, battery capacity, and roof space requirements with precision.",
+    feat2_title: "Bill Analyzer",
+    feat2_desc: "Upload your electricity bill and instantly see solar savings potential and recommended system size.",
+    feat3_title: "AI Solar Advisor",
+    feat3_desc: "Get expert answers to any solar question powered by advanced AI. Available 24/7.",
+    feat4_title: "Cost Estimator",
+    feat4_desc: "Detailed ROI analysis, payback period calculation, and equipment cost breakdown.",
+    feat5_title: "Report Generator",
+    feat5_desc: "Generate professional PDF reports for clients, lenders, and permitting authorities.",
+    feat6_title: "Equipment Recommender",
+    feat6_desc: "Get smart recommendations for panels, inverters, batteries, and mounting systems.",
+    // Calculator
+    calc_title: "Solar Panel Calculator",
+    calc_subtitle: "Estimate your complete solar system requirements",
+    calc_monthly_bill: "Monthly Electricity Bill (USD)",
+    calc_kwh: "Monthly Consumption (kWh)",
+    calc_location: "Location / Sun Hours",
+    calc_roof_area: "Available Roof Area (m²)",
+    calc_panel_type: "Panel Type",
+    calc_panel_mono: "Monocrystalline (400W)",
+    calc_panel_poly: "Polycrystalline (300W)",
+    calc_panel_thin: "Thin Film (200W)",
+    calc_battery: "Include Battery Storage",
+    calc_grid: "Grid-tied (No Battery)",
+    calc_hybrid: "Hybrid (With Battery)",
+    calc_offgrid: "Off-Grid",
+    calc_btn: "Calculate System",
+    calc_results: "System Requirements",
+    calc_panels: "Solar Panels Required",
+    calc_inverter: "Inverter Size",
+    calc_battery_cap: "Battery Capacity",
+    calc_roof: "Roof Area Needed",
+    calc_daily: "Daily Production",
+    calc_annual: "Annual Savings",
+    // Bill Analyzer
+    bill_title: "Electricity Bill Analyzer",
+    bill_subtitle: "Analyze your electricity bill to find solar savings",
+    bill_amount: "Monthly Bill Amount (USD)",
+    bill_kwh: "Monthly kWh Consumption",
+    bill_rate: "Electricity Rate ($/kWh)",
+    bill_location_hours: "Peak Sun Hours (per day)",
+    bill_analyze_btn: "Analyze & Recommend",
+    bill_savings: "Potential Monthly Savings",
+    bill_system_size: "Recommended System Size",
+    bill_panels_needed: "Panels Needed",
+    bill_payback: "Estimated Payback",
+    bill_20yr: "20-Year Savings",
+    // AI Advisor
+    advisor_title: "AI Solar Advisor",
+    advisor_subtitle: "Ask anything about solar energy",
+    advisor_placeholder: "Ask me anything about solar panels, installation, ROI, financing...",
+    advisor_send: "Send",
+    advisor_thinking: "Analyzing your question...",
+    advisor_suggestions: "Suggested Questions",
+    advisor_q1: "What size solar system do I need for my home?",
+    advisor_q2: "How does net metering work?",
+    advisor_q3: "What's the difference between on-grid and off-grid?",
+    advisor_q4: "How long do solar panels last?",
+    advisor_q5: "What incentives are available for solar?",
+    // Cost Estimator
+    cost_title: "Cost Estimator & ROI",
+    cost_subtitle: "Full financial analysis for your solar project",
+    cost_system_kw: "System Size (kW)",
+    cost_panel_cost: "Panel Cost ($/W)",
+    cost_install: "Installation Cost ($)",
+    cost_battery_cost: "Battery Cost (if applicable)",
+    cost_incentive: "Government Incentive (%)",
+    cost_elec_rate: "Electricity Rate ($/kWh)",
+    cost_annual_increase: "Annual Rate Increase (%)",
+    cost_btn: "Calculate ROI",
+    cost_total: "Total System Cost",
+    cost_after_incentive: "After Incentives",
+    cost_monthly_savings: "Monthly Savings",
+    cost_payback_period: "Payback Period",
+    cost_roi_10: "10-Year ROI",
+    cost_roi_20: "25-Year ROI",
+    // Dashboard
+    dash_title: "My Dashboard",
+    dash_projects: "Saved Projects",
+    dash_reports: "Generated Reports",
+    dash_calculations: "Calculations Done",
+    dash_clients: "Clients Managed",
+    dash_new_project: "New Project",
+    dash_recent: "Recent Activity",
+    dash_no_projects: "No projects yet. Start your first calculation!",
+    // Reports
+    report_title: "Project Report Generator",
+    report_subtitle: "Generate professional PDF reports",
+    report_project_name: "Project Name",
+    report_client_name: "Client Name",
+    report_date: "Project Date",
+    report_include: "Include Sections",
+    report_summary: "Project Summary",
+    report_system: "System Specifications",
+    report_equipment: "Equipment List",
+    report_savings: "Savings Forecast",
+    report_roi: "ROI Analysis",
+    report_installation: "Installation Notes",
+    report_btn: "Generate PDF Report",
+    // Knowledge Center
+    know_title: "Solar Knowledge Center",
+    know_subtitle: "Learn everything about solar energy",
+    know_guides: "Guides",
+    know_faq: "FAQ",
+    know_glossary: "Glossary",
+    // Pricing
+    price_title: "Simple, Transparent Pricing",
+    price_subtitle: "Start free. Scale as you grow.",
+    price_free: "Free",
+    price_free_desc: "Perfect for homeowners",
+    price_pro: "Professional",
+    price_pro_desc: "For solar engineers",
+    price_company: "Company",
+    price_company_desc: "For installation companies",
+    price_enterprise: "Enterprise",
+    price_enterprise_desc: "Custom solutions",
+    price_month: "/month",
+    price_per_user: "/user/month",
+    price_cta_free: "Get Started Free",
+    price_cta_pro: "Start Pro Trial",
+    price_cta_company: "Start Company Trial",
+    price_cta_enterprise: "Contact Sales",
+    price_popular: "Most Popular",
+    // Footer
+    footer_tagline: "AI-powered solar planning for a sustainable future.",
+    footer_product: "Product",
+    footer_company: "Company",
+    footer_support: "Support",
+    footer_legal: "Legal",
+    footer_about: "About Us",
+    footer_blog: "Blog",
+    footer_careers: "Careers",
+    footer_contact: "Contact",
+    footer_help: "Help Center",
+    footer_docs: "Documentation",
+    footer_api: "API Reference",
+    footer_status: "System Status",
+    footer_privacy: "Privacy Policy",
+    footer_terms: "Terms of Service",
+    footer_rights: "All rights reserved.",
+    footer_email_label: "Support Email:",
+    // Common
+    loading: "Loading...",
+    save: "Save",
+    cancel: "Cancel",
+    download: "Download",
+    share: "Share",
+    delete: "Delete",
+    edit: "Edit",
+    view: "View",
+    close: "Close",
+    yes: "Yes",
+    no: "No",
+    dark_mode: "Dark Mode",
+    light_mode: "Light Mode",
+    theme_toggle: "Toggle Theme",
+    lang_select: "Language",
+  },
+
+  ar: {
+    dir: "rtl",
+    lang: "ar",
+    nav_brand: "سولارGPT",
+    nav_calculator: "الحاسبة",
+    nav_analyzer: "محلل الفواتير",
+    nav_advisor: "المستشار الذكي",
+    nav_cost: "تقدير التكلفة",
+    nav_reports: "التقارير",
+    nav_dashboard: "لوحة التحكم",
+    nav_knowledge: "مركز المعرفة",
+    nav_pricing: "الأسعار",
+    nav_login: "تسجيل الدخول",
+    nav_signup: "ابدأ مجانًا",
+    hero_badge: "تخطيط الطاقة الشمسية بالذكاء الاصطناعي",
+    hero_title: "صمّم مستقبلك الشمسي مع",
+    hero_title_accent: "الذكاء الاصطناعي",
+    hero_subtitle: "تصميم محترف لأنظمة الطاقة الشمسية، تحليل العائد على الاستثمار، واستشارات ذكية لأصحاب المنازل والمهندسين والمستثمرين.",
+    hero_cta_primary: "ابدأ الحساب مجانًا",
+    hero_cta_secondary: "شاهد العرض",
+    hero_stat1: "98%",
+    hero_stat1_label: "دقة الحسابات",
+    hero_stat2: "+50K",
+    hero_stat2_label: "مشروع مخطط",
+    hero_stat3: "+120",
+    hero_stat3_label: "دولة مدعومة",
+    features_title: "كل ما تحتاجه لنجاح مشروعك الشمسي",
+    features_subtitle: "من التقدير الأولي إلى التقارير الاحترافية — سولارGPT يغطي دورة حياة المشروع الشمسي بالكامل.",
+    feat1_title: "حاسبة الألواح الشمسية",
+    feat1_desc: "احسب الألواح المطلوبة وحجم العاكس وسعة البطارية ومتطلبات مساحة السطح بدقة عالية.",
+    feat2_title: "محلل الفواتير",
+    feat2_desc: "أدخل فاتورة الكهرباء واحصل فورًا على توفيرات الطاقة الشمسية المحتملة وحجم النظام الموصى به.",
+    feat3_title: "المستشار الشمسي الذكي",
+    feat3_desc: "احصل على إجابات خبراء لأي سؤال عن الطاقة الشمسية بقوة الذكاء الاصطناعي. متاح 24/7.",
+    feat4_title: "تقدير التكلفة",
+    feat4_desc: "تحليل مفصل للعائد على الاستثمار وحساب فترة الاسترداد وتفصيل تكاليف المعدات.",
+    feat5_title: "مولّد التقارير",
+    feat5_desc: "أنشئ تقارير PDF احترافية للعملاء والمقرضين والجهات المختصة.",
+    feat6_title: "موصي المعدات",
+    feat6_desc: "احصل على توصيات ذكية للألواح والعواكس والبطاريات وأنظمة التركيب.",
+    calc_title: "حاسبة الألواح الشمسية",
+    calc_subtitle: "قدّر متطلبات نظامك الشمسي الكامل",
+    calc_monthly_bill: "فاتورة الكهرباء الشهرية (دولار)",
+    calc_kwh: "الاستهلاك الشهري (كيلوواط/ساعة)",
+    calc_location: "الموقع / ساعات الشمس",
+    calc_roof_area: "مساحة السطح المتاحة (م²)",
+    calc_panel_type: "نوع اللوح",
+    calc_panel_mono: "أحادي التبلور (400W)",
+    calc_panel_poly: "متعدد التبلور (300W)",
+    calc_panel_thin: "فيلم رفيع (200W)",
+    calc_battery: "تضمين تخزين البطارية",
+    calc_grid: "متصل بالشبكة (بدون بطارية)",
+    calc_hybrid: "هجين (مع بطارية)",
+    calc_offgrid: "مستقل عن الشبكة",
+    calc_btn: "احسب النظام",
+    calc_results: "متطلبات النظام",
+    calc_panels: "الألواح الشمسية المطلوبة",
+    calc_inverter: "حجم العاكس",
+    calc_battery_cap: "سعة البطارية",
+    calc_roof: "مساحة السطح المطلوبة",
+    calc_daily: "الإنتاج اليومي",
+    calc_annual: "التوفيرات السنوية",
+    bill_title: "محلل فاتورة الكهرباء",
+    bill_subtitle: "حلل فاتورتك لاكتشاف توفيرات الطاقة الشمسية",
+    bill_amount: "مبلغ الفاتورة الشهرية (دولار)",
+    bill_kwh: "الاستهلاك الشهري (كيلوواط/ساعة)",
+    bill_rate: "سعر الكهرباء ($/كيلوواط/ساعة)",
+    bill_location_hours: "ساعات الذروة الشمسية (يوميًا)",
+    bill_analyze_btn: "تحليل وتوصية",
+    bill_savings: "التوفير الشهري المحتمل",
+    bill_system_size: "حجم النظام الموصى به",
+    bill_panels_needed: "الألواح المطلوبة",
+    bill_payback: "فترة الاسترداد المقدرة",
+    bill_20yr: "التوفيرات على 20 سنة",
+    advisor_title: "المستشار الشمسي الذكي",
+    advisor_subtitle: "اسأل أي شيء عن الطاقة الشمسية",
+    advisor_placeholder: "اسألني أي شيء عن الألواح الشمسية، التركيب، العائد على الاستثمار، التمويل...",
+    advisor_send: "إرسال",
+    advisor_thinking: "جاري تحليل سؤالك...",
+    advisor_suggestions: "أسئلة مقترحة",
+    advisor_q1: "ما حجم نظام الطاقة الشمسية الذي أحتاجه لمنزلي؟",
+    advisor_q2: "كيف يعمل نظام قياس الشبكة الصافية؟",
+    advisor_q3: "ما الفرق بين الأنظمة المتصلة بالشبكة والمستقلة؟",
+    advisor_q4: "كم تدوم الألواح الشمسية؟",
+    advisor_q5: "ما الحوافز المتاحة للطاقة الشمسية؟",
+    cost_title: "تقدير التكلفة والعائد على الاستثمار",
+    cost_subtitle: "تحليل مالي كامل لمشروعك الشمسي",
+    cost_system_kw: "حجم النظام (كيلوواط)",
+    cost_panel_cost: "تكلفة اللوح ($/واط)",
+    cost_install: "تكلفة التركيب ($)",
+    cost_battery_cost: "تكلفة البطارية (إن وجدت)",
+    cost_incentive: "الحافز الحكومي (%)",
+    cost_elec_rate: "سعر الكهرباء ($/كيلوواط/ساعة)",
+    cost_annual_increase: "الزيادة السنوية للسعر (%)",
+    cost_btn: "احسب العائد على الاستثمار",
+    cost_total: "التكلفة الإجمالية للنظام",
+    cost_after_incentive: "بعد الحوافز",
+    cost_monthly_savings: "التوفير الشهري",
+    cost_payback_period: "فترة الاسترداد",
+    cost_roi_10: "عائد الاستثمار 10 سنوات",
+    cost_roi_20: "عائد الاستثمار 25 سنة",
+    dash_title: "لوحة التحكم",
+    dash_projects: "المشاريع المحفوظة",
+    dash_reports: "التقارير المنشأة",
+    dash_calculations: "الحسابات المنجزة",
+    dash_clients: "العملاء المُدارون",
+    dash_new_project: "مشروع جديد",
+    dash_recent: "النشاط الأخير",
+    dash_no_projects: "لا توجد مشاريع بعد. ابدأ حسابك الأول!",
+    report_title: "مولّد تقارير المشروع",
+    report_subtitle: "أنشئ تقارير PDF احترافية",
+    report_project_name: "اسم المشروع",
+    report_client_name: "اسم العميل",
+    report_date: "تاريخ المشروع",
+    report_include: "الأقسام المضمّنة",
+    report_summary: "ملخص المشروع",
+    report_system: "مواصفات النظام",
+    report_equipment: "قائمة المعدات",
+    report_savings: "توقعات التوفير",
+    report_roi: "تحليل العائد على الاستثمار",
+    report_installation: "ملاحظات التركيب",
+    report_btn: "إنشاء تقرير PDF",
+    know_title: "مركز معرفة الطاقة الشمسية",
+    know_subtitle: "تعلم كل شيء عن الطاقة الشمسية",
+    know_guides: "الأدلة",
+    know_faq: "الأسئلة الشائعة",
+    know_glossary: "المصطلحات",
+    price_title: "أسعار شفافة وبسيطة",
+    price_subtitle: "ابدأ مجانًا. توسّع مع نموك.",
+    price_free: "مجاني",
+    price_free_desc: "مثالي لأصحاب المنازل",
+    price_pro: "احترافي",
+    price_pro_desc: "للمهندسين الشمسيين",
+    price_company: "شركة",
+    price_company_desc: "لشركات التركيب",
+    price_enterprise: "مؤسسي",
+    price_enterprise_desc: "حلول مخصصة",
+    price_month: "/شهر",
+    price_per_user: "/مستخدم/شهر",
+    price_cta_free: "ابدأ مجانًا",
+    price_cta_pro: "جرّب النسخة الاحترافية",
+    price_cta_company: "جرّب نسخة الشركة",
+    price_cta_enterprise: "تواصل مع المبيعات",
+    price_popular: "الأكثر شيوعًا",
+    footer_tagline: "تخطيط الطاقة الشمسية بالذكاء الاصطناعي من أجل مستقبل مستدام.",
+    footer_product: "المنتج",
+    footer_company: "الشركة",
+    footer_support: "الدعم",
+    footer_legal: "قانوني",
+    footer_about: "من نحن",
+    footer_blog: "المدونة",
+    footer_careers: "الوظائف",
+    footer_contact: "اتصل بنا",
+    footer_help: "مركز المساعدة",
+    footer_docs: "التوثيق",
+    footer_api: "مرجع API",
+    footer_status: "حالة النظام",
+    footer_privacy: "سياسة الخصوصية",
+    footer_terms: "شروط الخدمة",
+    footer_rights: "جميع الحقوق محفوظة.",
+    footer_email_label: "البريد الإلكتروني للدعم:",
+    loading: "جاري التحميل...",
+    save: "حفظ",
+    cancel: "إلغاء",
+    download: "تنزيل",
+    share: "مشاركة",
+    delete: "حذف",
+    edit: "تعديل",
+    view: "عرض",
+    close: "إغلاق",
+    yes: "نعم",
+    no: "لا",
+    dark_mode: "الوضع الداكن",
+    light_mode: "الوضع الفاتح",
+    theme_toggle: "تبديل المظهر",
+    lang_select: "اللغة",
+  },
+
+  fr: {
+    dir: "ltr",
+    lang: "fr",
+    nav_brand: "SolarGPT",
+    nav_calculator: "Calculateur",
+    nav_analyzer: "Analyseur de facture",
+    nav_advisor: "Conseiller IA",
+    nav_cost: "Estimateur de coût",
+    nav_reports: "Rapports",
+    nav_dashboard: "Tableau de bord",
+    nav_knowledge: "Centre de connaissances",
+    nav_pricing: "Tarifs",
+    nav_login: "Connexion",
+    nav_signup: "Commencer gratuitement",
+    hero_badge: "Planification solaire par IA",
+    hero_title: "Concevez votre avenir solaire avec",
+    hero_title_accent: "l'Intelligence Artificielle",
+    hero_subtitle: "Conception professionnelle de systèmes solaires, analyse ROI et conseils IA pour propriétaires, ingénieurs et investisseurs.",
+    hero_cta_primary: "Commencer le calcul gratuit",
+    hero_cta_secondary: "Voir la démo",
+    hero_stat1: "98%",
+    hero_stat1_label: "Précision des calculs",
+    hero_stat2: "50K+",
+    hero_stat2_label: "Projets planifiés",
+    hero_stat3: "120+",
+    hero_stat3_label: "Pays supportés",
+    features_title: "Tout ce qu'il vous faut pour réussir dans le solaire",
+    features_subtitle: "De l'estimation initiale aux rapports professionnels — SolarGPT couvre tout le cycle de vie du projet solaire.",
+    feat1_title: "Calculateur de panneaux solaires",
+    feat1_desc: "Calculez les panneaux requis, la taille de l'onduleur, la capacité de batterie et l'espace toiture nécessaire.",
+    feat2_title: "Analyseur de facture",
+    feat2_desc: "Entrez votre facture d'électricité et obtenez instantanément les économies potentielles et la taille de système recommandée.",
+    feat3_title: "Conseiller solaire IA",
+    feat3_desc: "Obtenez des réponses d'experts à toute question sur l'énergie solaire. Disponible 24h/24, 7j/7.",
+    feat4_title: "Estimateur de coût",
+    feat4_desc: "Analyse ROI détaillée, calcul de la période de remboursement et ventilation des coûts d'équipement.",
+    feat5_title: "Générateur de rapports",
+    feat5_desc: "Générez des rapports PDF professionnels pour les clients, prêteurs et autorités de permis.",
+    feat6_title: "Recommandeur d'équipements",
+    feat6_desc: "Obtenez des recommandations intelligentes pour panneaux, onduleurs, batteries et systèmes de montage.",
+    calc_title: "Calculateur de panneaux solaires",
+    calc_subtitle: "Estimez les besoins complets de votre système solaire",
+    calc_monthly_bill: "Facture mensuelle d'électricité (USD)",
+    calc_kwh: "Consommation mensuelle (kWh)",
+    calc_location: "Lieu / Heures d'ensoleillement",
+    calc_roof_area: "Surface toiture disponible (m²)",
+    calc_panel_type: "Type de panneau",
+    calc_panel_mono: "Monocristallin (400W)",
+    calc_panel_poly: "Polycristallin (300W)",
+    calc_panel_thin: "Film mince (200W)",
+    calc_battery: "Inclure le stockage par batterie",
+    calc_grid: "Raccordé au réseau (sans batterie)",
+    calc_hybrid: "Hybride (avec batterie)",
+    calc_offgrid: "Hors réseau",
+    calc_btn: "Calculer le système",
+    calc_results: "Besoins du système",
+    calc_panels: "Panneaux solaires requis",
+    calc_inverter: "Taille de l'onduleur",
+    calc_battery_cap: "Capacité de la batterie",
+    calc_roof: "Surface toiture nécessaire",
+    calc_daily: "Production journalière",
+    calc_annual: "Économies annuelles",
+    bill_title: "Analyseur de facture d'électricité",
+    bill_subtitle: "Analysez votre facture pour trouver les économies solaires",
+    bill_amount: "Montant mensuel de la facture (USD)",
+    bill_kwh: "Consommation mensuelle en kWh",
+    bill_rate: "Tarif de l'électricité ($/kWh)",
+    bill_location_hours: "Heures de pointe solaire (par jour)",
+    bill_analyze_btn: "Analyser et recommander",
+    bill_savings: "Économies mensuelles potentielles",
+    bill_system_size: "Taille du système recommandée",
+    bill_panels_needed: "Panneaux nécessaires",
+    bill_payback: "Période de remboursement estimée",
+    bill_20yr: "Économies sur 20 ans",
+    advisor_title: "Conseiller solaire IA",
+    advisor_subtitle: "Posez n'importe quelle question sur l'énergie solaire",
+    advisor_placeholder: "Posez-moi une question sur les panneaux solaires, l'installation, le ROI, le financement...",
+    advisor_send: "Envoyer",
+    advisor_thinking: "Analyse de votre question...",
+    advisor_suggestions: "Questions suggérées",
+    advisor_q1: "Quelle taille de système solaire me faut-il pour ma maison ?",
+    advisor_q2: "Comment fonctionne le net metering ?",
+    advisor_q3: "Quelle est la différence entre on-grid et off-grid ?",
+    advisor_q4: "Combien de temps durent les panneaux solaires ?",
+    advisor_q5: "Quelles incitations sont disponibles pour le solaire ?",
+    cost_title: "Estimateur de coût & ROI",
+    cost_subtitle: "Analyse financière complète de votre projet solaire",
+    cost_system_kw: "Taille du système (kW)",
+    cost_panel_cost: "Coût du panneau ($/W)",
+    cost_install: "Coût d'installation ($)",
+    cost_battery_cost: "Coût de la batterie (si applicable)",
+    cost_incentive: "Incitation gouvernementale (%)",
+    cost_elec_rate: "Tarif électricité ($/kWh)",
+    cost_annual_increase: "Augmentation annuelle du tarif (%)",
+    cost_btn: "Calculer le ROI",
+    cost_total: "Coût total du système",
+    cost_after_incentive: "Après incitations",
+    cost_monthly_savings: "Économies mensuelles",
+    cost_payback_period: "Période de remboursement",
+    cost_roi_10: "ROI sur 10 ans",
+    cost_roi_20: "ROI sur 25 ans",
+    dash_title: "Mon tableau de bord",
+    dash_projects: "Projets sauvegardés",
+    dash_reports: "Rapports générés",
+    dash_calculations: "Calculs effectués",
+    dash_clients: "Clients gérés",
+    dash_new_project: "Nouveau projet",
+    dash_recent: "Activité récente",
+    dash_no_projects: "Aucun projet pour l'instant. Commencez votre premier calcul !",
+    report_title: "Générateur de rapports de projet",
+    report_subtitle: "Générez des rapports PDF professionnels",
+    report_project_name: "Nom du projet",
+    report_client_name: "Nom du client",
+    report_date: "Date du projet",
+    report_include: "Sections à inclure",
+    report_summary: "Résumé du projet",
+    report_system: "Spécifications du système",
+    report_equipment: "Liste des équipements",
+    report_savings: "Prévisions d'économies",
+    report_roi: "Analyse ROI",
+    report_installation: "Notes d'installation",
+    report_btn: "Générer le rapport PDF",
+    know_title: "Centre de connaissances solaires",
+    know_subtitle: "Apprenez tout sur l'énergie solaire",
+    know_guides: "Guides",
+    know_faq: "FAQ",
+    know_glossary: "Glossaire",
+    price_title: "Tarification simple et transparente",
+    price_subtitle: "Commencez gratuitement. Évoluez à votre rythme.",
+    price_free: "Gratuit",
+    price_free_desc: "Parfait pour les propriétaires",
+    price_pro: "Professionnel",
+    price_pro_desc: "Pour les ingénieurs solaires",
+    price_company: "Entreprise",
+    price_company_desc: "Pour les installateurs",
+    price_enterprise: "Entreprise",
+    price_enterprise_desc: "Solutions personnalisées",
+    price_month: "/mois",
+    price_per_user: "/utilisateur/mois",
+    price_cta_free: "Commencer gratuitement",
+    price_cta_pro: "Essai Pro gratuit",
+    price_cta_company: "Essai Entreprise",
+    price_cta_enterprise: "Contacter les ventes",
+    price_popular: "Le plus populaire",
+    footer_tagline: "Planification solaire par IA pour un avenir durable.",
+    footer_product: "Produit",
+    footer_company: "Entreprise",
+    footer_support: "Support",
+    footer_legal: "Légal",
+    footer_about: "À propos",
+    footer_blog: "Blog",
+    footer_careers: "Carrières",
+    footer_contact: "Contact",
+    footer_help: "Centre d'aide",
+    footer_docs: "Documentation",
+    footer_api: "Référence API",
+    footer_status: "État du système",
+    footer_privacy: "Politique de confidentialité",
+    footer_terms: "Conditions d'utilisation",
+    footer_rights: "Tous droits réservés.",
+    footer_email_label: "Email de support :",
+    loading: "Chargement...",
+    save: "Sauvegarder",
+    cancel: "Annuler",
+    download: "Télécharger",
+    share: "Partager",
+    delete: "Supprimer",
+    edit: "Modifier",
+    view: "Voir",
+    close: "Fermer",
+    yes: "Oui",
+    no: "Non",
+    dark_mode: "Mode sombre",
+    light_mode: "Mode clair",
+    theme_toggle: "Changer le thème",
+    lang_select: "Langue",
+  },
+};
+
+// i18n Manager
+class I18n {
+  constructor() {
+    this.currentLang = localStorage.getItem("solargpt_lang") || "en";
+    this.applyLanguage(this.currentLang);
+  }
+
+  t(key) {
+    return TRANSLATIONS[this.currentLang]?.[key] || TRANSLATIONS["en"]?.[key] || key;
+  }
+
+  setLanguage(lang) {
+    if (!TRANSLATIONS[lang]) return;
+    this.currentLang = lang;
+    localStorage.setItem("solargpt_lang", lang);
+    this.applyLanguage(lang);
+    this.updateDOM();
+  }
+
+  applyLanguage(lang) {
+    const t = TRANSLATIONS[lang];
+    document.documentElement.lang = t.lang;
+    document.documentElement.dir = t.dir;
+    document.body.classList.toggle("rtl", t.dir === "rtl");
+  }
+
+  updateDOM() {
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const attr = el.getAttribute("data-i18n-attr");
+      const val = this.t(key);
+      if (attr) {
+        el.setAttribute(attr, val);
+      } else {
+        el.textContent = val;
+      }
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-html");
+      el.innerHTML = this.t(key);
+    });
+  }
+}
+
+const i18n = new I18n();
+window.i18n = i18n;
+
+</script>
+<script>
+// SolarGPT — Solar Calculator Engine
+// Handles all photovoltaic system sizing calculations
+
+const SolarCalculator = (() => {
+  // Constants
+  const PANEL_WATTAGE = { mono: 400, poly: 300, thin: 200 };
+  const PANEL_EFFICIENCY = { mono: 0.20, poly: 0.16, thin: 0.12 };
+  const PANEL_AREA_M2 = { mono: 1.8, poly: 1.95, thin: 2.2 };
+  const SYSTEM_LOSS_FACTOR = 0.80; // cables, inverter, soiling, temp
+  const BATTERY_DAYS = 1.5; // days of autonomy for off-grid
+  const BATTERY_DOD = 0.80; // depth of discharge
+  const BATTERY_VOLTAGE = 48;
+  const INVERTER_EFFICIENCY = 0.96;
+  const INVERTER_OVERSIZING = 1.25;
+
+  // Sun hours by location presets
+  const SUN_HOURS = {
+    "Morocco": 5.5, "Algeria": 5.4, "Tunisia": 5.2, "Libya": 5.6,
+    "Egypt": 5.8, "Saudi Arabia": 6.2, "UAE": 5.9, "Kuwait": 5.7,
+    "Qatar": 5.6, "Bahrain": 5.5, "Oman": 5.8, "Yemen": 5.7,
+    "Jordan": 5.4, "Lebanon": 4.9, "Syria": 5.2, "Iraq": 5.5,
+    "USA": 4.5, "Germany": 3.0, "France": 3.8, "Spain": 4.9,
+    "Italy": 4.7, "Portugal": 4.8, "UK": 2.8, "Australia": 5.0,
+    "India": 4.5, "China": 4.0, "Brazil": 5.0, "South Africa": 5.2,
+    "default": 4.5
+  };
+
+  function getSunHours(location) {
+    if (!location) return SUN_HOURS.default;
+    const key = Object.keys(SUN_HOURS).find(k =>
+      location.toLowerCase().includes(k.toLowerCase())
+    );
+    return key ? SUN_HOURS[key] : parseFloat(location) || SUN_HOURS.default;
+  }
+
+  /**
+   * Main calculation function
+   * @param {Object} inputs
+   * @returns {Object} results
+   */
+  function calculate(inputs) {
+    const {
+      monthlyKwh = 0,
+      monthlyBill = 0,
+      location = "default",
+      roofAreaM2 = 0,
+      panelType = "mono",
+      systemType = "grid", // grid | hybrid | offgrid
+      electricityRate = 0.12,
+    } = inputs;
+
+    // Validate
+    const kwh = parseFloat(monthlyKwh) || 0;
+    const bill = parseFloat(monthlyBill) || 0;
+    const area = parseFloat(roofAreaM2) || 0;
+    const rate = parseFloat(electricityRate) || 0.12;
+
+    // Derive kWh from bill if not provided
+    const monthlyConsumption = kwh > 0 ? kwh : (rate > 0 ? bill / rate : bill / 0.12);
+    const dailyConsumption = monthlyConsumption / 30;
+
+    const sunHours = getSunHours(location);
+    const panelW = PANEL_WATTAGE[panelType] || 400;
+    const panelEff = PANEL_EFFICIENCY[panelType] || 0.20;
+    const panelArea = PANEL_AREA_M2[panelType] || 1.8;
+
+    // System size in kWp
+    const systemKwp = dailyConsumption / (sunHours * SYSTEM_LOSS_FACTOR);
+
+    // Number of panels
+    const panelsRequired = Math.ceil((systemKwp * 1000) / panelW);
+
+    // Actual system size
+    const actualSystemKwp = (panelsRequired * panelW) / 1000;
+
+    // Daily production (kWh)
+    const dailyProduction = actualSystemKwp * sunHours * SYSTEM_LOSS_FACTOR;
+
+    // Monthly production
+    const monthlyProduction = dailyProduction * 30;
+
+    // Annual production
+    const annualProduction = dailyProduction * 365;
+
+    // Inverter size (kVA)
+    const inverterKw = Math.ceil(actualSystemKwp * INVERTER_OVERSIZING * 10) / 10;
+
+    // Roof area needed
+    const roofNeededM2 = Math.ceil(panelsRequired * panelArea);
+
+    // Battery capacity (kWh) - only for hybrid/offgrid
+    let batteryKwh = 0;
+    let batteryAh = 0;
+    if (systemType === "hybrid") {
+      batteryKwh = (dailyConsumption * 0.5) / BATTERY_DOD; // 50% of daily from battery
+    } else if (systemType === "offgrid") {
+      batteryKwh = (dailyConsumption * BATTERY_DAYS) / BATTERY_DOD;
+    }
+    if (batteryKwh > 0) {
+      batteryAh = Math.ceil((batteryKwh * 1000) / BATTERY_VOLTAGE);
+    }
+
+    // Financial
+    const annualSavingsUsd = annualProduction * rate;
+    const monthlySavingsUsd = monthlyProduction * rate;
+
+    // Coverage percentage
+    const solarCoveragePercent = Math.min(100, Math.round((monthlyProduction / monthlyConsumption) * 100));
+
+    // Roof check
+    const roofSufficient = area === 0 || area >= roofNeededM2;
+
+    return {
+      // System
+      systemKwp: parseFloat(actualSystemKwp.toFixed(2)),
+      panelsRequired,
+      panelType,
+      panelWatts: panelW,
+
+      // Inverter
+      inverterKw: parseFloat(inverterKw.toFixed(1)),
+
+      // Battery
+      batteryKwh: parseFloat(batteryKwh.toFixed(1)),
+      batteryAh,
+      systemType,
+
+      // Roof
+      roofNeededM2,
+      roofSufficient,
+      roofAvailableM2: area,
+
+      // Production
+      dailyProductionKwh: parseFloat(dailyProduction.toFixed(1)),
+      monthlyProductionKwh: parseFloat(monthlyProduction.toFixed(0)),
+      annualProductionKwh: parseFloat(annualProduction.toFixed(0)),
+      solarCoveragePercent,
+
+      // Financial
+      annualSavingsUsd: parseFloat(annualSavingsUsd.toFixed(0)),
+      monthlySavingsUsd: parseFloat(monthlySavingsUsd.toFixed(0)),
+
+      // Location
+      sunHoursPerDay: sunHours,
+      monthlyConsumption: parseFloat(monthlyConsumption.toFixed(0)),
+      dailyConsumption: parseFloat(dailyConsumption.toFixed(1)),
+    };
+  }
+
+  /**
+   * Equipment recommendations based on system size
+   */
+  function recommendEquipment(results) {
+    const { systemKwp, batteryKwh, inverterKw, panelType, systemType } = results;
+
+    const panels = recommendPanels(systemKwp, panelType);
+    const inverters = recommendInverters(inverterKw, systemType);
+    const batteries = batteryKwh > 0 ? recommendBatteries(batteryKwh) : [];
+    const mounting = recommendMounting(systemKwp);
+
+    return { panels, inverters, batteries, mounting };
+  }
+
+  function recommendPanels(systemKwp, type) {
+    const options = {
+      mono: [
+        { brand: "Jinko Solar", model: "Tiger Neo 400W", efficiency: "21.4%", warranty: "25yr", price_per_w: 0.28 },
+        { brand: "LONGi Solar", model: "Hi-MO6 405W", efficiency: "21.8%", warranty: "25yr", price_per_w: 0.29 },
+        { brand: "Canadian Solar", model: "HiHero 410W", efficiency: "21.9%", warranty: "25yr", price_per_w: 0.30 },
+      ],
+      poly: [
+        { brand: "Risen Energy", model: "RSM120-6 320W", efficiency: "16.5%", warranty: "25yr", price_per_w: 0.22 },
+        { brand: "Trina Solar", model: "Honey 310W", efficiency: "16.2%", warranty: "25yr", price_per_w: 0.21 },
+      ],
+      thin: [
+        { brand: "First Solar", model: "Series 6 Plus", efficiency: "17.1%", warranty: "25yr", price_per_w: 0.25 },
+        { brand: "Solar Frontier", model: "SF175-S", efficiency: "13.8%", warranty: "20yr", price_per_w: 0.20 },
+      ],
+    };
+    return (options[type] || options.mono).map(p => ({
+      ...p,
+      estimated_cost: `$${(systemKwp * 1000 * p.price_per_w).toFixed(0)}`,
+    }));
+  }
+
+  function recommendInverters(inverterKw, systemType) {
+    if (systemType === "offgrid") {
+      return [
+        { brand: "Victron Energy", model: `MultiPlus-II ${inverterKw}kVA`, type: "Off-Grid", warranty: "5yr", price: `$${(inverterKw * 280).toFixed(0)}` },
+        { brand: "SMA", model: `Sunny Island ${inverterKw}kW`, type: "Off-Grid", warranty: "5yr", price: `$${(inverterKw * 320).toFixed(0)}` },
+      ];
+    } else if (systemType === "hybrid") {
+      return [
+        { brand: "SolarEdge", model: `StorEdge ${inverterKw}kW`, type: "Hybrid", warranty: "12yr", price: `$${(inverterKw * 350).toFixed(0)}` },
+        { brand: "GoodWe", model: `ES ${inverterKw}kW`, type: "Hybrid", warranty: "10yr", price: `$${(inverterKw * 220).toFixed(0)}` },
+        { brand: "Sungrow", model: `SH${inverterKw}T`, type: "Hybrid", warranty: "10yr", price: `$${(inverterKw * 200).toFixed(0)}` },
+      ];
+    } else {
+      return [
+        { brand: "SMA", model: `Sunny Boy ${inverterKw}kW`, type: "Grid-Tie", warranty: "10yr", price: `$${(inverterKw * 160).toFixed(0)}` },
+        { brand: "Fronius", model: `Symo ${inverterKw}kW`, type: "Grid-Tie", warranty: "7yr", price: `$${(inverterKw * 180).toFixed(0)}` },
+        { brand: "Huawei", model: `SUN2000 ${inverterKw}kW`, type: "Grid-Tie", warranty: "10yr", price: `$${(inverterKw * 140).toFixed(0)}` },
+      ];
+    }
+  }
+
+  function recommendBatteries(batteryKwh) {
+    return [
+      { brand: "Tesla", model: `Powerwall 2 (${Math.ceil(batteryKwh / 13.5)} units)`, capacity: `${batteryKwh.toFixed(1)} kWh`, chemistry: "LFP", warranty: "10yr", price: `$${(Math.ceil(batteryKwh / 13.5) * 9500).toFixed(0)}` },
+      { brand: "BYD", model: `Battery-Box Premium HV`, capacity: `${batteryKwh.toFixed(1)} kWh`, chemistry: "LFP", warranty: "10yr", price: `$${(batteryKwh * 600).toFixed(0)}` },
+      { brand: "Pylontech", model: `US3000C (${Math.ceil(batteryKwh / 3.55)} units)`, capacity: `${batteryKwh.toFixed(1)} kWh`, chemistry: "LFP", warranty: "10yr", price: `$${(batteryKwh * 420).toFixed(0)}` },
+    ];
+  }
+
+  function recommendMounting(systemKwp) {
+    return [
+      { brand: "K2 Systems", model: "Rapid2+", type: "Roof Mount", warranty: "15yr", price: `$${(systemKwp * 80).toFixed(0)}` },
+      { brand: "Schletter", model: "FlatFix Fusion", type: "Flat Roof", warranty: "15yr", price: `$${(systemKwp * 90).toFixed(0)}` },
+      { brand: "IronRidge", model: "XR100 Rail", type: "Roof Mount", warranty: "20yr", price: `$${(systemKwp * 70).toFixed(0)}` },
+    ];
+  }
+
+  // Render calculator results to DOM
+  function renderResults(results, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
+
+    container.innerHTML = `
+      <div class="results-grid">
+        <div class="result-card primary">
+          <div class="result-icon">☀️</div>
+          <div class="result-value">${results.panelsRequired}</div>
+          <div class="result-label">${t("calc_panels")}</div>
+          <div class="result-detail">${results.panelWatts}W ${results.panelType}</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">⚡</div>
+          <div class="result-value">${results.systemKwp} kWp</div>
+          <div class="result-label">System Size</div>
+          <div class="result-detail">${results.sunHoursPerDay}h/day sun</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🔄</div>
+          <div class="result-value">${results.inverterKw} kW</div>
+          <div class="result-label">${t("calc_inverter")}</div>
+          <div class="result-detail">${results.systemType} system</div>
+        </div>
+        ${results.batteryKwh > 0 ? `
+        <div class="result-card">
+          <div class="result-icon">🔋</div>
+          <div class="result-value">${results.batteryKwh} kWh</div>
+          <div class="result-label">${t("calc_battery_cap")}</div>
+          <div class="result-detail">${results.batteryAh}Ah @ 48V</div>
+        </div>` : ""}
+        <div class="result-card">
+          <div class="result-icon">🏠</div>
+          <div class="result-value">${results.roofNeededM2} m²</div>
+          <div class="result-label">${t("calc_roof")}</div>
+          <div class="result-detail">${results.roofSufficient ? "✓ Sufficient roof" : "⚠️ Check roof area"}</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">📊</div>
+          <div class="result-value">${results.dailyProductionKwh} kWh</div>
+          <div class="result-label">${t("calc_daily")}</div>
+          <div class="result-detail">${results.annualProductionKwh.toLocaleString()} kWh/year</div>
+        </div>
+        <div class="result-card highlight">
+          <div class="result-icon">💰</div>
+          <div class="result-value">$${results.monthlySavingsUsd}</div>
+          <div class="result-label">${t("calc_annual")}</div>
+          <div class="result-detail">$${results.annualSavingsUsd.toLocaleString()}/year</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🌱</div>
+          <div class="result-value">${results.solarCoveragePercent}%</div>
+          <div class="result-label">Solar Coverage</div>
+          <div class="result-detail">${results.monthlyProductionKwh} kWh/month</div>
+        </div>
+      </div>
+      <div class="coverage-bar-wrapper">
+        <div class="coverage-bar-label">
+          <span>Solar Coverage</span>
+          <span>${results.solarCoveragePercent}%</span>
+        </div>
+        <div class="coverage-bar">
+          <div class="coverage-fill" style="width: ${results.solarCoveragePercent}%"></div>
+        </div>
+      </div>
+    `;
+
+    container.classList.add("visible");
+    container.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  return { calculate, recommendEquipment, renderResults, getSunHours };
+})();
+
+window.SolarCalculator = SolarCalculator;
+
+</script>
+<script>
+// SolarGPT — Bill Analyzer Module
+// Analyzes electricity bills and recommends solar systems
+
+const BillAnalyzer = (() => {
+
+  function analyze(inputs) {
+    const {
+      monthlyBill = 0,
+      monthlyKwh = 0,
+      electricityRate = 0.12,
+      sunHours = 4.5,
+      systemCostPerW = 1.0,
+      incentivePercent = 0,
+    } = inputs;
+
+    const bill = parseFloat(monthlyBill) || 0;
+    const kwh = parseFloat(monthlyKwh) || 0;
+    const rate = parseFloat(electricityRate) || 0.12;
+    const sun = parseFloat(sunHours) || 4.5;
+    const costPerW = parseFloat(systemCostPerW) || 1.0;
+    const incentive = parseFloat(incentivePercent) / 100 || 0;
+
+    // Derive consumption
+    const monthlyConsumption = kwh > 0 ? kwh : (rate > 0 ? bill / rate : bill / 0.12);
+    const annualConsumption = monthlyConsumption * 12;
+    const dailyConsumption = monthlyConsumption / 30;
+
+    // Recommended system size (kWp) — cover 100% of consumption
+    const systemKwp = dailyConsumption / (sun * 0.80);
+    const systemKwpRounded = Math.ceil(systemKwp * 10) / 10;
+
+    // Panels (using 400W mono as standard)
+    const panelsNeeded = Math.ceil((systemKwpRounded * 1000) / 400);
+
+    // Production
+    const dailyProduction = systemKwpRounded * sun * 0.80;
+    const monthlyProduction = dailyProduction * 30;
+    const annualProduction = dailyProduction * 365;
+
+    // Savings
+    const monthlySavings = Math.min(monthlyProduction * rate, bill);
+    const annualSavings = monthlySavings * 12;
+
+    // Cost
+    const grossCost = systemKwpRounded * 1000 * costPerW;
+    const netCost = grossCost * (1 - incentive);
+
+    // Payback
+    const paybackYears = netCost > 0 && annualSavings > 0
+      ? parseFloat((netCost / annualSavings).toFixed(1))
+      : 0;
+
+    // 20-year savings (with 3% annual electricity rate increase)
+    let totalSavings20 = 0;
+    let currentSavings = annualSavings;
+    for (let i = 0; i < 20; i++) {
+      totalSavings20 += currentSavings;
+      currentSavings *= 1.03;
+    }
+
+    // ROI
+    const roi20 = netCost > 0
+      ? parseFloat(((totalSavings20 - netCost) / netCost * 100).toFixed(0))
+      : 0;
+
+    // CO2 avoided (0.4 kg CO2 per kWh average)
+    const co2AvoidedAnnualKg = Math.round(annualProduction * 0.4);
+    const treesEquivalent = Math.round(co2AvoidedAnnualKg / 21);
+
+    // Bill reduction percentage
+    const billReductionPercent = bill > 0
+      ? Math.min(100, Math.round((monthlySavings / bill) * 100))
+      : 0;
+
+    return {
+      // Input summary
+      monthlyBill: bill,
+      monthlyConsumption: parseFloat(monthlyConsumption.toFixed(0)),
+      electricityRate: rate,
+      sunHoursPerDay: sun,
+
+      // Recommendation
+      recommendedSystemKwp: systemKwpRounded,
+      panelsNeeded,
+
+      // Production
+      dailyProductionKwh: parseFloat(dailyProduction.toFixed(1)),
+      monthlyProductionKwh: parseFloat(monthlyProduction.toFixed(0)),
+      annualProductionKwh: parseFloat(annualProduction.toFixed(0)),
+
+      // Savings
+      monthlySavingsUsd: parseFloat(monthlySavings.toFixed(0)),
+      annualSavingsUsd: parseFloat(annualSavings.toFixed(0)),
+      totalSavings20Yr: parseFloat(totalSavings20.toFixed(0)),
+      billReductionPercent,
+
+      // Financials
+      estimatedSystemCost: parseFloat(grossCost.toFixed(0)),
+      netCostAfterIncentive: parseFloat(netCost.toFixed(0)),
+      paybackYears,
+      roi20YrPercent: roi20,
+
+      // Environment
+      co2AvoidedAnnualKg,
+      treesEquivalent,
+    };
+  }
+
+  function renderResults(results, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
+
+    container.innerHTML = `
+      <div class="bill-results-header">
+        <div class="bill-hero-stat">
+          <span class="bill-reduction">${results.billReductionPercent}%</span>
+          <span class="bill-reduction-label">Bill Reduction Potential</span>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-card highlight">
+          <div class="result-icon">💵</div>
+          <div class="result-value">$${results.monthlySavingsUsd}</div>
+          <div class="result-label">${t("bill_savings")}</div>
+          <div class="result-detail">$${results.annualSavingsUsd.toLocaleString()}/year</div>
+        </div>
+        <div class="result-card primary">
+          <div class="result-icon">⚡</div>
+          <div class="result-value">${results.recommendedSystemKwp} kWp</div>
+          <div class="result-label">${t("bill_system_size")}</div>
+          <div class="result-detail">Covers ${results.billReductionPercent}% of usage</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">☀️</div>
+          <div class="result-value">${results.panelsNeeded}</div>
+          <div class="result-label">${t("bill_panels_needed")}</div>
+          <div class="result-detail">400W Monocrystalline</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">📅</div>
+          <div class="result-value">${results.paybackYears} yrs</div>
+          <div class="result-label">${t("bill_payback")}</div>
+          <div class="result-detail">Simple payback period</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">📈</div>
+          <div class="result-value">$${results.totalSavings20Yr.toLocaleString()}</div>
+          <div class="result-label">${t("bill_20yr")}</div>
+          <div class="result-detail">ROI: ${results.roi20YrPercent}%</div>
+        </div>
+        <div class="result-card">
+          <div class="result-icon">🌿</div>
+          <div class="result-value">${results.co2AvoidedAnnualKg.toLocaleString()} kg</div>
+          <div class="result-label">CO₂ Avoided/Year</div>
+          <div class="result-detail">≈ ${results.treesEquivalent} trees planted</div>
+        </div>
+      </div>
+
+      <div class="savings-timeline">
+        <h4>Savings Over Time</h4>
+        <div class="timeline-bars">
+          ${[1, 5, 10, 15, 20].map(year => {
+            let cum = 0, s = results.annualSavingsUsd;
+            for (let i = 0; i < year; i++) { cum += s; s *= 1.03; }
+            const net = cum - results.netCostAfterIncentive;
+            const pct = Math.min(100, Math.max(0, (cum / (results.totalSavings20Yr || 1)) * 100));
+            return `
+              <div class="timeline-bar-item">
+                <div class="tbar-label">Year ${year}</div>
+                <div class="tbar-track">
+                  <div class="tbar-fill ${net >= 0 ? 'positive' : 'negative'}" style="width:${pct}%"></div>
+                </div>
+                <div class="tbar-value ${net >= 0 ? 'pos' : 'neg'}">
+                  ${net >= 0 ? '+' : ''}$${Math.round(net).toLocaleString()}
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <div class="bill-breakdown">
+        <div class="breakdown-item">
+          <span>Estimated System Cost</span>
+          <span>$${results.estimatedSystemCost.toLocaleString()}</span>
+        </div>
+        <div class="breakdown-item">
+          <span>After Incentives</span>
+          <span class="highlight-text">$${results.netCostAfterIncentive.toLocaleString()}</span>
+        </div>
+        <div class="breakdown-item">
+          <span>Monthly Production</span>
+          <span>${results.monthlyProductionKwh.toLocaleString()} kWh</span>
+        </div>
+        <div class="breakdown-item">
+          <span>Current Monthly Bill</span>
+          <span>$${results.monthlyBill}</span>
+        </div>
+        <div class="breakdown-item">
+          <span>New Monthly Bill (est.)</span>
+          <span class="highlight-text">$${Math.max(0, results.monthlyBill - results.monthlySavingsUsd)}</span>
+        </div>
+      </div>
+    `;
+
+    container.classList.add("visible");
+    container.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  return { analyze, renderResults };
+})();
+
+window.BillAnalyzer = BillAnalyzer;
+
+</script>
+<script>
+// SolarGPT — Report Generator Module
+// Generates professional HTML/PDF reports for solar projects
+
+const Reports = (() => {
+
+  function generateReportHTML(data) {
+    const {
+      projectName = "Solar Project",
+      clientName = "Valued Client",
+      projectDate = new Date().toLocaleDateString(),
+      calcResults = {},
+      billResults = {},
+      costResults = {},
+      equipment = {},
+      sections = ["summary","system","equipment","savings","roi","installation"],
+      companyName = "SolarGPT",
+    } = data;
+
+    const cr = calcResults;
+    const br = billResults;
+    const co = costResults;
+
+    const systemKwp = cr.systemKwp || br.recommendedSystemKwp || co.systemKwp || 0;
+    const panels = cr.panelsRequired || br.panelsNeeded || 0;
+    const monthlySavings = cr.monthlySavingsUsd || br.monthlySavingsUsd || co.monthlySavingsUsd || 0;
+    const annualSavings = cr.annualSavingsUsd || br.annualSavingsUsd || co.annualSavingsUsd || 0;
+    const payback = co.paybackYears || br.paybackYears || 0;
+    const roi = co.roi25yr || br.roi20YrPercent || 0;
+    const totalCost = co.totalCost || 0;
+    const netCost = co.netCost || br.netCostAfterIncentive || 0;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Solar Project Report — ${projectName}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Sora',sans-serif; color:#1a2332; background:#fff; font-size:14px; }
+  .report-page { max-width:850px; margin:0 auto; padding:40px; }
+
+  /* Header */
+  .report-header { background:linear-gradient(135deg,#0f4c2a 0%,#1a7a42 50%,#f59e0b 100%); color:#fff; padding:40px; border-radius:16px; margin-bottom:32px; position:relative; overflow:hidden; }
+  .report-header::before { content:''; position:absolute; right:-40px; top:-40px; width:200px; height:200px; background:rgba(255,255,255,0.05); border-radius:50%; }
+  .report-header::after { content:'☀️'; position:absolute; right:40px; top:50%; transform:translateY(-50%); font-size:64px; opacity:0.3; }
+  .report-logo { font-size:24px; font-weight:700; margin-bottom:8px; letter-spacing:-0.5px; }
+  .report-logo span { color:#f59e0b; }
+  .report-title { font-size:32px; font-weight:700; margin-bottom:4px; }
+  .report-subtitle { opacity:0.8; font-size:14px; }
+  .report-meta { display:flex; gap:32px; margin-top:24px; }
+  .meta-item { display:flex; flex-direction:column; gap:2px; }
+  .meta-label { font-size:11px; opacity:0.7; text-transform:uppercase; letter-spacing:1px; }
+  .meta-value { font-size:14px; font-weight:600; }
+
+  /* Sections */
+  .section { margin-bottom:28px; break-inside:avoid; }
+  .section-title { font-size:18px; font-weight:700; color:#0f4c2a; border-left:4px solid #f59e0b; padding-left:12px; margin-bottom:16px; }
+
+  /* Summary cards */
+  .summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+  .summary-card { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:16px; text-align:center; }
+  .summary-card.gold { background:#fffbeb; border-color:#fde68a; }
+  .summary-card .card-icon { font-size:28px; margin-bottom:4px; }
+  .summary-card .card-value { font-size:22px; font-weight:700; color:#0f4c2a; }
+  .summary-card.gold .card-value { color:#b45309; }
+  .summary-card .card-label { font-size:11px; color:#6b7280; margin-top:2px; }
+
+  /* Tables */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead tr { background:#0f4c2a; color:#fff; }
+  thead th { padding:10px 14px; text-align:left; font-weight:600; }
+  tbody tr:nth-child(even) { background:#f9fafb; }
+  tbody tr:hover { background:#f0fdf4; }
+  tbody td { padding:10px 14px; border-bottom:1px solid #e5e7eb; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600; }
+  .badge-green { background:#dcfce7; color:#15803d; }
+  .badge-blue { background:#dbeafe; color:#1d4ed8; }
+  .badge-amber { background:#fef3c7; color:#b45309; }
+
+  /* ROI Chart */
+  .roi-chart { background:#f9fafb; border-radius:12px; padding:20px; }
+  .roi-bar-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+  .roi-bar-year { width:60px; font-size:12px; color:#6b7280; flex-shrink:0; }
+  .roi-bar-track { flex:1; background:#e5e7eb; border-radius:99px; height:16px; overflow:hidden; }
+  .roi-bar-fill { height:100%; border-radius:99px; transition:width 0.3s; }
+  .roi-bar-fill.pos { background:linear-gradient(90deg,#22c55e,#16a34a); }
+  .roi-bar-fill.neg { background:linear-gradient(90deg,#ef4444,#dc2626); }
+  .roi-bar-amt { width:110px; font-size:12px; font-weight:600; text-align:right; flex-shrink:0; }
+  .roi-bar-amt.pos { color:#16a34a; }
+  .roi-bar-amt.neg { color:#dc2626; }
+
+  /* System specs */
+  .specs-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .spec-group { background:#f9fafb; border-radius:12px; padding:16px; }
+  .spec-group-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#6b7280; margin-bottom:12px; }
+  .spec-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #e5e7eb; }
+  .spec-row:last-child { border:none; }
+  .spec-key { color:#6b7280; font-size:12px; }
+  .spec-val { font-weight:600; font-size:13px; color:#1a2332; }
+
+  /* Environment */
+  .env-banner { background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-radius:12px; padding:20px; display:flex; gap:24px; align-items:center; }
+  .env-stat { text-align:center; flex:1; }
+  .env-stat .env-icon { font-size:32px; }
+  .env-stat .env-value { font-size:20px; font-weight:700; color:#15803d; margin-top:4px; }
+  .env-stat .env-label { font-size:11px; color:#6b7280; }
+
+  /* Footer */
+  .report-footer { margin-top:40px; padding-top:20px; border-top:2px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#9ca3af; }
+  .report-footer a { color:#0f4c2a; text-decoration:none; }
+  .disclaimer { background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:12px; font-size:11px; color:#92400e; margin-top:16px; }
+
+  @media print {
+    body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .report-page { padding:20px; }
+    .no-print { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="report-page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="report-logo">Solar<span>GPT</span></div>
+    <div class="report-title">${projectName}</div>
+    <div class="report-subtitle">Professional Solar Energy Assessment Report</div>
+    <div class="report-meta">
+      <div class="meta-item"><span class="meta-label">Client</span><span class="meta-value">${clientName}</span></div>
+      <div class="meta-item"><span class="meta-label">Date</span><span class="meta-value">${projectDate}</span></div>
+      <div class="meta-item"><span class="meta-label">System Size</span><span class="meta-value">${systemKwp} kWp</span></div>
+      <div class="meta-item"><span class="meta-label">Generated by</span><span class="meta-value">LLM.Solar / SolarGPT</span></div>
+    </div>
+  </div>
+
+  ${sections.includes("summary") ? `
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title">📋 Project Summary</div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-icon">☀️</div>
+        <div class="card-value">${systemKwp} kWp</div>
+        <div class="card-label">System Size</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-icon">🔆</div>
+        <div class="card-value">${panels}</div>
+        <div class="card-label">Solar Panels</div>
+      </div>
+      <div class="summary-card gold">
+        <div class="card-icon">💰</div>
+        <div class="card-value">$${monthlySavings}/mo</div>
+        <div class="card-label">Monthly Savings</div>
+      </div>
+      <div class="summary-card gold">
+        <div class="card-icon">📅</div>
+        <div class="card-value">${payback} yrs</div>
+        <div class="card-label">Payback Period</div>
+      </div>
+    </div>
+    <p style="color:#6b7280;font-size:13px;line-height:1.6;">
+      This report provides a comprehensive assessment of the proposed ${systemKwp} kWp solar energy system for ${clientName}.
+      The system is designed to generate approximately ${cr.annualProductionKwh || br.annualProductionKwh || Math.round(systemKwp * 1600)} kWh annually,
+      delivering estimated savings of <strong>$${annualSavings.toLocaleString()}/year</strong> with a projected ROI of <strong>${roi}%</strong> over 25 years.
+    </p>
+  </div>
+  ` : ""}
+
+  ${sections.includes("system") ? `
+  <!-- System Specifications -->
+  <div class="section">
+    <div class="section-title">⚙️ System Specifications</div>
+    <div class="specs-grid">
+      <div class="spec-group">
+        <div class="spec-group-title">PV Array</div>
+        <div class="spec-row"><span class="spec-key">Nominal Power</span><span class="spec-val">${systemKwp} kWp</span></div>
+        <div class="spec-row"><span class="spec-key">Number of Panels</span><span class="spec-val">${panels} panels</span></div>
+        <div class="spec-row"><span class="spec-key">Panel Type</span><span class="spec-val">${cr.panelType ? cr.panelType.charAt(0).toUpperCase() + cr.panelType.slice(1) : "Monocrystalline"}</span></div>
+        <div class="spec-row"><span class="spec-key">Panel Wattage</span><span class="spec-val">${cr.panelWatts || 400}W</span></div>
+        <div class="spec-row"><span class="spec-key">Roof Area Required</span><span class="spec-val">${cr.roofNeededM2 || Math.round(panels * 1.8)} m²</span></div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Balance of System</div>
+        <div class="spec-row"><span class="spec-key">Inverter Size</span><span class="spec-val">${cr.inverterKw || Math.round(systemKwp * 1.25)} kW</span></div>
+        <div class="spec-row"><span class="spec-key">System Type</span><span class="spec-val">${cr.systemType || "Grid-Tied"}</span></div>
+        <div class="spec-row"><span class="spec-key">Battery Capacity</span><span class="spec-val">${cr.batteryKwh > 0 ? cr.batteryKwh + " kWh" : "N/A"}</span></div>
+        <div class="spec-row"><span class="spec-key">Sun Hours/Day</span><span class="spec-val">${cr.sunHoursPerDay || br.sunHoursPerDay || 4.5}h</span></div>
+        <div class="spec-row"><span class="spec-key">System Efficiency</span><span class="spec-val">80%</span></div>
+      </div>
+    </div>
+  </div>
+  ` : ""}
+
+  ${sections.includes("equipment") ? `
+  <!-- Equipment List -->
+  <div class="section">
+    <div class="section-title">🔧 Recommended Equipment</div>
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Brand / Model</th><th>Specification</th><th>Warranty</th><th>Est. Cost</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Solar Panels</td>
+          <td>Jinko Solar Tiger Neo</td>
+          <td>${panels} × 400W Mono</td>
+          <td><span class="badge badge-green">25 Years</span></td>
+          <td>$${Math.round(panels * 400 * 0.28).toLocaleString()}</td>
+        </tr>
+        <tr>
+          <td>String Inverter</td>
+          <td>SMA / Fronius / Huawei</td>
+          <td>${cr.inverterKw || Math.round(systemKwp * 1.25)} kW Grid-Tie</td>
+          <td><span class="badge badge-blue">10 Years</span></td>
+          <td>$${Math.round((cr.inverterKw || systemKwp * 1.25) * 170).toLocaleString()}</td>
+        </tr>
+        ${cr.batteryKwh > 0 ? `
+        <tr>
+          <td>Battery Storage</td>
+          <td>Pylontech / BYD</td>
+          <td>${cr.batteryKwh} kWh LFP</td>
+          <td><span class="badge badge-green">10 Years</span></td>
+          <td>$${Math.round(cr.batteryKwh * 500).toLocaleString()}</td>
+        </tr>` : ""}
+        <tr>
+          <td>Mounting System</td>
+          <td>K2 Systems / IronRidge</td>
+          <td>Roof-mount aluminum rails</td>
+          <td><span class="badge badge-blue">15 Years</span></td>
+          <td>$${Math.round(systemKwp * 80).toLocaleString()}</td>
+        </tr>
+        <tr>
+          <td>Monitoring</td>
+          <td>SolarEdge / Sungrow App</td>
+          <td>Real-time production monitor</td>
+          <td><span class="badge badge-amber">5 Years</span></td>
+          <td>$150</td>
+        </tr>
+        <tr>
+          <td>Wiring & Protection</td>
+          <td>Schneider / Legrand</td>
+          <td>DC/AC protection, surge</td>
+          <td><span class="badge badge-amber">2 Years</span></td>
+          <td>$${Math.round(systemKwp * 30).toLocaleString()}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  ` : ""}
+
+  ${sections.includes("savings") ? `
+  <!-- Savings Forecast -->
+  <div class="section">
+    <div class="section-title">💰 Savings Forecast</div>
+    <table style="margin-bottom:16px;">
+      <thead>
+        <tr><th>Period</th><th>Production (kWh)</th><th>Gross Savings</th><th>Cumulative Savings</th><th>Net Position</th></tr>
+      </thead>
+      <tbody>
+        ${[1, 5, 10, 15, 20, 25].map(year => {
+          const ann = annualSavings;
+          let cum = 0, s = ann;
+          for (let i = 0; i < year; i++) { cum += s; s *= 1.03; }
+          const net = cum - (netCost || totalCost || 5000);
+          const prod = Math.round(systemKwp * 1600 * year * 0.995);
+          return `<tr>
+            <td>Year ${year}</td>
+            <td>${prod.toLocaleString()}</td>
+            <td>$${Math.round(cum).toLocaleString()}</td>
+            <td>$${Math.round(cum).toLocaleString()}</td>
+            <td style="color:${net >= 0 ? '#16a34a' : '#dc2626'};font-weight:600;">${net >= 0 ? '+' : ''}$${Math.round(net).toLocaleString()}</td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+    <div class="env-banner">
+      <div class="env-stat"><div class="env-icon">🌱</div><div class="env-value">${Math.round(systemKwp * 640)} kg</div><div class="env-label">CO₂ Avoided/Year</div></div>
+      <div class="env-stat"><div class="env-icon">🌳</div><div class="env-value">${Math.round(systemKwp * 30)}</div><div class="env-label">Trees Equivalent</div></div>
+      <div class="env-stat"><div class="env-icon">⚡</div><div class="env-value">${Math.round(systemKwp * 1600).toLocaleString()} kWh</div><div class="env-label">Annual Production</div></div>
+      <div class="env-stat"><div class="env-icon">🏠</div><div class="env-value">25 yrs</div><div class="env-label">Panel Lifespan</div></div>
+    </div>
+  </div>
+  ` : ""}
+
+  ${sections.includes("roi") ? `
+  <!-- ROI Analysis -->
+  <div class="section">
+    <div class="section-title">📈 ROI Analysis</div>
+    <div class="roi-chart">
+      <p style="font-size:12px;color:#6b7280;margin-bottom:16px;">Cumulative net cash flow (including system cost recovery)</p>
+      ${[1,3,5,7,10,15,20,25].map(year => {
+        let cum = 0, s = annualSavings;
+        for (let i = 0; i < year; i++) { cum += s; s *= 1.03; }
+        const net = cum - (netCost || totalCost || 5000);
+        const maxNet = annualSavings * 25 * 1.5;
+        const pct = Math.min(100, Math.abs(net) / maxNet * 100);
+        return `
+          <div class="roi-bar-row">
+            <span class="roi-bar-year">Year ${year}</span>
+            <div class="roi-bar-track">
+              <div class="roi-bar-fill ${net >= 0 ? 'pos' : 'neg'}" style="width:${pct}%"></div>
+            </div>
+            <span class="roi-bar-amt ${net >= 0 ? 'pos' : 'neg'}">${net >= 0 ? '+' : ''}$${Math.round(net).toLocaleString()}</span>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  </div>
+  ` : ""}
+
+  ${sections.includes("installation") ? `
+  <!-- Installation Notes -->
+  <div class="section">
+    <div class="section-title">🔩 Installation Notes & Next Steps</div>
+    <table>
+      <thead><tr><th>Step</th><th>Task</th><th>Est. Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Site Assessment & Shading Analysis</td><td>1 day</td><td>Verify roof orientation, tilt angle, and shading</td></tr>
+        <tr><td>2</td><td>Permits & Grid Connection Application</td><td>2–4 weeks</td><td>Contact local utility for net metering agreement</td></tr>
+        <tr><td>3</td><td>Equipment Procurement</td><td>1–3 weeks</td><td>Order panels, inverter, mounting hardware</td></tr>
+        <tr><td>4</td><td>Structural Roof Assessment</td><td>1 day</td><td>Confirm roof can support panel weight (~12 kg/m²)</td></tr>
+        <tr><td>5</td><td>Mounting System Installation</td><td>1–2 days</td><td>Rails, flashings, and waterproofing</td></tr>
+        <tr><td>6</td><td>Panel Installation & Wiring</td><td>1–2 days</td><td>PV modules, DC cabling, string configuration</td></tr>
+        <tr><td>7</td><td>Inverter & AC Connection</td><td>1 day</td><td>Licensed electrician required</td></tr>
+        <tr><td>8</td><td>System Commissioning & Testing</td><td>1 day</td><td>Performance verification and monitoring setup</td></tr>
+        <tr><td>9</td><td>Grid Connection & Handover</td><td>1–2 days</td><td>Utility inspection and meter change</td></tr>
+      </tbody>
+    </table>
+  </div>
+  ` : ""}
+
+  <div class="disclaimer">
+    ⚠️ <strong>Disclaimer:</strong> This report is generated by SolarGPT AI and is intended for preliminary planning purposes only. 
+    All figures are estimates based on provided inputs and standard assumptions. Final system design, costs, and savings may vary. 
+    A licensed solar professional should conduct an on-site assessment before installation.
+  </div>
+
+  <div class="report-footer">
+    <div>
+      Generated by <strong>SolarGPT</strong> — <a href="https://llm.solar">llm.solar</a> | 
+      Support: <a href="mailto:salatrir@gmail.com">salatrir@gmail.com</a>
+    </div>
+    <div>Report Date: ${projectDate}</div>
+  </div>
+
+</div>
+</body>
+</html>`;
+  }
+
+  function downloadReport(data) {
+    const html = generateReportHTML(data);
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `SolarGPT_Report_${(data.projectName || "Project").replace(/\s+/g, "_")}_${Date.now()}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    // Save to dashboard history
+    saveReportToHistory(data);
+  }
+
+  function previewReport(data, previewContainerId) {
+    const html = generateReportHTML(data);
+    const container = document.getElementById(previewContainerId);
+    if (!container) return;
+    const iframe = document.createElement("iframe");
+    iframe.style.cssText = "width:100%;height:700px;border:none;border-radius:12px;";
+    container.innerHTML = "";
+    container.appendChild(iframe);
+    iframe.contentDocument.open();
+    iframe.contentDocument.write(html);
+    iframe.contentDocument.close();
+  }
+
+  function saveReportToHistory(data) {
+    const reports = JSON.parse(localStorage.getItem("solargpt_reports") || "[]");
+    reports.unshift({
+      id: Date.now(),
+      projectName: data.projectName,
+      clientName: data.clientName,
+      date: data.projectDate || new Date().toLocaleDateString(),
+      systemKwp: data.calcResults?.systemKwp || data.billResults?.recommendedSystemKwp || 0,
+      timestamp: Date.now(),
+    });
+    localStorage.setItem("solargpt_reports", JSON.stringify(reports.slice(0, 50)));
+    if (window.Dashboard) window.Dashboard.refresh();
+  }
+
+  return { generateReportHTML, downloadReport, previewReport };
+})();
+
+window.Reports = Reports;
+
+</script>
+<script>
+// SolarGPT — Dashboard Module
+// Manages saved projects, reports history, and client data
+
+const Dashboard = (() => {
+
+  const STORAGE_KEYS = {
+    projects: "solargpt_projects",
+    reports: "solargpt_reports",
+    clients: "solargpt_clients",
+    calcCount: "solargpt_calc_count",
+  };
+
+  // --- Data helpers ---
+  function getProjects() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.projects) || "[]"); }
+  function getReports() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.reports) || "[]"); }
+  function getClients() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.clients) || "[]"); }
+  function getCalcCount() { return parseInt(localStorage.getItem(STORAGE_KEYS.calcCount) || "0"); }
+
+  function saveProject(project) {
+    const projects = getProjects();
+    const existing = projects.findIndex(p => p.id === project.id);
+    if (existing >= 0) {
+      projects[existing] = { ...projects[existing], ...project, updatedAt: Date.now() };
+    } else {
+      projects.unshift({ ...project, id: project.id || Date.now(), createdAt: Date.now() });
+    }
+    localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(projects.slice(0, 100)));
+    incrementCalcCount();
+    refresh();
+  }
+
+  function deleteProject(id) {
+    const projects = getProjects().filter(p => p.id !== id);
+    localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(projects));
+    refresh();
+  }
+
+  function incrementCalcCount() {
+    const count = getCalcCount() + 1;
+    localStorage.setItem(STORAGE_KEYS.calcCount, count.toString());
+  }
+
+  // --- Render dashboard ---
+  function renderDashboard(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const projects = getProjects();
+    const reports = getReports();
+    const calcCount = getCalcCount();
+    const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
+
+    container.innerHTML = `
+      <!-- Stats Row -->
+      <div class="dash-stats">
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">📁</div>
+          <div class="dash-stat-value">${projects.length}</div>
+          <div class="dash-stat-label">${t("dash_projects")}</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">📄</div>
+          <div class="dash-stat-value">${reports.length}</div>
+          <div class="dash-stat-label">${t("dash_reports")}</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">🧮</div>
+          <div class="dash-stat-value">${calcCount}</div>
+          <div class="dash-stat-label">${t("dash_calculations")}</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">👥</div>
+          <div class="dash-stat-value">${getClients().length}</div>
+          <div class="dash-stat-label">${t("dash_clients")}</div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dash-actions">
+        <button class="btn btn-primary" onclick="window.showSection('calculator')">
+          <span>☀️</span> New Calculation
+        </button>
+        <button class="btn btn-secondary" onclick="window.showSection('reports')">
+          <span>📄</span> Generate Report
+        </button>
+        <button class="btn btn-secondary" onclick="window.showSection('advisor')">
+          <span>🤖</span> Ask AI Advisor
+        </button>
+      </div>
+
+      <!-- Projects List -->
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h3>${t("dash_projects")}</h3>
+          <button class="btn btn-sm" onclick="window.showSection('calculator')">+ ${t("dash_new_project")}</button>
+        </div>
+        ${projects.length === 0 
+          ? `<div class="dash-empty"><span>🌤️</span><p>${t("dash_no_projects")}</p></div>`
+          : `<div class="dash-table-wrapper">
+              <table class="dash-table">
+                <thead>
+                  <tr><th>Project</th><th>System</th><th>Savings/yr</th><th>Type</th><th>Date</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                  ${projects.slice(0, 10).map(p => `
+                    <tr>
+                      <td><strong>${p.name || "Untitled"}</strong><br><small style="color:#6b7280">${p.client || "—"}</small></td>
+                      <td>${p.systemKwp || "—"} kWp</td>
+                      <td>${p.annualSavings ? "$" + p.annualSavings.toLocaleString() : "—"}</td>
+                      <td><span class="badge ${p.systemType === "offgrid" ? "badge-amber" : p.systemType === "hybrid" ? "badge-blue" : "badge-green"}">${p.systemType || "grid"}</span></td>
+                      <td>${p.createdAt ? new Date(p.createdAt).toLocaleDateString() : "—"}</td>
+                      <td>
+                        <button class="icon-btn" onclick="Dashboard.loadProject(${p.id})" title="Load">📂</button>
+                        <button class="icon-btn" onclick="Dashboard.generateProjectReport(${p.id})" title="Report">📄</button>
+                        <button class="icon-btn danger" onclick="Dashboard.deleteProject(${p.id})" title="Delete">🗑️</button>
+                      </td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>`
+        }
+      </div>
+
+      <!-- Reports History -->
+      ${reports.length > 0 ? `
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h3>${t("dash_reports")}</h3>
+        </div>
+        <div class="dash-table-wrapper">
+          <table class="dash-table">
+            <thead>
+              <tr><th>Project</th><th>Client</th><th>System</th><th>Date</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              ${reports.slice(0, 8).map(r => `
+                <tr>
+                  <td>${r.projectName || "Report"}</td>
+                  <td>${r.clientName || "—"}</td>
+                  <td>${r.systemKwp || "—"} kWp</td>
+                  <td>${r.date || "—"}</td>
+                  <td><span class="badge badge-green">Downloaded</span></td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      ` : ""}
+
+      <!-- Chart: Monthly savings projection -->
+      ${projects.length > 0 ? `
+      <div class="dash-section">
+        <h3 style="margin-bottom:16px;">Portfolio Overview</h3>
+        <div class="portfolio-chart">
+          <canvas id="portfolioChart" height="120"></canvas>
+        </div>
+      </div>
+      ` : ""}
+    `;
+
+    // Draw simple chart if projects exist
+    if (projects.length > 0) {
+      setTimeout(() => drawPortfolioChart(projects), 100);
+    }
+  }
+
+  function drawPortfolioChart(projects) {
+    const canvas = document.getElementById("portfolioChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = 120;
+
+    const data = projects.slice(0, 8).map(p => ({ name: p.name || "P", val: p.annualSavings || 0 }));
+    if (!data.length) return;
+
+    const maxVal = Math.max(...data.map(d => d.val), 1);
+    const barW = Math.floor(canvas.width / (data.length * 1.5));
+    const gap = Math.floor(barW * 0.5);
+    const chartH = canvas.height - 30;
+    const startX = gap;
+
+    // Clear
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const isDark = document.body.classList.contains("dark");
+    const textColor = isDark ? "#9ca3af" : "#6b7280";
+    const barColor = getComputedStyle(document.documentElement).getPropertyValue("--accent") || "#22c55e";
+
+    data.forEach((d, i) => {
+      const x = startX + i * (barW + gap);
+      const h = (d.val / maxVal) * chartH;
+      const y = chartH - h;
+
+      // Gradient bar
+      const grad = ctx.createLinearGradient(x, y, x, chartH);
+      grad.addColorStop(0, "#22c55e");
+      grad.addColorStop(1, "#16a34a");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect(x, y, barW, h, [4, 4, 0, 0]);
+      ctx.fill();
+
+      // Label
+      ctx.fillStyle = textColor;
+      ctx.font = "10px system-ui";
+      ctx.textAlign = "center";
+      ctx.fillText(d.name.substring(0, 6), x + barW / 2, canvas.height - 6);
+
+      // Value
+      if (d.val > 0) {
+        ctx.fillStyle = "#22c55e";
+        ctx.font = "bold 9px system-ui";
+        ctx.fillText("$" + (d.val / 1000).toFixed(1) + "k", x + barW / 2, y - 4);
+      }
+    });
+  }
+
+  function loadProject(id) {
+    const projects = getProjects();
+    const project = projects.find(p => p.id === id);
+    if (!project) return;
+    // Populate calculator form with project data
+    window.showSection("calculator");
+    setTimeout(() => {
+      const fillField = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+      fillField("calc-monthly-kwh", project.monthlyKwh);
+      fillField("calc-monthly-bill", project.monthlyBill);
+      fillField("calc-location", project.location);
+      fillField("calc-roof-area", project.roofArea);
+      if (project.calcResults) {
+        SolarCalculator.renderResults(project.calcResults, "calc-results");
+      }
+    }, 200);
+  }
+
+  function generateProjectReport(id) {
+    const projects = getProjects();
+    const project = projects.find(p => p.id === id);
+    if (!project) return;
+    window.showSection("reports");
+    setTimeout(() => {
+      const fill = (sel, val) => { const el = document.querySelector(sel); if (el && val) el.value = val; };
+      fill("#report-project-name", project.name);
+      fill("#report-client-name", project.client);
+    }, 200);
+  }
+
+  function refresh() {
+    if (document.getElementById("dashboard-content")) {
+      renderDashboard("dashboard-content");
+    }
+  }
+
+  return { renderDashboard, saveProject, deleteProject, loadProject, generateProjectReport, getProjects, getReports, refresh };
+})();
+
+window.Dashboard = Dashboard;
+
+</script>
+<script>
+// SolarGPT — Main Application Controller
+// Handles UI interactions, navigation, AI advisor, and cost estimator
+
+document.addEventListener("DOMContentLoaded", () => {
+  initApp();
+});
+
+function initApp() {
+  setupTheme();
+  setupNavigation();
+  setupCalculator();
+  setupBillAnalyzer();
+  setupAIAdvisor();
+  setupCostEstimator();
+  setupReports();
+  setupKnowledgeCenter();
+  setupPricing();
+  updateI18nDOM();
+  setupLangSwitcher();
+  setupMobileMenu();
+  initDashboard();
+  animateHero();
+}
+
+// ─── THEME ────────────────────────────────────────────────────────────────────
+function setupTheme() {
+  const saved = localStorage.getItem("solargpt_theme") || "light";
+  applyTheme(saved);
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const next = document.body.classList.contains("dark") ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem("solargpt_theme", next);
+  });
+}
+function applyTheme(theme) {
+  document.body.classList.toggle("dark", theme === "dark");
+  const btn = document.getElementById("theme-toggle");
+  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+const SECTIONS = ["hero","calculator","bill-analyzer","advisor","cost-estimator","reports","dashboard","knowledge","pricing"];
+
+function setupNavigation() {
+  document.querySelectorAll("[data-section]").forEach(el => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const section = el.getAttribute("data-section");
+      showSection(section);
+      closeMobileMenu();
+    });
+  });
+}
+
+window.showSection = function(sectionId) {
+  // Hide all sections
+  SECTIONS.forEach(id => {
+    const el = document.getElementById(`section-${id}`);
+    if (el) el.classList.remove("active");
+  });
+  // Show target
+  const target = document.getElementById(`section-${sectionId}`);
+  if (target) {
+    target.classList.add("active");
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  // Update nav active state
+  document.querySelectorAll("[data-section]").forEach(el => {
+    el.classList.toggle("nav-active", el.getAttribute("data-section") === sectionId);
+  });
+  // Special init for some sections
+  if (sectionId === "dashboard") Dashboard.renderDashboard("dashboard-content");
+};
+
+// ─── MOBILE MENU ──────────────────────────────────────────────────────────────
+function setupMobileMenu() {
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  btn?.addEventListener("click", () => menu?.classList.toggle("open"));
+}
+function closeMobileMenu() {
+  document.getElementById("mobile-menu")?.classList.remove("open");
+}
+
+// ─── LANGUAGE ─────────────────────────────────────────────────────────────────
+function setupLangSwitcher() {
+  document.querySelectorAll("[data-lang]").forEach(el => {
+    el.addEventListener("click", () => {
+      const lang = el.getAttribute("data-lang");
+      i18n.setLanguage(lang);
+      updateI18nDOM();
+      document.querySelectorAll("[data-lang]").forEach(b => b.classList.remove("active"));
+      el.classList.add("active");
+    });
+  });
+  // Set initial active
+  document.querySelectorAll(`[data-lang="${i18n.currentLang}"]`).forEach(el => el.classList.add("active"));
+}
+function updateI18nDOM() {
+  if (window.i18n) i18n.updateDOM();
+}
+
+// ─── SOLAR CALCULATOR ─────────────────────────────────────────────────────────
+function setupCalculator() {
+  const form = document.getElementById("calc-form");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    runCalculation();
+  });
+
+  // Real-time sliders
+  form.querySelectorAll("input[type=range]").forEach(slider => {
+    const display = document.getElementById(slider.id + "-display");
+    slider.addEventListener("input", () => {
+      if (display) display.textContent = slider.value;
+    });
+  });
+}
+
+function runCalculation() {
+  const getVal = (id) => document.getElementById(id)?.value || "";
+  const inputs = {
+    monthlyKwh: getVal("calc-monthly-kwh"),
+    monthlyBill: getVal("calc-monthly-bill"),
+    location: getVal("calc-location"),
+    roofAreaM2: getVal("calc-roof-area"),
+    panelType: getVal("calc-panel-type"),
+    systemType: getVal("calc-system-type"),
+    electricityRate: getVal("calc-elec-rate") || 0.12,
+  };
+
+  // Validate
+  if (!inputs.monthlyKwh && !inputs.monthlyBill) {
+    showNotification("Please enter your monthly consumption or bill amount.", "warning");
+    return;
+  }
+
+  const btn = document.getElementById("calc-submit-btn");
+  setButtonLoading(btn, true);
+
+  setTimeout(() => {
+    try {
+      const results = SolarCalculator.calculate(inputs);
+      SolarCalculator.renderResults(results, "calc-results");
+
+      // Save to dashboard
+      const projectData = {
+        id: Date.now(),
+        name: `Solar Project — ${new Date().toLocaleDateString()}`,
+        client: "",
+        monthlyKwh: inputs.monthlyKwh,
+        monthlyBill: inputs.monthlyBill,
+        location: inputs.location,
+        roofArea: inputs.roofAreaM2,
+        systemKwp: results.systemKwp,
+        annualSavings: results.annualSavingsUsd,
+        systemType: inputs.systemType,
+        calcResults: results,
+      };
+      Dashboard.saveProject(projectData);
+
+      // Store last results globally for report generation
+      window._lastCalcResults = results;
+      showNotification("Calculation complete! Results saved to dashboard.", "success");
+    } catch (err) {
+      console.error(err);
+      showNotification("Calculation error. Please check your inputs.", "error");
+    }
+    setButtonLoading(btn, false);
+  }, 600);
+}
+
+// ─── BILL ANALYZER ────────────────────────────────────────────────────────────
+function setupBillAnalyzer() {
+  const form = document.getElementById("bill-form");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    runBillAnalysis();
+  });
+}
+
+function runBillAnalysis() {
+  const getVal = (id) => document.getElementById(id)?.value || "";
+  const inputs = {
+    monthlyBill: getVal("bill-amount"),
+    monthlyKwh: getVal("bill-kwh"),
+    electricityRate: getVal("bill-rate"),
+    sunHours: getVal("bill-sun-hours"),
+    systemCostPerW: getVal("bill-cost-per-w") || 1.0,
+    incentivePercent: getVal("bill-incentive") || 0,
+  };
+
+  if (!inputs.monthlyBill && !inputs.monthlyKwh) {
+    showNotification("Please enter your monthly bill or consumption.", "warning");
+    return;
+  }
+
+  const btn = document.getElementById("bill-submit-btn");
+  setButtonLoading(btn, true);
+
+  setTimeout(() => {
+    try {
+      const results = BillAnalyzer.analyze(inputs);
+      BillAnalyzer.renderResults(results, "bill-results");
+      window._lastBillResults = results;
+      showNotification("Analysis complete!", "success");
+    } catch (err) {
+      console.error(err);
+      showNotification("Analysis error. Please check your inputs.", "error");
+    }
+    setButtonLoading(btn, false);
+  }, 700);
+}
+
+// ─── AI ADVISOR ───────────────────────────────────────────────────────────────
+const advisorHistory = [];
+
+function setupAIAdvisor() {
+  const input = document.getElementById("advisor-input");
+  const sendBtn = document.getElementById("advisor-send-btn");
+
+  if (!input || !sendBtn) return;
+
+  sendBtn.addEventListener("click", sendAdvisorMessage);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendAdvisorMessage();
+    }
+  });
+
+  // Suggested questions
+  document.querySelectorAll(".advisor-suggestion").forEach(btn => {
+    btn.addEventListener("click", () => {
+      input.value = btn.textContent.trim();
+      sendAdvisorMessage();
+    });
+  });
+}
+
+async function sendAdvisorMessage() {
+  const input = document.getElementById("advisor-input");
+  const message = input?.value?.trim();
+  if (!message) return;
+
+  input.value = "";
+  appendAdvisorMessage("user", message);
+  advisorHistory.push({ role: "user", content: message });
+
+  const thinking = appendAdvisorMessage("assistant", null, true);
+
+  try {
+    const systemPrompt = `You are SolarGPT, an expert AI solar energy advisor with deep knowledge of photovoltaic systems, solar financing, energy storage, grid regulations, and renewable energy best practices. You help homeowners, solar engineers, installation companies, and investors make informed decisions about solar energy.
+
+Your expertise includes:
+- PV system sizing and design (on-grid, off-grid, hybrid)
+- Solar panel technology (monocrystalline, polycrystalline, thin-film, bifacial)
+- Inverter types (string, micro, power optimizers, hybrid)
+- Battery storage systems (lithium, lead-acid, flow batteries)
+- Financial analysis (ROI, payback period, NPV, IRR)
+- Incentives and tax credits (ITC, MACRS, net metering, feed-in tariffs)
+- Installation best practices and NEC codes
+- Shade analysis and panel orientation
+- Monitoring and maintenance
+
+Be concise, professional, and data-driven. Use specific numbers when relevant. Format responses with clear structure. Always mention when professional assessment is needed.`;
+
+    const messages = [...advisorHistory.slice(-10)];
+
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages,
+      }),
+    });
+
+    const data = await response.json();
+    const reply = data.content?.[0]?.text || "I'm sorry, I couldn't process your question. Please try again.";
+
+    thinking.remove();
+    appendAdvisorMessage("assistant", reply);
+    advisorHistory.push({ role: "assistant", content: reply });
+
+  } catch (err) {
+    console.error("AI Advisor error:", err);
+    thinking.remove();
+    appendAdvisorMessage("assistant", "⚠️ I'm currently unable to connect to the AI service. Please check your connection and try again. In the meantime, you can use our calculators and knowledge center for solar guidance.");
+  }
+}
+
+function appendAdvisorMessage(role, text, isThinking = false) {
+  const chat = document.getElementById("advisor-chat");
+  if (!chat) return null;
+
+  const div = document.createElement("div");
+  div.className = `chat-message ${role}`;
+
+  if (isThinking) {
+    div.innerHTML = `
+      <div class="chat-avatar">${role === "user" ? "👤" : "🤖"}</div>
+      <div class="chat-bubble thinking">
+        <span></span><span></span><span></span>
+      </div>`;
+  } else {
+    // Format markdown-like text
+    const formatted = formatAdvisorText(text);
+    div.innerHTML = `
+      <div class="chat-avatar">${role === "user" ? "👤" : "☀️"}</div>
+      <div class="chat-bubble">${formatted}</div>`;
+  }
+
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+function formatAdvisorText(text) {
+  if (!text) return "";
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+    .replace(/`(.*?)`/g, "<code>$1</code>")
+    .replace(/^### (.*)/gm, "<h4>$1</h4>")
+    .replace(/^## (.*)/gm, "<h3>$1</h3>")
+    .replace(/^- (.*)/gm, "<li>$1</li>")
+    .replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>")
+    .replace(/\n\n/g, "<br><br>")
+    .replace(/\n/g, "<br>");
+}
+
+// ─── COST ESTIMATOR ───────────────────────────────────────────────────────────
+function setupCostEstimator() {
+  const form = document.getElementById("cost-form");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    runCostEstimate();
+  });
+
+  // Auto-update when system size changes
+  document.getElementById("cost-system-kw")?.addEventListener("input", () => {
+    const kw = parseFloat(document.getElementById("cost-system-kw").value) || 0;
+    const defaultCost = Math.round(kw * 1000 * 1.0);
+    const installEl = document.getElementById("cost-install-cost");
+    if (installEl && !installEl.dataset.modified) {
+      installEl.value = Math.round(kw * 200);
+    }
+  });
+  document.getElementById("cost-install-cost")?.addEventListener("input", function() {
+    this.dataset.modified = "true";
+  });
+}
+
+function runCostEstimate() {
+  const getVal = (id) => parseFloat(document.getElementById(id)?.value) || 0;
+  const systemKw = getVal("cost-system-kw");
+  const panelCostPerW = getVal("cost-panel-cost") || 0.28;
+  const installCost = getVal("cost-install-cost");
+  const batteryCost = getVal("cost-battery-cost");
+  const incentivePct = getVal("cost-incentive") / 100;
+  const elecRate = getVal("cost-elec-rate") || 0.12;
+  const annualRateIncrease = getVal("cost-annual-increase") / 100 || 0.03;
+
+  if (!systemKw) {
+    showNotification("Please enter system size.", "warning");
+    return;
+  }
+
+  const panelCost = systemKw * 1000 * panelCostPerW;
+  const inverterCost = systemKw * 170;
+  const mountingCost = systemKw * 80;
+  const wiringCost = systemKw * 50;
+  const totalEquipment = panelCost + inverterCost + mountingCost + wiringCost + batteryCost;
+  const totalGross = totalEquipment + installCost;
+  const incentiveAmount = totalGross * incentivePct;
+  const netCost = totalGross - incentiveAmount;
+
+  // Production & savings
+  const annualProductionKwh = systemKw * 1600; // avg 1600 kWh/kWp
+  let annualSavings = annualProductionKwh * elecRate;
+  const monthlySavings = annualSavings / 12;
+  const paybackYears = netCost > 0 && annualSavings > 0
+    ? parseFloat((netCost / annualSavings).toFixed(1)) : 0;
+
+  // 10 and 25 year ROI
+  let cum10 = 0, cum25 = 0, s = annualSavings;
+  for (let i = 0; i < 25; i++) {
+    if (i < 10) cum10 += s;
+    cum25 += s;
+    s *= (1 + annualRateIncrease);
+  }
+  const roi10 = netCost > 0 ? parseFloat(((cum10 - netCost) / netCost * 100).toFixed(0)) : 0;
+  const roi25 = netCost > 0 ? parseFloat(((cum25 - netCost) / netCost * 100).toFixed(0)) : 0;
+
+  // Store results
+  window._lastCostResults = {
+    systemKwp: systemKw,
+    totalCost: Math.round(totalGross),
+    netCost: Math.round(netCost),
+    incentiveAmount: Math.round(incentiveAmount),
+    monthlySavingsUsd: Math.round(monthlySavings),
+    annualSavingsUsd: Math.round(annualSavings),
+    paybackYears,
+    roi10YrPercent: roi10,
+    roi25yr: roi25,
+    breakdown: {
+      panels: Math.round(panelCost),
+      inverter: Math.round(inverterCost),
+      mounting: Math.round(mountingCost),
+      wiring: Math.round(wiringCost),
+      battery: Math.round(batteryCost),
+      installation: Math.round(installCost),
+    }
+  };
+
+  renderCostResults(window._lastCostResults);
+  const btn = document.getElementById("cost-submit-btn");
+  setButtonLoading(btn, false);
+}
+
+function renderCostResults(r) {
+  const container = document.getElementById("cost-results");
+  if (!container) return;
+  const t = window.i18n ? window.i18n.t.bind(window.i18n) : (k) => k;
+
+  container.innerHTML = `
+    <div class="results-grid">
+      <div class="result-card primary">
+        <div class="result-icon">💰</div>
+        <div class="result-value">$${r.totalCost.toLocaleString()}</div>
+        <div class="result-label">${t("cost_total")}</div>
+        <div class="result-detail">Before incentives</div>
+      </div>
+      <div class="result-card highlight">
+        <div class="result-icon">🏷️</div>
+        <div class="result-value">$${r.netCost.toLocaleString()}</div>
+        <div class="result-label">${t("cost_after_incentive")}</div>
+        <div class="result-detail">Saved $${r.incentiveAmount.toLocaleString()}</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📅</div>
+        <div class="result-value">${r.paybackYears} yrs</div>
+        <div class="result-label">${t("cost_payback_period")}</div>
+        <div class="result-detail">Simple payback</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">💵</div>
+        <div class="result-value">$${r.monthlySavingsUsd}</div>
+        <div class="result-label">${t("cost_monthly_savings")}</div>
+        <div class="result-detail">$${r.annualSavingsUsd.toLocaleString()}/year</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📈</div>
+        <div class="result-value">${r.roi10YrPercent}%</div>
+        <div class="result-label">${t("cost_roi_10")}</div>
+        <div class="result-detail">Net return on investment</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🚀</div>
+        <div class="result-value">${r.roi25yr}%</div>
+        <div class="result-label">${t("cost_roi_20")}</div>
+        <div class="result-detail">25-year projection</div>
+      </div>
+    </div>
+
+    <div class="cost-breakdown">
+      <h4>Cost Breakdown</h4>
+      <div class="breakdown-chart">
+        ${Object.entries(r.breakdown).map(([key, val]) => {
+          const pct = r.totalCost > 0 ? ((val / r.totalCost) * 100).toFixed(1) : 0;
+          const labels = {panels:"Solar Panels",inverter:"Inverter",mounting:"Mounting",wiring:"Wiring",battery:"Battery",installation:"Installation"};
+          return `
+            <div class="breakdown-row">
+              <span class="br-label">${labels[key] || key}</span>
+              <div class="br-track"><div class="br-fill" style="width:${pct}%"></div></div>
+              <span class="br-pct">${pct}%</span>
+              <span class="br-val">$${val.toLocaleString()}</span>
+            </div>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+  container.classList.add("visible");
+  container.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ─── REPORTS ──────────────────────────────────────────────────────────────────
+function setupReports() {
+  document.getElementById("report-generate-btn")?.addEventListener("click", () => {
+    const data = {
+      projectName: document.getElementById("report-project-name")?.value || "Solar Project",
+      clientName: document.getElementById("report-client-name")?.value || "Valued Client",
+      projectDate: document.getElementById("report-date")?.value || new Date().toLocaleDateString(),
+      calcResults: window._lastCalcResults || {},
+      billResults: window._lastBillResults || {},
+      costResults: window._lastCostResults || {},
+      sections: getSelectedReportSections(),
+    };
+
+    if (!data.calcResults.systemKwp && !data.billResults.recommendedSystemKwp && !data.costResults.systemKwp) {
+      showNotification("Please run a calculation first before generating a report.", "warning");
+      return;
+    }
+
+    const previewEl = document.getElementById("report-preview");
+    if (previewEl) {
+      previewEl.innerHTML = `<div class="loading-spinner"></div><p>Generating report...</p>`;
+      setTimeout(() => {
+        Reports.previewReport(data, "report-preview");
+      }, 500);
+    }
+
+    setTimeout(() => Reports.downloadReport(data), 800);
+    showNotification("Report generated and downloading...", "success");
+  });
+}
+
+function getSelectedReportSections() {
+  const sections = [];
+  document.querySelectorAll(".report-section-check:checked").forEach(el => {
+    sections.push(el.value);
+  });
+  return sections.length > 0 ? sections : ["summary","system","equipment","savings","roi","installation"];
+}
+
+// ─── KNOWLEDGE CENTER ─────────────────────────────────────────────────────────
+function setupKnowledgeCenter() {
+  document.querySelectorAll(".knowledge-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".knowledge-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".knowledge-panel").forEach(p => p.classList.remove("active"));
+      tab.classList.add("active");
+      const panel = document.getElementById(`knowledge-${tab.dataset.tab}`);
+      if (panel) panel.classList.add("active");
+    });
+  });
+}
+
+// ─── PRICING ──────────────────────────────────────────────────────────────────
+function setupPricing() {
+  document.querySelectorAll(".plan-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const plan = btn.dataset.plan;
+      if (plan === "free") {
+        showNotification("Welcome to SolarGPT Free! You're already on the free plan.", "success");
+      } else if (plan === "enterprise") {
+        window.location.href = "mailto:salatrir@gmail.com?subject=SolarGPT Enterprise Inquiry";
+      } else {
+        showNotification(`${plan.charAt(0).toUpperCase() + plan.slice(1)} plan — payment integration coming soon! Contact salatrir@gmail.com`, "info");
+      }
+    });
+  });
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+function initDashboard() {
+  // Will be rendered when user navigates to dashboard section
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function setButtonLoading(btn, loading) {
+  if (!btn) return;
+  if (loading) {
+    btn.disabled = true;
+    btn.dataset.originalText = btn.textContent;
+    btn.innerHTML = `<span class="spinner"></span> Processing...`;
+  } else {
+    btn.disabled = false;
+    btn.textContent = btn.dataset.originalText || "Submit";
+  }
+}
+
+function showNotification(message, type = "info") {
+  const existing = document.querySelector(".notification");
+  if (existing) existing.remove();
+
+  const n = document.createElement("div");
+  n.className = `notification notification-${type}`;
+  const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
+  n.innerHTML = `<span>${icons[type] || "ℹ️"}</span> ${message}`;
+  document.body.appendChild(n);
+
+  setTimeout(() => n.classList.add("show"), 10);
+  setTimeout(() => {
+    n.classList.remove("show");
+    setTimeout(() => n.remove(), 300);
+  }, 4000);
+}
+
+function animateHero() {
+  const stats = document.querySelectorAll(".hero-stat-number");
+  stats.forEach(el => {
+    const target = el.textContent.replace(/[^0-9]/g, "");
+    if (!target) return;
+    const suffix = el.textContent.replace(/[0-9]/g, "");
+    let current = 0;
+    const step = Math.ceil(parseInt(target) / 40);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, parseInt(target));
+      el.textContent = current.toLocaleString() + suffix;
+      if (current >= parseInt(target)) clearInterval(timer);
+    }, 30);
+  });
+}
+
+// Expose for inline HTML usage
+window.showSection = window.showSection;
+window.runCalculation = runCalculation;
+window.runBillAnalysis = runBillAnalysis;
+
+</script>
 
 <script>
   // Handle data-section links in footer
